@@ -1,0 +1,11 @@
+{
+  "templater-obsidian:template/_template.md": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "T"
+    }
+  ],
+  "workspace:new-tab": []
+}

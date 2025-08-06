@@ -1,0 +1,11 @@
+baseURL = "http://localhost/"
+title = "My Blog"
+theme = "PaperMod"
+languageCode = "en-us"
+
+[params]
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  mainSections = ["posts"]
+  homeInfoParams = { Title = "Welcome!", Content = "This is my blog where I post about automation and engineering." }
