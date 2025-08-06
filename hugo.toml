@@ -1,12 +1,25 @@
 baseURL = "https://blog.aydrafting.com/"
 uglyURLs = false
-title = "My Blog"
+title = "Blog"
 theme = "PaperMod"
 languageCode = "en-us"
 
 [params]
-  ShowReadingTime = true
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = true
-  mainSections = ["posts"]
-  homeInfoParams = { Title = "Welcome!", Content = "This is my blog where I post about automation and engineering." }
+ShowReadingTime = true
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+mainSections = ["posts"]
+
+[params.homeInfoParams]
+Title = "Welcome to Aydimir's Blog"
+Content = '''
+Engineer.
+
+Founder of AYDrafting.
+
+Sharing Civil Engineering insights I find interesting.
+
+If it involves Municipal Infrastructure and calls for Automation — I’m your guy.
+
+Subscribe to my [YouTube](https://www.youtube.com/@aydrafting) and [LinkedIn](https://www.linkedin.com/in/aydimir/) to follow the journey.
+'''
