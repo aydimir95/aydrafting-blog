@@ -186,6 +186,10 @@
   },
   "active": "6f7dfa6e6ee94fc4",
   "lastOpenFiles": [
+    "public/LogoAYD.png",
+    "layouts/partials/header.html",
+    "layouts/partials",
+    "static/LogoAYD.png",
     "public/posts/post-6/index.html",
     "public/posts/post-6",
     "content/posts/Post №5.md",
@@ -197,12 +201,9 @@
     "public/tags/c#/page",
     "public/tags/c#/index.xml",
     "public/tags/c#/index.html",
-    "public/tags/c#",
     "content/posts/Post №2.md",
     "content/posts/Post №4.md",
     "content/posts/Post №3.md",
-    "public/posts/post-55/index.html",
-    "public/posts/post-55",
     "content/posts/Untitled 1.md"
   ]
 }

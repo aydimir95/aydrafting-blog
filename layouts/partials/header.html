@@ -1,0 +1,9 @@
+<div class="logo">
+    {{- $label_text := (site.Params.label.text | default site.Title) }}
+    {{- if site.Title }}
+    <a href="{{ "" | absLangURL }}" accesskey="h" title="{{ $label_text }} (Alt + H)">
+        <img src="/LogoAYD.png" alt="{{ $label_text }}" height="30">
+        {{- $label_text -}}
+    </a>
+    {{- end }}
+</div>
