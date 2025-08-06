@@ -13,11 +13,11 @@ mainSections = ["posts"]
 [params.homeInfoParams]
 Title = "Welcome to Aydimir's Blog"
 Content = '''
-Engineer.
+Engineer. 
 
 Founder of AYDrafting.
 
-Sharing Civil Engineering insights I find interesting.
+Sharing Civil and Software Engineering insights I find interesting.
 
 If it involves Municipal Infrastructure and calls for Automation — I’m your guy.
 
