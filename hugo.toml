@@ -1,4 +1,5 @@
-baseURL = "http://localhost/"
+baseURL = "https://blog.aydrafting.com/"
+uglyURLs = false
 title = "My Blog"
 theme = "PaperMod"
 languageCode = "en-us"
