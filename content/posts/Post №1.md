@@ -21,8 +21,6 @@ This post explains **one concrete command**—line by line—so a beginner can f
   
 
 > ✅ This article focuses only on the command. It assumes you’ve already wired a ribbon button (and .addin) that triggers StartupCommand.
-> 
-> If you haven't, please check out [this post](https://www.aydrafting.com/blog/starting-a-project-in-revit-2026-net8-api), it explains in detail how to set that up and start coding the plugin (with screenshots, explaining every little step).
 
 ---
 

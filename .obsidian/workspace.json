@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/Post №2.md",
+                "file": "content/posts/Post №1.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Post №2"
+              "title": "Post №1"
             }
           }
         ],
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/posts/Post №2.md",
+                "file": "content/posts/Post №1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Post №2"
+              "title": "Backlinks for Post №1"
             }
           },
           {
@@ -128,12 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/posts/Post №2.md",
+                "file": "content/posts/Post №1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Post №2"
+              "title": "Outgoing links from Post №1"
             }
           },
           {
@@ -157,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/posts/Post №2.md",
+                "file": "content/posts/Post №1.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Post №2"
+              "title": "Outline of Post №1"
             }
           }
         ]
@@ -186,6 +186,7 @@
   },
   "active": "6f7dfa6e6ee94fc4",
   "lastOpenFiles": [
+    "content/posts/Post №2.md",
     "content/posts/Post №3.md",
     "content/posts/Post №4.md",
     "content/posts/Post №5.md",
@@ -203,7 +204,6 @@
     "static/LogoAYD.png",
     "public/posts/post-6/index.html",
     "content/posts/Post №1.md",
-    "content/posts/Post №2.md",
     "content/posts/Untitled 1.md"
   ]
 }
