@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://blog.aydrafting.com/sitemap.xml
+Host: blog.aydrafting.com

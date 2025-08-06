@@ -167,6 +167,14 @@
   },
   "active": "e33aebf358b1bd7e",
   "lastOpenFiles": [
+    "config/_default/sitemap.toml",
+    "config/_default",
+    "config",
+    "public/robots.txt",
+    "static/robots.txt",
+    "robots.txt",
+    "User-agent: *",
+    "public/index.json",
     "content/posts/Post №1.md",
     "content/posts/Post №2.md",
     "content/posts/Post №3.md",
@@ -176,15 +184,8 @@
     "public/assets/css/stylesheet.8054cf966165f4477371628875ab9a1557ac0de6de2b8083530c958632e7e16c.css",
     "public/assets/css/stylesheet.fef62b6d91e0c4d58b442284bf3766c7fdf95f6ba62e037c4fc29d3e2fed57eb.css",
     "public/assets/css/stylesheet.72c40756507fa7745893c522fc25c0290ce698e78246808638f3f80df340dda1.css",
-    "public/assets/css/stylesheet.0f7a9f1ffc1039283ebc56c234e37f2d8bf1a05573ab418870218da567d00093.css",
-    "assets/css/extended/custom.css",
-    "assets/css/extended",
-    "assets/css",
     "public/LogoAYD.png",
-    "layouts/partials/header.html",
-    "layouts/partials",
     "static/LogoAYD.png",
-    "public/posts/post-6/index.html",
     "content/posts/Untitled 1.md"
   ]
 }

@@ -4,8 +4,14 @@
     <title>Blog</title>
     <link>http://localhost:1313/tags/blog/</link>
     <description>Recent content on Blog</description>
+    <image>
+      <title>Blog</title>
+      <url>http://localhost:1313/LogoAYD.png</url>
+      <link>http://localhost:1313/LogoAYD.png</link>
+    </image>
     <generator>Hugo -- 0.148.2</generator>
     <language>en-us</language>
+    <copyright>2025 AYDrafting. All rights reserved.</copyright>
     <lastBuildDate>Wed, 06 Aug 2025 17:36:22 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>

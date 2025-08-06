@@ -3,12 +3,45 @@ uglyURLs = false
 title = "Blog"
 theme = "PaperMod"
 languageCode = "en-us"
+description = "Civil Engineering and Automation insights from AYDrafting's founder"
+copyright = "© 2025 AYDrafting. All rights reserved."
+
+# Enable RSS and Search
+[outputs]
+home = ["HTML", "RSS", "JSON"]
 
 [params]
 ShowReadingTime = true
 ShowPostNavLinks = true
 ShowBreadCrumbs = true
 mainSections = ["posts"]
+
+# Enhanced SEO and metadata
+env = "production"
+defaultTheme = "auto"
+ShowRssButtonInSectionTermList = true
+ShowToc = true
+images = ["LogoAYD.png"]
+keywords = ["civil engineering", "automation", "BIM", "Revit", "Civil 3D", "infrastructure design"]
+enableRobotsTXT = true
+canonifyURLs = true
+enableEmoji = true
+
+# OpenGraph and Twitter Card metadata
+[params.editPost]
+URL = "mailto:aydimir@aydrafting.com"
+Text = "Suggest Changes"
+appendFilePath = true
+
+# Schema.org metadata
+[params.schema]
+type = "Person"
+name = "Aydimir Aydimirov"
+description = "Civil Engineer and Automation Specialist"
+sameAs = [
+    "https://www.linkedin.com/in/aydimir/",
+    "https://www.youtube.com/@aydrafting"
+]
 
 [params.homeInfoParams]
 Title = "Welcome to Aydimir's Blog"
@@ -19,7 +52,19 @@ Founder of AYDrafting.
 
 Sharing Civil and Software Engineering insights I find interesting.
 
-If it involves Municipal Infrastructure and calls for Automation — I’m your guy.
+If it involves Municipal Infrastructure and calls for Automation — I'm your guy.
 
-Subscribe to my [YouTube](https://www.youtube.com/@aydrafting) and [LinkedIn](https://www.linkedin.com/in/aydimir/) to follow the journey.
+Subscribe to my channels to follow the journey:
 '''
+
+[[params.socialIcons]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/aydimir/"
+
+[[params.socialIcons]]
+name = "youtube"
+url = "https://www.youtube.com/@aydrafting"
+
+[[params.socialIcons]]
+name = "rss"
+url = "index.xml"
