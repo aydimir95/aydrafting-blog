@@ -1,10 +1,14 @@
 +++
-title = "C# + Revit API: Lesson 5"
-date = 2025-08-06T15:50:00+03:00
+title = "C# + Revit API: Lesson 6"
+date = 2025-08-06T17:36:22+03:00
 draft = true
-tags = ["Revit"]
+tags = ["blog"]
 +++
 
-# Untitled
+# Post №6
 
-Write your post here...
+Write your post here...## a
+```C#
+print("Hello World")
+```
+

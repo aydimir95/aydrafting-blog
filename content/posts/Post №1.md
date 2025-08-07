@@ -1,8 +1,8 @@
 +++
 title = "C# + Revit API: Lesson 1 — A Simple Walkthrough of the Command"
-date = 2025-08-06T13:34:13+03:00
+date = 2025-08-06T01:00:00+03:00
 draft = false
-tags = ["C#", "Revit"]
+tags = ["C#", "Revit", "Tutorial"]
 +++
 
 This post explains **one concrete command**—line by line—so a beginner can follow without extra abstractions.
@@ -16,8 +16,6 @@ This post explains **one concrete command**—line by line—so a beginner can f
 2. Collects up to **10 existing sheets** and formats their numbers/names.
     
 3. Displays the result in a **WPF dialog** via a ViewModel.
-    
-
   
 
 > ✅ This article focuses only on the command. It assumes you’ve already wired a ribbon button (and .addin) that triggers StartupCommand.

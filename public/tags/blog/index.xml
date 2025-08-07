@@ -16,9 +16,9 @@
     <atom:link href="http://localhost:1313/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C# &#43; Revit API: Lesson 6</title>
-      <link>http://localhost:1313/posts/post-6/</link>
+      <link>http://localhost:1313/posts/post-5/</link>
       <pubDate>Wed, 06 Aug 2025 17:36:22 +0300</pubDate>
-      <guid>http://localhost:1313/posts/post-6/</guid>
+      <guid>http://localhost:1313/posts/post-5/</guid>
       <description>&lt;h1 id=&#34;post-6&#34;&gt;Post №6&lt;/h1&gt;
 &lt;p&gt;Write your post here&amp;hellip;## a&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello World&amp;#34;&lt;/span&gt;)
@@ -26,26 +26,19 @@
     </item>
     <item>
       <title>C# &#43; Revit API: Lesson 4</title>
-      <link>http://localhost:1313/posts/post-4/</link>
+      <link>http://localhost:1313/posts/post-3/</link>
       <pubDate>Wed, 06 Aug 2025 14:29:29 +0300</pubDate>
-      <guid>http://localhost:1313/posts/post-4/</guid>
+      <guid>http://localhost:1313/posts/post-3/</guid>
       <description>&lt;h1 id=&#34;2025-05-05&#34;&gt;2025-05-05&lt;/h1&gt;
 &lt;p&gt;Write your post here&amp;hellip;&lt;/p&gt;</description>
     </item>
     <item>
       <title>C# &#43; Revit API: Lesson 3</title>
-      <link>http://localhost:1313/posts/post-3/</link>
+      <link>http://localhost:1313/posts/post-2/</link>
       <pubDate>Wed, 06 Aug 2025 14:23:14 +0300</pubDate>
-      <guid>http://localhost:1313/posts/post-3/</guid>
+      <guid>http://localhost:1313/posts/post-2/</guid>
       <description>&lt;h1 id=&#34;2025-08-06&#34;&gt;2025-08-06&lt;/h1&gt;
 &lt;p&gt;Write your post here&amp;hellip;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>C# &#43; Revit API: Lesson 2</title>
-      <link>http://localhost:1313/posts/post-2/</link>
-      <pubDate>Wed, 06 Aug 2025 13:55:50 +0300</pubDate>
-      <guid>http://localhost:1313/posts/post-2/</guid>
-      <description></description>
     </item>
   </channel>
 </rss>

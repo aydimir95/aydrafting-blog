@@ -1,5 +1,5 @@
 +++
-title = "<% tp.system.prompt("Post title") %>"
+title = "<% tp.system.prompt("New Note: Write the Post Title") %>"
 date = <% tp.date.now("YYYY-MM-DDTHH:mm:ssZ") %>
 draft = true
 tags = ["blog"]
