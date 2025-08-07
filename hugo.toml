@@ -58,12 +58,24 @@ Subscribe to my channels to follow the journey:
 '''
 
 [[params.socialIcons]]
+name = "github"
+url = "https://www.github.com/aydimir95/"
+
+[[params.socialIcons]]
 name = "linkedin"
 url = "https://www.linkedin.com/in/aydimir/"
 
 [[params.socialIcons]]
 name = "youtube"
 url = "https://www.youtube.com/@aydrafting"
+
+[[params.socialIcons]]
+name = "Twitter"
+url = "https://www.twitter.com/aydrafting/"
+
+[[params.socialIcons]]
+name = "instagram"
+url = "https://www.instagram.com/aydrafting/"
 
 [[params.socialIcons]]
 name = "rss"

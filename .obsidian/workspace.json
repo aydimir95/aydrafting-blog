@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "23207cd732c7c987",
+        "id": "e1c4ca018e1b9ab5",
         "type": "tabs",
         "children": [
           {
-            "id": "cccb1c0ee72d4b8c",
+            "id": "c9ce1d8cd0d8af0f",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "content/posts/Post №1.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Post №1"
             }
           }
         ]
@@ -165,8 +169,10 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "e33aebf358b1bd7e",
+  "active": "c9ce1d8cd0d8af0f",
   "lastOpenFiles": [
+    "content/posts/Post №2.md",
+    "content/posts/Post №1.md",
     "config/_default/sitemap.toml",
     "config/_default",
     "config",
@@ -175,15 +181,12 @@
     "robots.txt",
     "User-agent: *",
     "public/index.json",
-    "content/posts/Post №1.md",
-    "content/posts/Post №2.md",
     "content/posts/Post №3.md",
     "content/posts/Post №4.md",
     "content/posts/Post №5.md",
     "content/posts/Post №6.md",
     "public/assets/css/stylesheet.8054cf966165f4477371628875ab9a1557ac0de6de2b8083530c958632e7e16c.css",
     "public/assets/css/stylesheet.fef62b6d91e0c4d58b442284bf3766c7fdf95f6ba62e037c4fc29d3e2fed57eb.css",
-    "public/assets/css/stylesheet.72c40756507fa7745893c522fc25c0290ce698e78246808638f3f80df340dda1.css",
     "public/LogoAYD.png",
     "static/LogoAYD.png",
     "content/posts/Untitled 1.md"
