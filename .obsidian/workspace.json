@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "41b6aefe6d971db3",
+        "id": "07f3fd3145cdd89e",
         "type": "tabs",
         "children": [
           {
-            "id": "8800c8d5228aba8b",
+            "id": "aebf23d9710ecacd",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -170,9 +170,12 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "8800c8d5228aba8b",
+  "active": "aebf23d9710ecacd",
   "lastOpenFiles": [
+    "public/posts/post-9/index.html",
+    "public/posts/post-9",
     "content/posts/Post №8.md",
+    "content/posts/Post №9.md",
     "content/posts/Post №7.md",
     "content/posts/Post №6.md",
     "content/posts/Post №5.md",
@@ -193,7 +196,6 @@
     "public/posts/boolean/index.html",
     "public/posts/boolean",
     "public/images",
-    "static/images",
     "template/_template.md",
     "content/posts/2025-08-07.md",
     "public/LogoAYD.png",

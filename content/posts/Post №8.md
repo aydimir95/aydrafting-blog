@@ -1,5 +1,5 @@
 +++
-title = "C# + Revit API: Lesson 8 - Tooltips & Icons - Extension Methods"
+title = "C# + Revit API: Lesson 8 - Tooltips & Icons -> Extension Methods"
 date = 2025-08-08T13:13:50+03:00
 draft = false
 tags = ["C#", "Revit", "Tutorial"]

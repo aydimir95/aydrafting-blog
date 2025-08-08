@@ -5,16 +5,16 @@ draft = false
 tags = ["C#", "Revit", "Tutorial"]
 +++
 
-## 1. Introduction
-### Sneak Peak - Project Structure
+# 1. Introduction
+### Project Folder Structure
 1. Commands
 2. Extensions
 3. Forms 
 4. General
 5. Resources
 6. Utilities
-*These are folders which contain various files that our toolbar will utilize.*
-- *Note that these are not necessarily aligned with namespaces (which will be covered later)*
+*These are `folders` which contain various files that our toolbar will utilize.*
+- *Note that these are not necessarily aligned with `namespaces` (which will be covered later)*
 
 ---
 # 2. What is a Class?
@@ -24,19 +24,19 @@ tags = ["C#", "Revit", "Tutorial"]
 ---
 ### Accessing properties / methods of a Class
 1. Property:
-	1. `object.Property`
+	1. `object.Property` -> to access a property
 2. Method:
-	1. `Object.Method(argument1, argument2, etc)`
+	1. `Object.Method(argument1, argument2, etc)` -> to access a method
 
 ### Namespaces
 1. When we create classes, we first tell them where they belong in our project.
-2. Namespaces can be nested within others using a dot separator, eventually tied back to our `.addin` namespace.
+2. `Namespaces` can be nested within others using a dot separator, eventually tied back to our `.addin` namespace.
 ```C#
 // Revit API
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
 
-// geeWiz
+// geeWiz - internal project objects
 using geeWiz.Extensions;
 using geeWiz = geeWiz.Forms;
 using geeWiz = geeWiz.Utilities.Workshare_Utils;
@@ -57,19 +57,19 @@ namespace geeWiz.Cmds_Audit
 	2. Properties (optional)
 	3. Methods (optional)
 
-- Access modifiers control how this code can be accessed inside and outside your project.
-- You will typically need to declare at least on of ***public/private***, 
-	- And sometimes ***static*** for the purposes we will use them for early on.
+- `Access modifiers` control how this code can be accessed inside and outside your project.
+- You will typically need to declare at least on of ***`public/private`***, 
+	- And sometimes ***`static`*** for the purposes we will use them for early on.
 ### `Static` Modifier
-- The static access modifier is a difficult concept to grasp at first, so we will simplify it somewhat.
-- Classes with a static modifier do not support the creation of objects of that class (instantiated).
-- We commonly take advantage of this to create classes which behave more like toolkits, where the class itself acts more like a singe object we can call upon to do things for us.
-```text
-So basically, the `STATIC` modifier is one instrument that you could use to build a complex script with.
-```
+- The `static` `access` `modifier` is a difficult concept to grasp at first, so we will simplify it somewhat.
+	- Classes with a `static` `modifier` do not support the creation of `objects` of that `class` (instantiated).
+	- We commonly take advantage of this to create classes which behave more like toolkits, where the class itself acts more like a singe object we can call upon to do things for us.
+
+ > So basically, the `Static` `modifier` is one instrument that you could use to build a complex script with.
+
 ### `Public` and `Private` Modifier
-- The ***public*** modifier lets you access something anywhere in your project.
-- The ***private*** modifier limits access to the same class instead (generally for behind-the-scenes code in the class itself).
+- The ***`public`*** modifier lets you access something anywhere in your project.
+- The ***`private`*** modifier limits access to the same class instead (generally for behind-the-scenes code in the class itself).
 
 *There are `other modifiers`, but let's keep it simple.*
 
@@ -80,55 +80,236 @@ After our modifiers we must define our class by using the keyword 'class', follo
 
 Generally, most people use `PascalCase` for class names, and you should choose names which are not reserved elsewhere.
 
-### Interface(s) (optional)
+### Interface(s) (Optional)
 `modifiers class ClassName : Interface(s)`
 
-- Interfaces are optional agreements that the class must form with predefined class templates. We will cover these in our next lesson at a basic level.
-- They usually provide methods and properties which would otherwise be cumbersome to access/define, as well as ensuring the class follows some requirements.
+`Interface` - acts as a template that a class should follow. It's like a contract that is formed with your class -> the class must have certain methods / properties / behaviours that this interface would provide to it.
 
-### Referencing a Class
+**Formally:**
+- `Interfaces` are optional agreements that the class must form with predefined `class` templates. 
+- They usually provide `methods` and `properties` which would otherwise be cumbersome to access/define, as well as ensuring the class follows some requirements.
 
-- Static example (access):
-	- var myInstance = ClassName;
-- Non-static example (instantiate)
-	- var myInstance = new ClassName();
+## Referencing a Class
+
+### `Static` example (access without creating an instance):
+```C#
+var myInstance = ClassName;
+```
+- A **`static`** class or member belongs to the **class itself**, not to any specific object.
+- You use the **`class name`** to access it directly.
+- You can call its `methods` or `properties` right away — no need to create an object.
+- Because it’s static, you **cannot** use new to make an instance of it.
+
+*Example:*
+```C#
+// Accessing a static property without creating Math object
+Console.WriteLine(Math.PI); 
+```
+
+### `Non-static` example – Create and use an object
+```C#
+var myInstance = new ClassName();
+```
+- A **`non-static`** class needs to be **instantiated** (created) before you can use it.
+- You create a new object using the new keyword and parentheses () to run its `constructor`.
+- The variable `myInstance` now **refers to this new object**, and you can use its methods and properties.
+- The var keyword tells the compiler to figure out the variable’s type automatically.
+
+*Example:*
+```C#
+var car = new Car();  
+car.Drive(); // Calling an instance method
+```
 
 ### Homework 
 Let's do the following:
-- Set up a `class` file (.cs) in our project
-- Create a `namespace` for it
-- Define our class (`non-static`, `public`)
+- Set up a `class` file (.cs) in our project,
+- Create a `namespace` for it,
+- Define our class (`non-static`, `public`).
 
-*We will use this class later in our toolbar. Its purpose is to store and process results from forms we create.*
+*Its purpose is to store and process results from forms we create.*
 
----
-# 3. Constructors
-- By default, your class assumes it is constructed with default options specified for properties it supports.
-- If we want to make our constructor more specific, we need to add constructors to the class first.
-- We can support more than one constructor, which is typically referred to as polymorphism.
+### Solution
 
-### Constructor Syntax
 ```C#
-Class declaration
+// 1. Create a new folder (if you haven't already) and call it 'Forms'
+// 2. Add a new item to 'Forms' -> pick the 'Class' type -> name it: "Custom.cs"
+
+using System;
+using System.Collection.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace guRoo.Forms // try to make your namespace follow your folder structure
 {
-	modifiers ClassName(arguments)
+	public static class Custom // change to 'public' + 'static' class 
 	{
-		Code logic here;
+		
+	}
+
+	public class FormResult // add another 'non-static' class
+	{
+		
 	}
 }
 ```
-### Homework
-1. Add a generic constructor
-2. Add a specific constructor
 
-*We will provide the option for a user to specify the pre-cancelled status of a form, as well as declare one without any arguments.*
+---
+Here’s a cleaner, beginner-friendly rewrite with improved structure, simpler explanations, and a working example that will actually compile.
 
+I’ve also made the terminology more precise and added a clear **generic vs. specific constructor** example.
+
+---
+
+# 3. Constructors 
+> Optional but very useful
+
+A `constructor` is a special method that runs automatically when you create a new object from a class:
+- It **tells the `class` how it should start** — for example, setting initial values.
+- If you don’t add a constructor, C# uses a **default constructor** that simply sets `properties` to their default values, or formally: C# provides an **implicit `parameterless` constructor** that sets members to their type defaults.
+- You can make your own constructor to set specific values when an object is created.
+- A class can have **multiple constructors** (called **constructor overloading**), which is a form of `polymorphism`.
+
+---
+
+### Constructor Syntax
+
+```C#
+class ClassName
+{
+    // Constructor with parameters
+    public ClassName(type parameterName)
+    {
+        // Initialization logic
+    }
+}
+```
+
+---
+
+### **Example: Generic vs. Specific Constructor**
+
+Let’s create a FormResult class with two constructors:
+
+1. **`Generic` constructor** – takes no arguments (creates a form with default values)
+2. **`Specific` constructor** – allows setting a custom status when creating the form
+
+```C#
+namespace guRoo.Forms // Use namespaces that match your folder structure
+{
+    public class FormResult
+    {
+        public string Status { get; set; }
+        // 1. Generic constructor (no parameters)
+        public FormResult()
+        {
+            Status = "Pending"; // Default value
+        }
+        // 2. Specific constructor (with parameter)
+        public FormResult(string status)
+        {
+            Status = status;
+        }
+    }
+}
+```
+
+---
+
+### **Using the Constructors**
+
+```C#
+// Using the generic constructor
+var form1 = new FormResult();
+Console.WriteLine(form1.Status); // Output: Pending
+
+// Using the specific constructor
+var form2 = new FormResult("Cancelled");
+Console.WriteLine(form2.Status); // Output: Cancelled
+```
+
+---
+### **Homework**
+
+In this exercise, you’ll learn how to create **two different constructors** in a class — one that uses a **default value** and one that accepts a **custom value** when creating an object.
+
+We’ll do this in a **Revit API context** by making a simple SheetResult class that stores the **name of a sheet**.
+
+**Your task:**
+1. Create a new class called SheetResult in `Custom.cs`.
+2. Add:
+    - A `generic` constructor (no parameters) that sets the `SheetName` property to "Untitled Sheet".
+    - A `specific` constructor (with a parameter) that accepts a string and sets `SheetName` to the provided value.
+	    - Note: if you add the `specific` constructor, also add the `parameterless` one yourself.
+3. In `Custom.cs`, create a static method `ShowSheetResultDemo()` that:
+    - Creates one `SheetResult` using the `generic` constructor.
+    - Creates another `SheetResult` using the `specific` constructor with a `custom name`.
+    - Displays both names in a `TaskDialog`.
+4. In your `StartupCommand.Execute()` method, call `Custom.ShowSheetResultDemo()` to run the demo inside Revit.
+
+
+💡 _This will help you understand how constructors work in C#, and how you can use them to set up different ways of creating an object in your Revit add-ins._
+
+#### Solution (Copy Paste -> Compile & Test it in Revit)
+
+#### `Custom.cs`
+```C#
+using Autodesk.Revit.UI;
+
+namespace guRoo.Forms
+{
+    public static class Custom // helper you can call from anywhere
+    {
+        public static void ShowSheetResultDemo()
+        {
+            var sheet1 = new SheetResult();                     // generic
+            var sheet2 = new SheetResult("A101 - Floor Plan");  // specific
+            
+            TaskDialog.Show("Sheet Results",
+                $"Generic constructor: {sheet1.SheetName}\n" +
+                $"Specific constructor: {sheet2.SheetName}");
+        }
+    }
+
+    public class SheetResult
+    {
+        public string SheetName { get; set; }
+		// Parameterless (generic) constructor
+        public SheetResult() => SheetName = "Untitled Sheet";     
+		// Constructor with parameters (specific)
+        public SheetResult(string sheetName) => SheetName = sheetName; 
+    }
+}
+```
+#### `StartupCommand.cs`
+```C#
+using guRoo.Forms; // add this
+
+public override void Execute()
+{
+    // ...your existing code...
+
+    Custom.ShowSheetResultDemo(); // <-- shows the dialog from Custom.cs
+}
+```
+
+---
 
 # 4. Properties
-- We can define custom properties the class is able to support. Whilst you can make the properties available outside the class, best practice is to keep them private to the class, then using the property simple but get/set that value instead.
-- Generally, we will be keeping things simple but will show how you can use private properties as well (fields), given it is better practice.
+
+Properties define the **data** that a `class` can store and expose.
+
+While you _can_ make properties publicly accessible, best practice is to keep the underlying data **`private`** (inside the class) and control access through **public** get and set accessors.
+
+This approach:
+- Keeps the internal state of your object safe from unintended changes.
+- Lets you add validation or extra logic when reading or writing values.
+
+In simple examples, we’ll mostly use **auto-implemented properties** (`public string Name { get; set; }`), but we’ll also show how to back them with **`private fields`** when you need more control.
 
 ### Declaring a property
+A property is like a **named piece of data** that belongs to a `class`. The simplest form is an **auto-implemented property**, which C# creates for you without needing to write extra code:
 ```C# 
 Class declaration
 {
@@ -136,34 +317,166 @@ Class declaration
 }
 ```
 
-### Using a private field 
 ```C#
-Class declaration
+public class Person
 {
-	private type fieldName // Camel Case for properties
-	public type PropertyName
-	{
-		get {return fieldname} // lower case for the fields
-		set {fieldname=value}
-	}
+    public string Name { get; set; } // auto property
+}
+```
+### Using a private field 
+Sometimes you want more control over how a property’s value is stored or changed. In that case, you can store the value in a **private field** and use a property to **get** and **set** it.
+```C#
+class ClassName
+{
+    private type fieldName; // lowerCamelCase for fields
+
+    public type PropertyName // PascalCase for properties
+    {
+        get { return fieldName; }
+        set { fieldName = value; }
+    }
+}
+```
+### Example:
+```C#
+public class Person
+{
+    private string name; // field
+
+    public string Name   // property
+    {
+        get { return name; }
+        set { name = value; }
+    }
+}
+```
+> 💡 _Tip:_ By convention, **fields** use camelCase and **properties** use PascalCase. This makes it easier to spot them in your code.
+
+### Homework
+Properties let us store and access data in a class. In our earlier example, the `SheetResult` class only had a `SheetName` property. 
+
+**Your task:**
+- Let’s expand it to include more information — for example, the `SheetNumber`  
+- And show both a simple `auto-property` and a property backed by a `private field`.
+
+---
+### Solution
+#### `Custom.cs`
+```C#
+using Autodesk.Revit.UI;
+
+namespace guRoo.Forms
+{
+    // ===== STATIC CLASS =====
+    public static class Custom
+    {
+        // ===== METHOD =====
+        public static void ShowSheetResultDemo()
+        {
+            // Create objects
+            var sheet1 = new SheetResult(); // generic constructor
+            var sheet2 = new SheetResult("A101 - Floor Plan", "S-001"); // specific constructor
+
+            // Show results in Revit dialog
+            TaskDialog.Show("Sheet Results",
+                $"Generic constructor: {sheet1.SheetName}, Number: {sheet1.SheetNumber}\n" +
+                $"Specific constructor: {sheet2.SheetName}, Number: {sheet2.SheetNumber}");
+        }
+        // ===== END METHOD =====
+    }
+    // ===== END STATIC CLASS =====
+
+
+    // ===== CLASS =====
+    public class SheetResult
+    {
+        // ===== PROPERTIES =====
+        
+        // Auto-implemented property
+        public string SheetName { get; set; }
+
+        // Private field + property with get/set logic
+        private string sheetNumber;
+        public string SheetNumber
+        {
+            get { return sheetNumber; }
+            set
+            {
+                // Example: basic validation
+                if (string.IsNullOrWhiteSpace(value))
+                    sheetNumber = "No Number";
+                else
+                    sheetNumber = value;
+            }
+        }
+        // ===== END PROPERTIES =====
+
+
+        // ===== CONSTRUCTORS =====
+        
+        // Generic constructor
+        public SheetResult()
+        {
+            SheetName = "Untitled Sheet";
+            SheetNumber = "No Number";
+        }
+
+        // Specific constructor
+        public SheetResult(string sheetName, string sheetNumber = "No Number")
+        {
+            SheetName = sheetName;
+            SheetNumber = sheetNumber;
+        }
+        // ===== END CONSTRUCTORS =====
+    }
+    // ===== END CLASS =====
 }
 ```
 
-# 5. Methods
-- Unlike the properties, methods generally do something to or with a class object. They are called similarly to a property but support the inclusion of arguments.
-- Whilst for a property we declare its type, for a method we declare its return type (the type of data the method returns at the end).
+#### **What Changed?**
+- **Auto property**: `SheetName` — quick and simple, no custom logic.
+- **Property with private field**: `SheetNumber` — lets us add validation before saving the value.
+- **Constructors updated** so both values can be set when creating a `SheetResult`.
 
-*If we want to return nothing, we can use the type **`void`**.*
+#### **Result in Revit**
+When you run `StartupCommand`, you’ll still get your original workflow, but now the `Custom.ShowSheetResultDemo()` dialog will display **both the sheet name and the sheet number**, with “No Number” automatically set if no value is given.
+
+---
+# 5. Methods
+A **method** is an action your `class` can perform.
+
+While **properties** store data, **methods** usually _do something_ — either with the data in the class or with arguments you pass to them.
+
+- You **call** a method in a similar way to accessing a property, but methods can take **arguments** (optional) and can run multiple lines of logic.
+    
+- Instead of declaring a _type_ (like a property), you declare a `return` **type** — the type of value the method sends back to you when it finishes.
+    
+- If the method doesn’t return anything, use the `void` keyword as the return type.
 
 ### Declaring a method
 ```C#
-Class declaration
+class ClassName
 {
-	modifiers returnType MethodName(kwarg) // kwarg - arguments are optional
-	{
-		Code logic;
-		return objectOfType;
-	}
+    modifiers returnType MethodName(optionalArguments)
+    {
+        // Code logic here
+        return objectOfType; // Only if the method returns a value
+    }
+}
+```
+### Example:
+```C#
+public class Calculator
+{
+    public int Add(int a, int b)
+    {
+        return a + b; // Returns the sum
+    }
+
+    public void ShowMessage(string message)
+    {
+        Console.WriteLine(message); // Returns nothing (void)
+    }
 }
 ```
 
@@ -258,7 +571,7 @@ doc      // uiDoc.Document
 - Collect the ***`ControlledApplication`***
 - Collect the ***`Document`*** in a command
 
-#### We now have a basic understanding of:
+**We now have a basic understanding of:**
 - `Interfaces`
 - `IExternalApplication`
 - `IExternalCommand`
