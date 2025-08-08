@@ -47,7 +47,7 @@ GroupName_CommandName##&lt;/p>
 &lt;hr>
 &lt;h1 id="2-what-is-a-class">2. What is a Class?&lt;/h1>
 &lt;ol>
-&lt;li>In C#, classes are templates related to the creation and management of objects. There are many predefined classes available in C# and the Revit API.&lt;/li>
+&lt;li>In C#, classes are templates related to the creation and management of objects. There are many predefined &lt;code>classes&lt;/code> available in C# and the Revit API.&lt;/li>
 &lt;li>We use them for a wide range of things and will regularly be creating and developing our own classes.&lt;/li>
 &lt;/ol>
 &lt;hr>
@@ -55,19 +55,19 @@ GroupName_CommandName##&lt;/p>
 &lt;ol>
 &lt;li>Property:
 &lt;ol>
-&lt;li>object.Property&lt;/li>
+&lt;li>&lt;code>object.Property&lt;/code>&lt;/li>
 &lt;/ol>
 &lt;/li>
 &lt;li>Method:
 &lt;ol>
-&lt;li>Object.Method(argument1, argument2, etc).&lt;/li>
+&lt;li>&lt;code>Object.Method(argument1, argument2, etc)&lt;/code>&lt;/li>
 &lt;/ol>
 &lt;/li>
 &lt;/ol>
 &lt;h3 id="namespaces">Namespaces&lt;/h3>
 &lt;ol>
 &lt;li>When we create classes, we first tell them where they belong in our project.&lt;/li>
-&lt;li>Namespaces can be nested within others using a dot separator, eventually tied back to our addin namespace.&lt;/li>
+&lt;li>Namespaces can be nested within others using a dot separator, eventually tied back to our &lt;code>.addin&lt;/code> namespace.&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// Revit API&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">using&lt;/span> Autodesk.Revit.Attributes;
@@ -88,7 +88,7 @@ GroupName_CommandName##&lt;/p>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="basic-class-anatomy">Basic Class Anatomy&lt;/h3>
 &lt;ol>
-&lt;li>modifers class ClassName : Interface(s)
+&lt;li>&lt;code>modifers class ClassName : Interface(s)&lt;/code>
 &lt;ol>
 &lt;li>Constructor (optional)&lt;/li>
 &lt;li>Properties (optional)&lt;/li>
@@ -104,19 +104,19 @@ GroupName_CommandName##&lt;/p>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
-&lt;h3 id="static-modifier">Static Modifier&lt;/h3>
+&lt;h3 id="static-modifier">&lt;code>Static&lt;/code> Modifier&lt;/h3>
 &lt;ul>
 &lt;li>The static access modifier is a difficult concept to grasp at first, so we will simplify it somewhat.&lt;/li>
 &lt;li>Classes with a static modifier do not support the creation of objects of that class (instantiated).&lt;/li>
 &lt;li>We commonly take advantage of this to create classes which behave more like toolkits, where the class itself acts more like a singe object we can call upon to do things for us.&lt;/li>
 &lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>So basically, the STATIC modifier is one instrument that you could use to build a complex script with.
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="public-and-private-modifier">Public and Private Modifier&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>So basically, the `STATIC` modifier is one instrument that you could use to build a complex script with.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="public-and-private-modifier">&lt;code>Public&lt;/code> and &lt;code>Private&lt;/code> Modifier&lt;/h3>
 &lt;ul>
 &lt;li>The &lt;em>&lt;strong>public&lt;/strong>&lt;/em> modifier lets you access something anywhere in your project.&lt;/li>
 &lt;li>The &lt;em>&lt;strong>private&lt;/strong>&lt;/em> modifier limits access to the same class instead (generally for behind-the-scenes code in the class itself).&lt;/li>
 &lt;/ul>
-&lt;p>&lt;em>There are other modifiers, but let&amp;rsquo;s keep it simple.&lt;/em>&lt;/p></description></item><item><title>C# + Revit API: Lesson 6 - try &amp; catch Statements</title><link>https://blog.aydrafting.com/posts/post-6/</link><pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-6/</guid><description>&lt;h1 id="pseudocode">Pseudocode&lt;/h1>
+&lt;p>&lt;em>There are &lt;code>other modifiers&lt;/code>, but let&amp;rsquo;s keep it simple.&lt;/em>&lt;/p></description></item><item><title>C# + Revit API: Lesson 6 - try &amp; catch Statements</title><link>https://blog.aydrafting.com/posts/post-6/</link><pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-6/</guid><description>&lt;h1 id="pseudocode">Pseudocode&lt;/h1>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">try&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span> to &lt;span style="color:#66d9ef">do&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>;

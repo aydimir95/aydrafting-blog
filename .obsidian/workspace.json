@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/Post №8.md",
+                "file": "content/posts/Post №7.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Post №8"
+              "title": "Post №7"
             }
           }
         ]
@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "d3491164a67ec247",
@@ -171,9 +172,9 @@
   },
   "active": "8800c8d5228aba8b",
   "lastOpenFiles": [
+    "content/posts/Post №8.md",
     "content/posts/Post №7.md",
     "content/posts/Post №6.md",
-    "content/posts/Post №8.md",
     "content/posts/Post №5.md",
     "content/posts/Post №4.md",
     "content/posts/Post №2.md",
