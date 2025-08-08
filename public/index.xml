@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Fri, 08 Aug 2025 11:47:12 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 6 - `if` Statements</title><link>https://blog.aydrafting.com/posts/post-6/</link><pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-6/</guid><description>&lt;h1 id="pseudocode">Pseudocode&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Fri, 08 Aug 2025 11:47:12 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 6 - try &amp; catch Statements</title><link>https://blog.aydrafting.com/posts/post-6/</link><pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-6/</guid><description>&lt;h1 id="pseudocode">Pseudocode&lt;/h1>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">try&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span> to &lt;span style="color:#66d9ef">do&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>;
@@ -27,7 +27,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
 &lt;h2 id="use-dont-abuse">Use Don&amp;rsquo;t Abuse&lt;/h2>
 &lt;blockquote>
-&lt;p>When you first begin using languages, try statements seem great - you can write code, and if you make a mistake your code can continue. THIS IS WRONG!&lt;/p></description></item><item><title>C# + Revit API: Lesson 6 - `if` Statements</title><link>https://blog.aydrafting.com/posts/post-5/</link><pubDate>Wed, 06 Aug 2025 17:36:22 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-5/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#75715e">// Condition&lt;/span>
+&lt;p>When you first begin using languages, try statements seem great - you can write code, and if you make a mistake your code can continue. THIS IS WRONG!&lt;/p></description></item><item><title>C# + Revit API: Lesson 5 - `if` Statements</title><link>https://blog.aydrafting.com/posts/post-5/</link><pubDate>Wed, 06 Aug 2025 17:36:22 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-5/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#75715e">// Condition&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> run &lt;span style="color:#66d9ef">if&lt;/span> condition &lt;span style="color:#66d9ef">is&lt;/span> &lt;span style="color:#66d9ef">true&lt;/span>;
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -51,7 +51,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="shorthand-if-statements">Shorthand &lt;code>if&lt;/code> Statements&lt;/h1>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">value&lt;/span> = condition?then:&lt;span style="color:#66d9ef">else&lt;/span>;
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>Nearly always used for quickly setting another variable to one of two possibilities, using a conditional outcome. Only used if it&amp;rsquo;s a simple one liner task.&lt;/p></description></item><item><title>C# + Revit API: Lesson 5 - Core C# Statements</title><link>https://blog.aydrafting.com/posts/post-4/</link><pubDate>Wed, 06 Aug 2025 15:50:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-4/</guid><description>&lt;blockquote>
+&lt;p>Nearly always used for quickly setting another variable to one of two possibilities, using a conditional outcome. Only used if it&amp;rsquo;s a simple one liner task.&lt;/p></description></item><item><title>C# + Revit API: Lesson 4 - Logical Operators</title><link>https://blog.aydrafting.com/posts/post-4/</link><pubDate>Wed, 06 Aug 2025 15:50:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-4/</guid><description>&lt;blockquote>
 &lt;p>They control logic and flow in our tools.
 We will have a good understanding of core statements we can use to build Revit Add-ins.&lt;/p>&lt;/blockquote>
 &lt;h1 id="logical-operators">Logical Operators&lt;/h1>
@@ -121,7 +121,7 @@ Memory is addressed into bytes
 16 + 32 = 48
 48 = 0 (in ASCII Table)
 &lt;/code>&lt;/pre>&lt;h1 id="pointers--structs-in-c">Pointers = Structs (in C)&lt;/h1>
-&lt;p>Pointers are hexadecimal based values that identify an address in computer memory.&lt;/p></description></item><item><title>C# + Revit API: Lesson 1 — A Simple Walkthrough of the Command</title><link>https://blog.aydrafting.com/posts/post-1/</link><pubDate>Wed, 06 Aug 2025 01:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-1/</guid><description>&lt;p>This post explains &lt;strong>one concrete command&lt;/strong>—line by line—so a beginner can follow without extra abstractions.&lt;/p>
+&lt;p>Pointers are hexadecimal based values that identify an address in computer memory.&lt;/p></description></item><item><title>C# + Revit API: Lesson 1 - A Simple Walkthrough of the Command</title><link>https://blog.aydrafting.com/posts/post-1/</link><pubDate>Wed, 06 Aug 2025 01:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-1/</guid><description>&lt;p>This post explains &lt;strong>one concrete command&lt;/strong>—line by line—so a beginner can follow without extra abstractions.&lt;/p>
 &lt;p>&lt;strong>What this command does when you click your add-in button:&lt;/strong>&lt;/p>
 &lt;ol>
 &lt;li>
@@ -275,4 +275,5 @@ Memory is addressed into bytes
 &lt;/li>
 &lt;/ol>
 &lt;/li>
-&lt;/ol></description></item></channel></rss>
+&lt;/ol>
+&lt;p>These tutorials are inspired by &amp;ldquo;Aussie BIM Guru&amp;rdquo; watch them if you need more in depth explanation!&lt;/p></description></item></channel></rss>

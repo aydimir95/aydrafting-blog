@@ -1,8 +1,8 @@
 +++
-title = "C# + Revit API: Lesson 6 - `if` Statements"
+title = "C# + Revit API: Lesson 6 - try & catch Statements"
 date = 2025-08-08T11:47:12+03:00
 draft = false
-tags = ["blog"]
+tags = ["C#", "Revit", "Tutorial"]
 +++
 
 # Pseudocode
@@ -72,7 +72,8 @@ public class CreateSheetExample
     {
         try
         {
-            using (Transaction tx = new Transaction(doc, "Create New Sheet"))
+            using (Transaction tx = new Transaction(doc, 
+            "Create New Sheet"))
             {
                 tx.Start();
 
@@ -80,29 +81,35 @@ public class CreateSheetExample
                 {
                     // Attempt to create a sheet
                     ViewSheet sheet = ViewSheet.Create(doc, titleBlockId);
-                    TaskDialog.Show("Success", $"Sheet '{sheet.Name}' created!");
+                    TaskDialog.Show("Success", 
+                    $"Sheet '{sheet.Name}' created!");
                     
                     tx.Commit();
                 }
-                catch (Autodesk.Revit.Exceptions.ArgumentException argEx)
+                catch (Autodesk.Revit.Exceptions.
+                ArgumentException argEx)
                 {
                     // Rollback and handle known Revit-specific error
                     tx.RollBack();
-                    TaskDialog.Show("Error", $"Invalid title block: {argEx.Message}");
+                    TaskDialog.Show("Error", 
+                    $"Invalid title block: {argEx.Message}");
                 }
                 catch (Exception ex)
                 {
                     // Rollback for unexpected system-level errors
                     tx.RollBack();
-                    TaskDialog.Show("Unexpected Error", ex.Message);
+                    TaskDialog.Show("Unexpected Error", 
+                    ex.Message);
                 }
             }
         }
         finally
         {
             // Always run this, no matter success or failure
-            TaskDialog.Show("Info", "Finished attempting to create a sheet.");
+            TaskDialog.Show("Info", 
+            "Finished attempting to create a sheet.");
         }
     }
 }
 ```
+

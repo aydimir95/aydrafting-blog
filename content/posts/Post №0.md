@@ -83,3 +83,4 @@ tags = ["C#", "Revit", "Tutorial"]
 		1. Closes Revit & Debug Mode
 
 
+These tutorials are inspired by "Aussie BIM Guru" watch them if you need more in depth explanation!

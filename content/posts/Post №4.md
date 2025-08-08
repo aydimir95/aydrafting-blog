@@ -1,5 +1,5 @@
 +++
-title = "C# + Revit API: Lesson 5 - Core C# Statements"
+title = "C# + Revit API: Lesson 4 - Logical Operators"
 date = 2025-08-06T15:50:00+03:00
 draft = false
 tags = ["C#", "Revit", "Tutorial"]
