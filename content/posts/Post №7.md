@@ -1,8 +1,8 @@
 +++
-title = "C# + Revit: Lesson 4: Introduction to Classes"
+title = "C# + Revit API: Lesson 7 - Introduction to Classes"
 date = 2025-08-08T13:06:57+03:00
-draft = true
-tags = ["blog"]
+draft = false
+tags = ["C#", "Revit", "Tutorial"]
 +++
 
 ## 1. Introduction

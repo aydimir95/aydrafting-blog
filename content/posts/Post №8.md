@@ -1,8 +1,8 @@
 +++
-title = "Tooltips & Icons - Extension Methods"
+title = "C# + Revit API: Lesson 8 - Tooltips & Icons - Extension Methods"
 date = 2025-08-08T13:13:50+03:00
-draft = true
-tags = ["blog"]
+draft = false
+tags = ["C#", "Revit", "Tutorial"]
 +++
 
 # 1. Base Command Name

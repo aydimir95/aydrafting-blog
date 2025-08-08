@@ -12,74 +12,139 @@
     <generator>Hugo -- 0.148.2</generator>
     <language>en-us</language>
     <copyright>2025 AYDrafting. All rights reserved.</copyright>
-    <lastBuildDate>Fri, 08 Aug 2025 11:47:12 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 08 Aug 2025 13:13:50 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>C# &#43; Revit API: Lesson 6 - `if` Statements</title>
-      <link>http://localhost:1313/posts/post-6/</link>
-      <pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate>
-      <guid>http://localhost:1313/posts/post-6/</guid>
-      <description>&lt;h1 id=&#34;pseudocode&#34;&gt;Pseudocode&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; to &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; gets exception, rollback and &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;exceptions&#34;&gt;Exceptions&lt;/h2&gt;
+      <title>Tooltips &amp; Icons - Extension Methods</title>
+      <link>http://localhost:1313/posts/post-8/</link>
+      <pubDate>Fri, 08 Aug 2025 13:13:50 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-8/</guid>
+      <description>&lt;h1 id=&#34;1-base-command-name&#34;&gt;1. Base Command Name&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Command namespace&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;guRoo.Cmds_GroupName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//Command Class&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;guRoo.Cmds_GroupName.Cmd_CommandName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Preferred method:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;GroupName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;GroupName._CommandName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// The Approach we will use:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;guRoo.Cmds_GroupName.Cmd_CommandName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Remove guRoo.Cmds_&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;GroupName.Cmd_CommandName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Remove .Cmd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;GrouName_CommandName
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;or-you-can-make-things-even-more-resilient-by-using&#34;&gt;Or you can make things even more resilient by using:&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;typeof&lt;/span&gt;(CommandName).FullName
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;how-to-name-my-resources&#34;&gt;How to Name my Resources&lt;/h3&gt;
+&lt;p&gt;Tooltipkey = base name&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Exceptions come in many forms and Revit API Docs typically specifies the types of Exceptions we can catch for its methods. There are also system type exceptions.&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// Exception as &amp;#34;e&amp;#34; to print the error&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	To &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; a specific exceptions, &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; e;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	To &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; all exceptions, &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// but better to catch specific exceptions, &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// otherwise you will catch all necessary and unecessary exceptions.&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;finally&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	To run a final code regardless of outcome;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;h2 id=&#34;use-dont-abuse&#34;&gt;Use Don&amp;rsquo;t Abuse&lt;/h2&gt;
+&lt;p&gt;GroupName
+GroupName_CommandName&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Icons:&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;When you first begin using languages, try statements seem great - you can write code, and if you make a mistake your code can continue. THIS IS WRONG!&lt;/p&gt;</description>
+&lt;p&gt;GroupName##
+GroupName_CommandName##&lt;/p&gt;
+&lt;h2 id=&#34;-resolution-in-pixels-16--32px&#34;&gt;=&amp;gt; Resolution in pixels (16 / 32px)&lt;/h2&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;how-we-will-manage-tooltips&#34;&gt;How we will manage &lt;code&gt;Tooltips&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;We will create a &lt;strong&gt;Resources (resx)&lt;/strong&gt; file in C# and embed this into our project. It will be available in memory for our project whilst it runs to access. We will store the tooltip and description as a dictionary of keys and values.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>C# &#43; Revit API: Lesson 6 - `if` Statements</title>
-      <link>http://localhost:1313/posts/post-5/</link>
-      <pubDate>Wed, 06 Aug 2025 17:36:22 +0300</pubDate>
-      <guid>http://localhost:1313/posts/post-5/</guid>
-      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// Condition&lt;/span&gt;
+      <title>C# &#43; Revit: Lesson 4: Introduction to Classes</title>
+      <link>http://localhost:1313/posts/post-7/</link>
+      <pubDate>Fri, 08 Aug 2025 13:06:57 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-7/</guid>
+      <description>&lt;h2 id=&#34;1-introduction&#34;&gt;1. Introduction&lt;/h2&gt;
+&lt;h3 id=&#34;sneak-peak---project-structure&#34;&gt;Sneak Peak - Project Structure&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Commands&lt;/li&gt;
+&lt;li&gt;Extensions&lt;/li&gt;
+&lt;li&gt;Forms&lt;/li&gt;
+&lt;li&gt;General&lt;/li&gt;
+&lt;li&gt;Resources&lt;/li&gt;
+&lt;li&gt;Utilities
+&lt;em&gt;These are folders which contain various files that our toolbar will utilize.&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Note that these are not necessarily aligned with namespaces (which will be covered later)&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;2-what-is-a-class&#34;&gt;2. What is a Class?&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;In C#, classes are templates related to the creation and management of objects. There are many predefined classes available in C# and the Revit API.&lt;/li&gt;
+&lt;li&gt;We use them for a wide range of things and will regularly be creating and developing our own classes.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;accessing-properties--methods-of-a-class&#34;&gt;Accessing properties / methods of a Class&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Property:
+&lt;ol&gt;
+&lt;li&gt;object.Property&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Method:
+&lt;ol&gt;
+&lt;li&gt;Object.Method(argument1, argument2, etc).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;namespaces&#34;&gt;Namespaces&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;When we create classes, we first tell them where they belong in our project.&lt;/li&gt;
+&lt;li&gt;Namespaces can be nested within others using a dot separator, eventually tied back to our addin namespace.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Revit API&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Autodesk.Revit.Attributes;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Autodesk.Revit.UI;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// geeWiz&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; geeWiz.Extensions;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; geeWiz = geeWiz.Forms;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; geeWiz = geeWiz.Utilities.Workshare_Utils;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// The class belongs to the Commands namespace&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;namespace&lt;/span&gt; geeWiz.Cmds_Audit
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	run &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; condition &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Cmd_DeletePatterns&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Cmd_PurgeRooms&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Cmd_PurgeTemplates&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Cmd_PurgeFilters&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	run &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; condition &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;else-if-statement&#34;&gt;&lt;code&gt;else if&lt;/code&gt; Statement&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// Condition&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	run &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; condition &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// Condition&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	run &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; there are more conditions;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	run &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; condition &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;shorthand-if-statements&#34;&gt;Shorthand &lt;code&gt;if&lt;/code&gt; Statements&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt; = condition?then:&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;Nearly always used for quickly setting another variable to one of two possibilities, using a conditional outcome. Only used if it&amp;rsquo;s a simple one liner task.&lt;/p&gt;</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;basic-class-anatomy&#34;&gt;Basic Class Anatomy&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;modifers class ClassName : Interface(s)
+&lt;ol&gt;
+&lt;li&gt;Constructor (optional)&lt;/li&gt;
+&lt;li&gt;Properties (optional)&lt;/li&gt;
+&lt;li&gt;Methods (optional)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Access modifiers control how this code can be accessed inside and outside your project.&lt;/li&gt;
+&lt;li&gt;You will typically need to declare at least on of &lt;em&gt;&lt;strong&gt;public/private&lt;/strong&gt;&lt;/em&gt;,
+&lt;ul&gt;
+&lt;li&gt;And sometimes &lt;em&gt;&lt;strong&gt;static&lt;/strong&gt;&lt;/em&gt; for the purposes we will use them for early on.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;static-modifier&#34;&gt;Static Modifier&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The static access modifier is a difficult concept to grasp at first, so we will simplify it somewhat.&lt;/li&gt;
+&lt;li&gt;Classes with a static modifier do not support the creation of objects of that class (instantiated).&lt;/li&gt;
+&lt;li&gt;We commonly take advantage of this to create classes which behave more like toolkits, where the class itself acts more like a singe object we can call upon to do things for us.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;So basically, the STATIC modifier is one instrument that you could use to build a complex script with.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;public-and-private-modifier&#34;&gt;Public and Private Modifier&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;em&gt;&lt;strong&gt;public&lt;/strong&gt;&lt;/em&gt; modifier lets you access something anywhere in your project.&lt;/li&gt;
+&lt;li&gt;The &lt;em&gt;&lt;strong&gt;private&lt;/strong&gt;&lt;/em&gt; modifier limits access to the same class instead (generally for behind-the-scenes code in the class itself).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;There are other modifiers, but let&amp;rsquo;s keep it simple.&lt;/em&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
