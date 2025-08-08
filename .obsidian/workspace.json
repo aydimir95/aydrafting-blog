@@ -8,17 +8,17 @@
         "type": "tabs",
         "children": [
           {
-            "id": "819a684455555085",
+            "id": "9899c2aec35fa8d3",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/Post №3.md",
+                "file": "content/posts/Post №6.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Post №3"
+              "title": "Post №6"
             }
           }
         ]
@@ -169,22 +169,24 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "819a684455555085",
+  "active": "9899c2aec35fa8d3",
   "lastOpenFiles": [
+    "content/posts/Post №1.md",
+    "content/posts/Post №0.md",
+    "content/posts/Post №6.md",
+    "content/posts/Post №5.md",
+    "content/posts/Post №4.md",
+    "content/posts/Post №3.md",
+    "content/posts/2025-08-08.md",
     "content/posts/double.md",
     "public/posts/double/index.html",
     "public/posts/double",
-    "content/posts/Post №3.md",
     "content/posts/Boolean.md",
     "public/posts/boolean/index.html",
     "public/posts/boolean",
     "content/posts/Post №2.md",
-    "content/posts/Post №1.md",
-    "content/posts/Post №0.md",
     "public/images",
     "static/images",
-    "content/posts/Post №5.md",
-    "content/posts/Post №4.md",
     "public/tags/tutorial/page/1/index.html",
     "public/tags/tutorial/page/1",
     "public/tags/tutorial/page",

@@ -1,4 +1,66 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Wed, 06 Aug 2025 14:29:29 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 3 - Fundamental Types of Data in C#</title><link>https://blog.aydrafting.com/posts/post-3/</link><pubDate>Wed, 06 Aug 2025 14:29:29 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-3/</guid><description>&lt;h1 id="boolean-bool">Boolean &lt;code>bool&lt;/code>&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Fri, 08 Aug 2025 11:47:12 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 6 - `if` Statements</title><link>https://blog.aydrafting.com/posts/post-6/</link><pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-6/</guid><description>&lt;h1 id="pseudocode">Pseudocode&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">try&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span> to &lt;span style="color:#66d9ef">do&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">catch&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#66d9ef">try&lt;/span> gets exception, rollback and &lt;span style="color:#66d9ef">do&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="exceptions">Exceptions&lt;/h2>
+&lt;blockquote>
+&lt;p>Exceptions come in many forms and Revit API Docs typically specifies the types of Exceptions we can catch for its methods. There are also system type exceptions.&lt;/p>&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#75715e">// Exception as &amp;#34;e&amp;#34; to print the error&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> To &lt;span style="color:#66d9ef">catch&lt;/span> a specific exceptions, &lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#66d9ef">as&lt;/span> e;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">catch&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> To &lt;span style="color:#66d9ef">catch&lt;/span> all exceptions, &lt;span style="color:#66d9ef">do&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// but better to catch specific exceptions, &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// otherwise you will catch all necessary and unecessary exceptions.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">finally&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> To run a final code regardless of outcome;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="use-dont-abuse">Use Don&amp;rsquo;t Abuse&lt;/h2>
+&lt;blockquote>
+&lt;p>When you first begin using languages, try statements seem great - you can write code, and if you make a mistake your code can continue. THIS IS WRONG!&lt;/p></description></item><item><title>C# + Revit API: Lesson 6 - `if` Statements</title><link>https://blog.aydrafting.com/posts/post-5/</link><pubDate>Wed, 06 Aug 2025 17:36:22 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-5/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#75715e">// Condition&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> run &lt;span style="color:#66d9ef">if&lt;/span> condition &lt;span style="color:#66d9ef">is&lt;/span> &lt;span style="color:#66d9ef">true&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#75715e">// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> run &lt;span style="color:#66d9ef">if&lt;/span> condition &lt;span style="color:#66d9ef">is&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="else-if-statement">&lt;code>else if&lt;/code> Statement&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#75715e">// Condition&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> run &lt;span style="color:#66d9ef">if&lt;/span> condition &lt;span style="color:#66d9ef">is&lt;/span> &lt;span style="color:#66d9ef">true&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#75715e">// Condition&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> run &lt;span style="color:#66d9ef">if&lt;/span> there are more conditions;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#75715e">// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> run &lt;span style="color:#66d9ef">if&lt;/span> condition &lt;span style="color:#66d9ef">is&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="shorthand-if-statements">Shorthand &lt;code>if&lt;/code> Statements&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">value&lt;/span> = condition?then:&lt;span style="color:#66d9ef">else&lt;/span>;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>Nearly always used for quickly setting another variable to one of two possibilities, using a conditional outcome. Only used if it&amp;rsquo;s a simple one liner task.&lt;/p></description></item><item><title>C# + Revit API: Lesson 5 - Core C# Statements</title><link>https://blog.aydrafting.com/posts/post-4/</link><pubDate>Wed, 06 Aug 2025 15:50:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-4/</guid><description>&lt;blockquote>
+&lt;p>They control logic and flow in our tools.
+We will have a good understanding of core statements we can use to build Revit Add-ins.&lt;/p>&lt;/blockquote>
+&lt;h1 id="logical-operators">Logical Operators&lt;/h1>
+&lt;p>&lt;code>x == y&lt;/code> =&amp;gt; &lt;em>true if x is equal to y&lt;/em>
+&lt;code>x != y&lt;/code> =&amp;gt; &lt;em>true if x is not equal to y&lt;/em>
+&lt;code>x &amp;gt; y&lt;/code> =&amp;gt; &lt;em>true if x is greater than y&lt;/em>
+&lt;code>x &amp;lt; y&lt;/code> =&amp;gt; &lt;em>true if x is less than y&lt;/em>
+&lt;code>x &amp;gt;= y&lt;/code> =&amp;gt; &lt;em>true if x greater than or equals to y&lt;/em>
+&lt;code>x &amp;lt;= y&lt;/code> =&amp;gt; &lt;em>true if x less than or equals to y&lt;/em>&lt;/p></description></item><item><title>C# + Revit API: Lesson 3 - Fundamental Types of Data in C#</title><link>https://blog.aydrafting.com/posts/post-3/</link><pubDate>Wed, 06 Aug 2025 14:29:29 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-3/</guid><description>&lt;h1 id="boolean-bool">Boolean &lt;code>bool&lt;/code>&lt;/h1>
 &lt;ul>
 &lt;li>true (1)&lt;/li>
 &lt;li>false (0)&lt;/li>
