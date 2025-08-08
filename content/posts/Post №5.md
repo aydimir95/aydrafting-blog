@@ -94,3 +94,6 @@ namespace guRoo.Commands
     }
 }
 ```
+
+
+> These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.

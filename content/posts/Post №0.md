@@ -83,4 +83,4 @@ tags = ["C#", "Revit", "Tutorial"]
 		1. Closes Revit & Debug Mode
 
 
-These tutorials are inspired by "Aussie BIM Guru" watch them if you need more in depth explanation!
+> These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.

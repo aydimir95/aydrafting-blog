@@ -13,15 +13,44 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/Post №0.md",
+                "file": "content/posts/Post №6.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Post №0"
+              "title": "Post №6"
+            }
+          },
+          {
+            "id": "8379b53b645f25b0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/posts/Post №7.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Post №7"
+            }
+          },
+          {
+            "id": "8800c8d5228aba8b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/posts/Post №8.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Post №8"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -169,14 +198,17 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "9899c2aec35fa8d3",
+  "active": "8800c8d5228aba8b",
   "lastOpenFiles": [
+    "content/posts/Post №7.md",
     "content/posts/Post №6.md",
-    "content/posts/Post №1.md",
-    "content/posts/Post №4.md",
     "content/posts/Post №5.md",
+    "content/posts/Post №8.md",
     "content/posts/Post №0.md",
+    "content/posts/Post №1.md",
+    "content/posts/Post №2.md",
     "content/posts/Post №3.md",
+    "content/posts/Post №4.md",
     "content/posts/2025-08-08.md",
     "content/posts/double.md",
     "public/posts/double/index.html",
@@ -184,7 +216,6 @@
     "content/posts/Boolean.md",
     "public/posts/boolean/index.html",
     "public/posts/boolean",
-    "content/posts/Post №2.md",
     "public/images",
     "static/images",
     "public/tags/tutorial/page/1/index.html",

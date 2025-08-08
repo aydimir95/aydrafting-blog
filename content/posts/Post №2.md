@@ -299,3 +299,5 @@ second.Prev = first;
 | --------- | ------------------------------- | --------------------------------- |
 | Insert    | Use `malloc`, fix 4 pointers    | Use `new`, fix 4 references       |
 | Remove    | Fix 2 pointers, `free()` memory | Fix 2 references, GC does cleanup |
+
+> These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.

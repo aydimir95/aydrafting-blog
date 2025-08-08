@@ -29,3 +29,4 @@ tags = ["C#", "Revit", "Tutorial"]
 `x is null` => *True if x is Null, False if it's not Null*
 `if (x)` => *if x is Null, it yields Null or false*
 
+> These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.

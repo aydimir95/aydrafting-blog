@@ -314,3 +314,5 @@ var sheets = new FilteredElementCollector(Document)
 - **MVVM + WPF**: set data on the ViewModel; the dialog updates automatically.
     
 - For creating sheets, you need a **valid title block type** (`OST_TitleBlocks`).
+
+> These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.
