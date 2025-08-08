@@ -589,7 +589,7 @@ doc      // uiDoc.Document
 3. `PushButton`
 
 ### What do we need to do?
-1. Create our `add-in` Tab
+1. Create our `add-in` `Tab`
 2. Add a `RibbonPanel` to the Tab
 3. Add a `PushButton` to the Ribbon Panel
 

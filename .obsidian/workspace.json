@@ -78,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "d3491164a67ec247",
@@ -172,11 +171,11 @@
   },
   "active": "aebf23d9710ecacd",
   "lastOpenFiles": [
-    "public/posts/post-9/index.html",
-    "public/posts/post-9",
-    "content/posts/Post №8.md",
     "content/posts/Post №9.md",
     "content/posts/Post №7.md",
+    "content/posts/Post №8.md",
+    "public/posts/post-9/index.html",
+    "public/posts/post-9",
     "content/posts/Post №6.md",
     "content/posts/Post №5.md",
     "content/posts/Post №4.md",
@@ -195,7 +194,6 @@
     "content/posts/Boolean.md",
     "public/posts/boolean/index.html",
     "public/posts/boolean",
-    "public/images",
     "template/_template.md",
     "content/posts/2025-08-07.md",
     "public/LogoAYD.png",

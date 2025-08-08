@@ -1,36 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>C# on Blog</title><link>https://blog.aydrafting.com/tags/c%23/</link><description>Recent content in C# on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Fri, 08 Aug 2025 13:13:50 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/tags/c%23/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 8 - Tooltips &amp; Icons -> Extension Methods</title><link>https://blog.aydrafting.com/posts/post-8/</link><pubDate>Fri, 08 Aug 2025 13:13:50 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-8/</guid><description>&lt;h1 id="1-base-command-name">1. Base Command Name&lt;/h1>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// Command namespace&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>guRoo.Cmds_GroupName
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">//Command Class&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>guRoo.Cmds_GroupName.Cmd_CommandName
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// Preferred method:&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>GroupName
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>GroupName._CommandName
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// The Approach we will use:&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>guRoo.Cmds_GroupName.Cmd_CommandName
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// Remove guRoo.Cmds_&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>GroupName.Cmd_CommandName
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// Remove .Cmd&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>GrouName_CommandName
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="or-you-can-make-things-even-more-resilient-by-using">Or you can make things even more resilient by using:&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">typeof&lt;/span>(CommandName).FullName
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="how-to-name-my-resources">How to Name my Resources&lt;/h3>
-&lt;p>Tooltipkey = base name&lt;/p>
-&lt;blockquote>
-&lt;p>GroupName
-GroupName_CommandName&lt;/p>&lt;/blockquote>
-&lt;p>Icons:&lt;/p>
-&lt;blockquote>
-&lt;p>GroupName##
-GroupName_CommandName##&lt;/p>
-&lt;h2 id="-resolution-in-pixels-16--32px">=&amp;gt; Resolution in pixels (16 / 32px)&lt;/h2>&lt;/blockquote>
-&lt;h2 id="how-we-will-manage-tooltips">How we will manage &lt;code>Tooltips&lt;/code>&lt;/h2>
-&lt;p>We will create a &lt;strong>Resources (resx)&lt;/strong> file in C# and embed this into our project. It will be available in memory for our project whilst it runs to access. We will store the tooltip and description as a dictionary of keys and values.&lt;/p></description></item><item><title>C# + Revit API: Lesson 7 - Introduction to Classes</title><link>https://blog.aydrafting.com/posts/post-7/</link><pubDate>Fri, 08 Aug 2025 13:06:57 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-7/</guid><description>&lt;h1 id="1-introduction">1. Introduction&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>C# on Blog</title><link>https://blog.aydrafting.com/tags/c%23/</link><description>Recent content in C# on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Fri, 08 Aug 2025 13:06:57 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/tags/c%23/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 7 - Introduction to Classes</title><link>https://blog.aydrafting.com/posts/post-7/</link><pubDate>Fri, 08 Aug 2025 13:06:57 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-7/</guid><description>&lt;h1 id="1-introduction">1. Introduction&lt;/h1>
 &lt;h3 id="project-folder-structure">Project Folder Structure&lt;/h3>
 &lt;ol>
 &lt;li>Commands&lt;/li>
