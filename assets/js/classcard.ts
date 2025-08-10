@@ -212,6 +212,7 @@ class GameState {
   correctInterfaces: string[] = [];
   canvasWidth: number = 800;
   canvasHeight: number = 600;
+  contentHeightNeeded: number = 0;
   wrongAttempts: number = 0;
   correctIndexInTrio: number[] = [1, 0, 2, 2, 1];
 
@@ -222,6 +223,10 @@ class GameState {
   setCanvasSize(width: number, height: number) {
     this.canvasWidth = width;
     this.canvasHeight = height;
+  }
+
+  getContentHeight(): number {
+    return this.contentHeightNeeded || this.canvasHeight;
   }
 
   initializeGame() {
@@ -288,14 +293,9 @@ class GameState {
     // Show current class in center
     const currentCard = this.cards[this.currentClassIndex];
     if (currentCard) {
-      const margin = 20;
-      const isShort = this.canvasHeight < 420;
-      const maxW = Math.min(280, this.canvasWidth - margin * 2);
-      const maxH = Math.min(180, Math.max(140, Math.floor(this.canvasHeight * 0.32)));
-      currentCard.width = maxW;
-      currentCard.height = maxH;
-      currentCard.x = Math.max(margin, Math.floor((this.canvasWidth - currentCard.width) / 2));
-      currentCard.y = isShort ? 24 : 80;
+      currentCard.x = Math.max(20, (this.canvasWidth - currentCard.width) / 2);
+      // Keep the card closer to the top so there is room for a single-column stack
+      currentCard.y = Math.min(100, Math.max(24, Math.floor(this.canvasHeight * 0.15)));
       currentCard.isActive = true;
       currentCard.fadeIn = 0; // Start fade in
     }
@@ -320,25 +320,59 @@ class GameState {
       this.canvasWidth = 800;
       this.canvasHeight = 600;
     }
-    
+
+    // Decide columns based on viewport width (canvas is capped, so use window width when available)
+    const total = 3;
+    const viewport = (typeof window !== 'undefined' && window.innerWidth)
+      ? window.innerWidth
+      : this.canvasWidth;
+    let cols = viewport < 1000 ? 1 : 3;
+    const rows = Math.ceil(total / cols);
+
+    let maxBottom = 0;
+    const currentCard = this.cards[this.currentClassIndex];
+    if (currentCard) {
+      maxBottom = Math.max(maxBottom, currentCard.y + currentCard.height);
+    }
+
     // Show the 3 interfaces for current class
     for (let i = 0; i < 3; i++) {
       const iface = this.interfaces[startIndex + i];
       if (iface) {
         iface.isVisible = true;
-        // Distribute interfaces evenly across canvas width
         const margin = 20;
         const cardW = 200;
-        const num = 3;
-        const innerWidth = Math.max(0, this.canvasWidth - margin * 2 - cardW * num);
-        const spacing = Math.max(10, innerWidth / (num + 1));
-        
-        iface.x = margin + spacing * (i + 1) + cardW * i;
-        iface.y = Math.max(300, this.canvasHeight - 200);
+        // Calculate grid position
+        const col = cols === 1 ? 0 : i % cols;
+        const row = cols === 1 ? i : Math.floor(i / cols);
+        // Calculate horizontal spacing
+        let x: number;
+        if (cols === 1) {
+          // Centered single column
+          x = Math.max(margin, (this.canvasWidth - cardW) / 2);
+        } else {
+          // Spread evenly across canvas width
+          const innerWidth = Math.max(0, this.canvasWidth - margin * 2 - cardW * cols);
+          const spacing = Math.max(10, innerWidth / (cols + 1));
+          x = margin + spacing * (col + 1) + cardW * col;
+        }
+        // Calculate vertical position
+        let y: number;
+        if (cols === 1) {
+          // Stack vertically
+          const totalHeight = rows * iface.height + (rows - 1) * 20;
+          y = Math.max(300, (this.canvasHeight - totalHeight) / 2) + row * (iface.height + 20);
+        } else {
+          y = Math.max(300, this.canvasHeight - 200);
+        }
+        iface.x = x;
+        iface.y = y;
         iface.fadeIn = 0; // Reset fade for animation
         iface.slideIn = 0; // Reset slide for animation
+        maxBottom = Math.max(maxBottom, iface.y + iface.height);
       }
     }
+    this.contentHeightNeeded = Math.ceil(Math.max(360, Math.min(1200, maxBottom + 80)));
   }
 
   update() {
@@ -594,6 +628,8 @@ class ClassBuilderGame {
       this.renderer = new GameRenderer(this.canvas, this.gameState);
       
       this.setupEventListeners();
+      this.gameState.showCurrentClass();
+      this.adjustCanvasToContent();
       this.start();
     } catch (error) {
       console.error('Error in ClassBuilderGame constructor:', error);
@@ -631,6 +667,16 @@ class ClassBuilderGame {
     }
   }
 
+  private adjustCanvasToContent() {
+    const desired = Math.max(360, Math.min(1200, this.gameState.getContentHeight()));
+    if (desired !== this.canvas.height) {
+      this.canvas.height = desired;
+      this.gameState.setCanvasSize(this.canvas.width, this.canvas.height);
+      // Recompute positions once with the new height
+      this.gameState.showCurrentClass();
+    }
+  }
+
   handleResize() {
     const container = this.canvas.parentElement!;
     const containerWidth = container.clientWidth || this.canvas.width + 40;
@@ -646,6 +692,7 @@ class ClassBuilderGame {
     
     // Reposition current class and interfaces
     this.gameState.showCurrentClass();
+    this.adjustCanvasToContent();
   }
 
   start() {
