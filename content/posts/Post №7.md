@@ -683,15 +683,28 @@ We now have a basic understanding of:
 5. `Namespaces` 
 
 
-# 6. Interfaces
-- Interfaces provide abstract templates (sometimes called contracts) by which classes must more specifically implement them.
-- By the end of this lesson we will have implemented two in our add-in.
+# 6. Introduction to Interfaces
+An **interface** is like a **contract** for a class.
 
-### Interface Example
+It doesn’t contain actual working code — instead, it **defines what properties and methods a class must have**.
 
-- This interface entails that any class implementing it must have 2 properties and methods.
-- They are abstractly provided and are specifically built in the class itself.
-```C# 
+If a class **implements** an interface, it promises to include all the members that interface defines.
+
+This is useful for making sure different classes follow the same pattern, even if they work in different ways inside.
+
+> 💡 _Think of it as a checklist: the interface says “you must have these items,” and your class fills in the details._
+
+---
+
+### **Interface Example**
+If we have an interface `IAnimal` that says:
+- “You must have a `property` Legs”
+- “You must have a `property` Name”
+- “You must have a `method` `MakeNoise()`”
+Then any class implementing `IAnimal` must include all of those members.
+
+
+```C#
 // Pseudo Code
 IAnimal 
 
@@ -701,58 +714,129 @@ string Name;
 
 void MakeNoise();
 ```
+
+Once a class implements an interface:
+- You write the actual code for the `methods` in that `class`.
+- You can `set` the starting `values` for the interface’s `properties`.
+- You can define the `behavior` of each `method` however you want.
+
+This is why interfaces are considered abstract — they don’t tell you how to do something, only that you must have it.
+
+They’re a way to guide multiple classes to share the same “template” of members while letting each class have its own unique implementation.
+### **Using an Interface Example**
 ```C#
-// Real Implementation
-class Dog: IAnimal
-
-int Legs = 4;
-string Name = "Dog";
-
-void MakeNoise()
+// Class that implements the IAnimal interface
+public class Dog : IAnimal
 {
-	Dog.Woof();
+    public int Legs { get; set; } = 4;
+    public string Name { get; set; } = "Dog";
+
+    public void MakeNoise()
+    {
+        Console.WriteLine("Woof!");
+    }
 }
 ```
-- We provide the interface to the `Dog class`, which will in turn expect the properties and method to be specified further.
-- You can add more than 1 interface to a class and we usually name interfaces with a prefix of '`I`'.
+Explanation:
+- The Dog class implements `IAnimal`.
+- The `Legs` and `Name` `properties` are given real values.
+- The `MakeNoise()` `method` is given actual `behavior` (printing "Woof!").
+- You can implement more than one `interface` in a single `class`.
+- By convention, `interface` `names` start with `I` (e.g., `IAnimal`, `IExternalCommand`).
 
-### Argument provision
-- Many Interfaces provided by the Revit API have further code support included for us.
-- For example, Interfaces commonly provide methods which are triggered by events. We do not have to set up the sender/receiver methods if we implement the interface, only specify what happens when the event occurs.
+### **Argument Provision**
+Many interfaces in the **Revit API** come with extra built-in support.
 
+For example:
+- Some interfaces include **`methods` that are automatically called** when certain events happen (e.g., a `command starts`, the `application opens`, or a `document changes`).
+- When you implement such an interface, you `don’t have to` set up the event wiring yourself — Revit will call the method for you.
+- `Your job` is simply to **write the code that runs when the event occurs**.
 
+> 💡 _Think of it like Revit saying: “When this happens, I’ll call your method. Just tell me what you want to do inside it.”_
 ## Application Variants
-- When we implement our two interfaces, we will be using some special types.
 
-#### ***`UIControlledApplication`***
-- Provides access to the Revit application, is commonly on startup and shutdown, where a document is not yet available.
-
-#### ***`ControlledApplication`***
-- Represents the application service, giving us access to documents, options, and application specific settings (e.g. language).
-
-#### ***`UIApplication`***
-- Similar to UIControlledApplication, but it is available during our session. We will be using this a lot and in a future lesson we will register it to a globally accessible variable.
-
-#### ***`UIDocument`***
-- Represents the current document at a UI level, providing access to aspects such as selection and opened views.
-
-#### ***`Document`***
-- Represents the current document, providing access to many Revit API classes, methods, and properties at the document level, e.g. collecting elements in the document.
-
+| Type                      | Description                                                                                                                                                                     |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `UIControlledApplication` | Provides access to the Revit application, typically used on `startup` and `shutdown` when no document is yet available.                                                         |
+| `ControlledApplication`   | Represents the application service, giving access to documents, options, and application-specific settings (e.g., `language`).                                                  |
+| `UIApplication`           | Similar to `UIControlledApplication`, but available during a running session. We’ll use this often, and in a future lesson we’ll register it as a globally accessible variable. |
+| `UIDocument`              | Represents the current document at the UI level, giving access to things like selections and opened views.                                                                      |
+| `Document`                | Represents the current document at the core API level, providing access to Revit API `classes`, `methods`, and `properties` (e.g., collecting elements).                        |
 ### How we can access them?
+These objects are related in a `cascading hierarchy` — you can get one from another:
 ```C#
-uiCtlApp // Available at start-up/shutdown
-ctlApp   // uiCtlApp.ControlledApplication
-uiApp    // Idling event / via commands
+UIControlledApplication uiCtlApp;         // Available at startup/shutdown
+ControlledApplication ctlApp = uiCtlApp.ControlledApplication;
 
-uiDoc    // uiApp.ActiveUIDocument 
-doc      // uiDoc.Document
+UIApplication uiApp;                      // Available in commands/events
+UIDocument uiDoc = uiApp.ActiveUIDocument;
+
+Document doc = uiDoc.Document;            // The main Revit document API
 ```
+
+> 💡 _Tip:_ At **`startup`/`shutdown`** you’ll usually have `UIControlledApplication`.   
+> 💡 _Tip:_ During a **`command` / `event`**, you’ll start with `UIApplication`. 
 ### Homework
-- Implement ***`IExternalApplication`***
-- Implement ***`IExternalCommand`***
-- Collect the ***`ControlledApplication`***
-- Collect the ***`Document`*** in a command
+- Implement *`IExternalApplication`*
+- Implement *`IExternalCommand`*
+- Collect the *`ControlledApplication`* in your application entry point
+- Collect the *`Document`* inside your command
+### **Solution**
+#### **Step 1 — Learn the interface requirements**
+
+Go to [revitapidocs.com](https://www.revitapidocs.com/2024/d893b9a7-6f3e-bf1f-f4d6-5fbc269544bb.htm).
+
+You’ll see that `IExternalApplication` defines `two` `methods` you must implement:
+1. `OnStartup`(`UIControlledApplication` application) — runs when Revit starts.
+2. `OnShutdown`(`UIControlledApplication` application) — runs when Revit shuts down.
+
+Both methods must return a **Result** `enum`:
+- `Result.Succeeded` — startup/shutdown completed successfully.
+- `Result.Cancelled` — you want to cancel the process.
+- `Result.Failed` — something went wrong.
+---
+#### **Step 2 — Understand the `parameters`**
+
+When `OnStartup()` or `OnShutdown()` runs, Revit passes you a `UIControlledApplication` object.
+
+From this you can get:
+- `ControlledApplication` → `uiCtlApp.ControlledApplication`
+    - Gives access to application-level `settings`, documents `list`, Revit `version` info, `language`, etc.
+- `Ribbon` and `UI` setup methods (you can add `panels` and `buttons` here).
+---
+#### **Step 3 — Implementation in Application.cs**
+```C#
+// Autodesk
+using Autodesk.Revit.UI
+
+// This application belongs to the root namespace
+namespace guRoo
+{
+	// Implementing the interface for applications
+	public class Application: IExternalApplication
+	{
+		//This will run on Startup
+		public Result OnStartup(UIControlledApplication uiCtlApp)
+		{
+			// Not sure what this does, explain:
+			car ctlApp = uiCtlApp.ControlledApplication;
+
+			Not sure, explain better:
+			// This is supposed to be the end of the construction of our toolbar
+			// Meaning it has to result in Success when Revit Launches. 
+			return Result.Succeeded; // or Cancelled
+		}
+
+		// This will urn on shutdown
+		public Result OnShutdown(UIControlledApplication uiCtlApp)
+		{
+			return Result.Succeeded;
+		}
+	}
+}
+```
+
+
 
 **We now have a basic understanding of:**
 - `Interfaces`
@@ -762,13 +846,13 @@ doc      // uiDoc.Document
 - `Document` Classes
 
 # 7. Create a `PushButton`
-- Let's set up a button we can run our command from (we had this before, but we're doing it the typical way vs the `Nice3Point` way).
+- Let's set up a button we can run our command from (we had this before, but we're doing it the typical way vs the `Nice3point` way).
 - We will create a tab, a panel, a button and finally set up a basic command that runs when we press it.
 
 ## Understanding Names
 1. `RibbonTab`
 2. `RibbonPanel`
-	1. `Ribbon`
+	- `Ribbon`
 3. `PushButton`
 
 ### What do we need to do?
@@ -782,21 +866,23 @@ doc      // uiDoc.Document
 3. `RibbonPanel` > `PushButtonData` > `PushButton`
 
 #### *Properties of a PushButton*
-1. **`AssemblyName`** - Assembly Path of the Button
-2. **`AvailabilityClassName`** - The full class name of the class providing the entry point to decide availability of this push button.
-3. **`ClassName`** - The name of the class containing the implementation for the command.
-4. **`Enabled`** - Gets or sets a value indicating whether the item is enabled.
-5. **`Image`** - The image of the button.
-6. **`IsEnabledByContext`** - Indicates if this button can be executed. True is the pushbutton is permitted to be executed based on the current Revit context (active doc, active view, active tool). False if the pushbutton is disabled because of the active context.
-7. **`ItemText`** - Gets or sets the text displayed of the item.
-8. **`ItemType`** - Get the item type.
-9. **`LargeImage`** - The large image shown on the button.
-10. **`LongDescription`** - Long description of the command tooltip.
-11. **`Name`** - The name of the item.
-12. **`ToolTip`** - The description that appears as a ToolTip for the item.
-13. **`ToolTipImage`** - The image to show as a part of the button extended tooltip.
-14. **`Visible`** - Gets or sets a value indicating whether the item is visible.
 
+| **Property**            | **Description**                                                                                                                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `AssemblyName`          | Assembly path of the button.                                                                                                                                                                |
+| `AvailabilityClassName` | The full class name of the class providing the entry point to decide availability of this push button.                                                                                      |
+| `ClassName`             | The name of the class containing the implementation for the command.                                                                                                                        |
+| `Enabled`               | Gets or sets a value indicating whether the item is enabled.                                                                                                                                |
+| `Image`                 | The image of the button.                                                                                                                                                                    |
+| `IsEnabledByContext`    | Indicates if this button can be executed. `True` if permitted based on the current Revit context (active doc, active view, active tool). `False` if disabled because of the active context. |
+| `ItemText`              | Gets or sets the text displayed on the item.                                                                                                                                                |
+| `ItemType`              | Gets the item type.                                                                                                                                                                         |
+| `LargeImage`            | The large image shown on the button.                                                                                                                                                        |
+| `LongDescription`       | Long description of the command tooltip.                                                                                                                                                    |
+| `Name`                  | The name of the item.                                                                                                                                                                       |
+| `ToolTip`               | The description that appears as a tooltip for the item.                                                                                                                                     |
+| `ToolTipImage`          | The image to show as part of the button’s extended tooltip.                                                                                                                                 |
+| `Visible`               | Gets or sets a value indicating whether the item is visible.                                                                                                                                |
 #### One Important Method -> GetRibbonPanels 
 1. `GetRibbonPannels` - Get all the custom Panels on Add-Ins Tab of Revit.
 2. `GetRibbonPannels`(String) - Get all the custom Panels on a designated Revit Tab.

@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "d3491164a67ec247",
@@ -171,6 +172,12 @@
   },
   "active": "4f48dab4fbbd5f86",
   "lastOpenFiles": [
+    "content/posts/Untitled.md",
+    "public/page/2/index.html",
+    "public/page/2",
+    "public/posts/page/2/index.html",
+    "public/posts/page/2",
+    "content/posts/Post №7.md",
     "content/posts/Post №8.md",
     "content/posts/Post №9.md",
     "public/images/Pasted image 20250809211706.png",
@@ -185,7 +192,6 @@
     "public/Pasted image 20250809211308.png",
     "public/open?vault=BIM Koordinator&file=7_Attachments:.inetloc",
     "static/open?vault=BIM Koordinator&file=7_Attachments:.inetloc",
-    "content/posts/Post №7.md",
     "content/posts/2025-08-09.md",
     "public/posts/post-9/index.html",
     "public/posts/post-9",
@@ -198,12 +204,8 @@
     "content/posts/Post №3.md",
     "public/posts/post-7/index.html",
     "public/posts/post-7",
-    "public/posts/post-8/index.html",
-    "public/posts/post-8",
     "content/posts/2025-08-08.md",
     "content/posts/double.md",
-    "public/posts/double/index.html",
-    "public/posts/double",
     "content/posts/Boolean.md",
     "template/_template.md",
     "content/posts/2025-08-07.md",
