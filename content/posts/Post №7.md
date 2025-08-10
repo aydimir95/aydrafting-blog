@@ -5,6 +5,8 @@ draft = false
 tags = ["C#", "Revit", "Tutorial"]
 +++
 
+{{< shooter strategy="burst" count="5" spread="1.0" >}}
+
 # 1. Introduction
 ### Project Folder Structure
 1. Commands
@@ -899,9 +901,8 @@ Assembly.GetExecutingAssembly()
 2. Add `methods` to `static utility class` that we need
 3. Run these methods in `OnStartup` method
 
-In the next video, we will add to this:
 - Create and assign `icons` and `tooltips`,
-- Develop a naming system to simplify it all.
+- Develop a `naming system` to simplify it all.
 
 
 # 8. `Global` Variables
@@ -919,7 +920,7 @@ We will collect most variables on startup, but the `UiApplication` is not availa
 1. Events provide us the ability to have code that executes when various events occur in an application. For example, run a code whenever the view is changed.
 2. When Revit is available, it is said to be **`Idling`** (not doing anything). The **`OnIdling`** event is commonly used to run some code as soon as Revit is available for code to be run.
 
-## Basic `Sub/Unsub` syntax 
+## Basic `Sub`/`Unsub` syntax 
 Subscribe to `Idling` event 
 	`UICtlApp.Idling += MethodName`
 
@@ -929,9 +930,9 @@ Unsubsribe from `idling` event
 *In most cases, you will want your method to unsubscribe itself once it has run.*
 
 ## Homework
-1. Create a static Globals Class
-2. Add properties and registration 
-3. Register the `UiApp` using IdlingEvent 
+1. Create a `static` `Globals` Class
+2. Add `properties` and `registration` 
+3. Register the `UiApp` using `IdlingEvent` 
 
 
 > These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.

@@ -15,6 +15,7 @@ ShowReadingTime = true
 ShowPostNavLinks = true
 ShowBreadCrumbs = true
 mainSections = ["posts"]
+ShowCodeCopyButtons = true
 
 # Enhanced SEO and metadata
 env = "production"
@@ -32,10 +33,16 @@ enableEmoji = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+  [markup.highlight]
+    noClasses = false
+    style = "github"      # or "dracula", "monokai"
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
 
 # OpenGraph and Twitter Card metadata
 [params.editPost]
-URL = "mailto:aydimir@aydrafting.com"
+URL = "aydimir@aydrafting.com"
 Text = "Suggest Changes"
 appendFilePath = true
 
