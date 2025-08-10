@@ -288,8 +288,14 @@ class GameState {
     // Show current class in center
     const currentCard = this.cards[this.currentClassIndex];
     if (currentCard) {
-      currentCard.x = Math.max(20, (this.canvasWidth - currentCard.width) / 2);
-      currentCard.y = 100;
+      const margin = 20;
+      const isShort = this.canvasHeight < 420;
+      const maxW = Math.min(280, this.canvasWidth - margin * 2);
+      const maxH = Math.min(180, Math.max(140, Math.floor(this.canvasHeight * 0.32)));
+      currentCard.width = maxW;
+      currentCard.height = maxH;
+      currentCard.x = Math.max(margin, Math.floor((this.canvasWidth - currentCard.width) / 2));
+      currentCard.y = isShort ? 24 : 80;
       currentCard.isActive = true;
       currentCard.fadeIn = 0; // Start fade in
     }
