@@ -24,7 +24,8 @@ ShowToc = true
 images = ["LogoAYD.png"]
 keywords = ["civil engineering", "automation", "BIM", "Revit", "Civil 3D", "infrastructure design"]
 enableRobotsTXT = true
-canonifyURLs = true
+canonifyURLs = false
+relativeURLs = true
 enableEmoji = true
 
 [markup]

@@ -41,16 +41,16 @@ GroupName_CommandName##
 How we will manage Tooltips
 We will create a Resources (resx) file in C# and embed this into our project. It will be available in memory for our project whilst it runs to access. We will store the tooltip and description as a dictionary of keys and values.">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/post-8/">
+<link rel="canonical" href="http://127.0.0.1:1313/posts/post-8/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="http://127.0.0.1:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://127.0.0.1:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://127.0.0.1:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://127.0.0.1:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://127.0.0.1:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/post-8/">
+<link rel="alternate" hreflang="en" href="http://127.0.0.1:1313/posts/post-8/">
 <noscript>
     <style>
         #theme-toggle,
@@ -87,7 +87,7 @@ We will create a Resources (resx) file in C# and embed this into our project. It
         }
 
     </style>
-</noscript><meta property="og:url" content="http://localhost:1313/posts/post-8/">
+</noscript><meta property="og:url" content="http://127.0.0.1:1313/posts/post-8/">
   <meta property="og:site_name" content="Blog">
   <meta property="og:title" content="C# &#43; Revit API: Lesson 8 - Tooltips & Icons -&gt; Extension Methods">
   <meta property="og:description" content="1. Base Command Name // Command namespace guRoo.Cmds_GroupName //Command Class guRoo.Cmds_GroupName.Cmd_CommandName // Preferred method: GroupName GroupName._CommandName // The Approach we will use: guRoo.Cmds_GroupName.Cmd_CommandName // Remove guRoo.Cmds_ GroupName.Cmd_CommandName // Remove .Cmd GrouName_CommandName Or you can make things even more resilient by using: typeof(CommandName).FullName How to Name my Resources Tooltipkey = base name
@@ -103,9 +103,9 @@ GroupName## GroupName_CommandName##
     <meta property="article:tag" content="C#">
     <meta property="article:tag" content="Revit">
     <meta property="article:tag" content="Tutorial">
-      <meta property="og:image" content="http://localhost:1313/LogoAYD.png">
+      <meta property="og:image" content="http://127.0.0.1:1313/LogoAYD.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/LogoAYD.png">
+<meta name="twitter:image" content="http://127.0.0.1:1313/LogoAYD.png">
 <meta name="twitter:title" content="C# &#43; Revit API: Lesson 8 - Tooltips &amp; Icons -&gt; Extension Methods">
 <meta name="twitter:description" content="1. Base Command Name
 // Command namespace
@@ -151,13 +151,13 @@ We will create a Resources (resx) file in C# and embed this into our project. It
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://localhost:1313/posts/"
+      "item": "http://127.0.0.1:1313/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "C# + Revit API: Lesson 8 - Tooltips \u0026 Icons -\u003e Extension Methods",
-      "item": "http://localhost:1313/posts/post-8/"
+      "item": "http://127.0.0.1:1313/posts/post-8/"
     }
   ]
 }
@@ -175,18 +175,18 @@ We will create a Resources (resx) file in C# and embed this into our project. It
   "articleBody": "1. Base Command Name // Command namespace guRoo.Cmds_GroupName //Command Class guRoo.Cmds_GroupName.Cmd_CommandName // Preferred method: GroupName GroupName._CommandName // The Approach we will use: guRoo.Cmds_GroupName.Cmd_CommandName // Remove guRoo.Cmds_ GroupName.Cmd_CommandName // Remove .Cmd GrouName_CommandName Or you can make things even more resilient by using: typeof(CommandName).FullName How to Name my Resources Tooltipkey = base name\nGroupName GroupName_CommandName\nIcons:\nGroupName## GroupName_CommandName##\n=\u003e Resolution in pixels (16 / 32px) How we will manage Tooltips We will create a Resources (resx) file in C# and embed this into our project. It will be available in memory for our project whilst it runs to access. We will store the tooltip and description as a dictionary of keys and values.\nWe will access this using the dedicated ResourceManager class.\nHow we will manage Icons Revit tools feature 2 icon types:\nImage -\u003e 16x16px (96dpi) icon which shows at a smaller resolution (e.g. in pulldown, quick access). LargeImage -\u003e 32x32px (96dpi) icon which shows at a larger resoltion (e.g. in PushButtons). We will store our icons as embedded resources also in a PNG format. We will use a ResourceStream in order to decode these resources into a bitmap in our application.\nStreaming resources is quite common in C/C# and allows decoding of memory into suitable resources, such as an ImageSource.\nConsolidation Functionality The goal here ultimately is to make the process of adding/assigning icons to our tools as simple as possible for the user.\nThis will get around repetitive code, as well as providing a better entry environment for long text inputs such as tooltips.\nHomework: Create a command \u003e base name converter Set up a tooltips resource Read, store and assign a tooltip Set up icon files in 16/32 px format Assign the Icons to our Pushbuttons Test the changes Revit API PushButtonData Class\nName Description AssemblyName The assembly path of the button. AvailabilityClassName The full class name for the class providing the entry point to decide availablility of this push button. ClassName The name of the Class containing the implementation for the command. Image The image of the button. LargeImage The large image of the button. LongDescription Long description of the command tooltip. Name The name of the item. Text The user-visible text of the button. ToolTip The description that appears as a ToolTip for the item. ToolTipImage The image to show as a part of the button extended tooltip. These tutorials were inspired by the work of Aussie BIM Guru. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.\n",
   "wordCount" : "420",
   "inLanguage": "en",
-  "image": "http://localhost:1313/LogoAYD.png","datePublished": "2025-08-08T13:13:50+03:00",
+  "image": "http://127.0.0.1:1313/LogoAYD.png","datePublished": "2025-08-08T13:13:50+03:00",
   "dateModified": "2025-08-08T13:13:50+03:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://localhost:1313/posts/post-8/"
+    "@id": "http://127.0.0.1:1313/posts/post-8/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://localhost:1313/favicon.ico"
+      "url": "http://127.0.0.1:1313/favicon.ico"
     }
   }
 }
@@ -209,7 +209,7 @@ We will create a Resources (resx) file in C# and embed this into our project. It
     <nav class="nav">
         
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Blog (Alt + H)">Blog</a>
+            <a href="http://127.0.0.1:1313/" accesskey="h" title="Blog (Alt + H)">Blog</a>
         </div>
 
         
@@ -248,7 +248,7 @@ We will create a Resources (resx) file in C# and embed this into our project. It
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="http://127.0.0.1:1313/">Home</a>&nbsp;»&nbsp;<a href="http://127.0.0.1:1313/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       C# &#43; Revit API: Lesson 8 - Tooltips &amp; Icons -&gt; Extension Methods
       <span class="entry-hint" title="Draft">
@@ -416,17 +416,17 @@ GroupName_CommandName##</p>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/c%23/">C#</a></li>
-      <li><a href="http://localhost:1313/tags/revit/">Revit</a></li>
-      <li><a href="http://localhost:1313/tags/tutorial/">Tutorial</a></li>
+      <li><a href="http://127.0.0.1:1313/tags/c%23/">C#</a></li>
+      <li><a href="http://127.0.0.1:1313/tags/revit/">Revit</a></li>
+      <li><a href="http://127.0.0.1:1313/tags/tutorial/">Tutorial</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/posts/post-9/">
+  <a class="prev" href="http://127.0.0.1:1313/posts/post-9/">
     <span class="title">« Prev</span>
     <br>
     <span>C# &#43; Revit API: Lesson 9 - </span>
   </a>
-  <a class="next" href="http://localhost:1313/posts/post-7/">
+  <a class="next" href="http://127.0.0.1:1313/posts/post-7/">
     <span class="title">Next »</span>
     <br>
     <span>C# &#43; Revit API: Lesson 7 - Introduction to Classes</span>

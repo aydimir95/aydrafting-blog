@@ -1,4 +1,13 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>C# + Revit API: Lesson 3 - Fundamental Types of Data in C# | Blog</title><meta name=keywords content="C#,Revit,Tutorial"><meta name=description content="Boolean bool
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>C# &#43; Revit API: Lesson 3 - Fundamental Types of Data in C# | Blog</title>
+<meta name="keywords" content="C#, Revit, Tutorial">
+<meta name="description" content="Boolean bool
 
 true (1)
 false (0)
@@ -33,14 +42,78 @@ Doubles use 64 bits, and are more common than floats (which use half - 32 bits).
 Characters char
 
 
-&lsquo;a&rsquo;, &lsquo;b&rsquo;, &lsquo;c&rsquo;, etc."><meta name=author content><link rel=canonical href=https://blog.aydrafting.com/posts/post-3/><link crossorigin=anonymous href=/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css integrity="sha256-j+ECM6cGvIfy4Is8+XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as=style><link rel=icon href=https://blog.aydrafting.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://blog.aydrafting.com/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://blog.aydrafting.com/favicon-32x32.png><link rel=apple-touch-icon href=https://blog.aydrafting.com/apple-touch-icon.png><link rel=mask-icon href=https://blog.aydrafting.com/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://blog.aydrafting.com/posts/post-3/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:url" content="https://blog.aydrafting.com/posts/post-3/"><meta property="og:site_name" content="Blog"><meta property="og:title" content="C# + Revit API: Lesson 3 - Fundamental Types of Data in C#"><meta property="og:description" content="Boolean bool true (1) false (0) Integer int Whole number:
+&lsquo;a&rsquo;, &lsquo;b&rsquo;, &lsquo;c&rsquo;, etc.">
+<meta name="author" content="">
+<link rel="canonical" href="http://127.0.0.1:1313/posts/post-3/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://127.0.0.1:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://127.0.0.1:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://127.0.0.1:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://127.0.0.1:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://127.0.0.1:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://127.0.0.1:1313/posts/post-3/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="http://127.0.0.1:1313/posts/post-3/">
+  <meta property="og:site_name" content="Blog">
+  <meta property="og:title" content="C# &#43; Revit API: Lesson 3 - Fundamental Types of Data in C#">
+  <meta property="og:description" content="Boolean bool true (1) false (0) Integer int Whole number:
 1, 2, 3, etc.
 Numbers come in different formats but by default they are signable (can be negative).
 Typically, they use 32 bits based.
 Double double Decimal number:
 0.0, 1.5, 6.592, -5.00, etc.
 Doubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.
-Characters char ‘a’, ‘b’, ‘c’, etc."><meta property="og:locale" content="en-us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-08-06T14:29:29+03:00"><meta property="article:modified_time" content="2025-08-06T14:29:29+03:00"><meta property="article:tag" content="C#"><meta property="article:tag" content="Revit"><meta property="article:tag" content="Tutorial"><meta property="og:image" content="https://blog.aydrafting.com/LogoAYD.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.aydrafting.com/LogoAYD.png"><meta name=twitter:title content="C# + Revit API: Lesson 3 - Fundamental Types of Data in C#"><meta name=twitter:description content="Boolean bool
+Characters char ‘a’, ‘b’, ‘c’, etc.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-06T14:29:29+03:00">
+    <meta property="article:modified_time" content="2025-08-06T14:29:29+03:00">
+    <meta property="article:tag" content="C#">
+    <meta property="article:tag" content="Revit">
+    <meta property="article:tag" content="Tutorial">
+      <meta property="og:image" content="http://127.0.0.1:1313/LogoAYD.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://127.0.0.1:1313/LogoAYD.png">
+<meta name="twitter:title" content="C# &#43; Revit API: Lesson 3 - Fundamental Types of Data in C#">
+<meta name="twitter:description" content="Boolean bool
 
 true (1)
 false (0)
@@ -75,21 +148,474 @@ Doubles use 64 bits, and are more common than floats (which use half - 32 bits).
 Characters char
 
 
-&lsquo;a&rsquo;, &lsquo;b&rsquo;, &lsquo;c&rsquo;, etc."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://blog.aydrafting.com/posts/"},{"@type":"ListItem","position":2,"name":"C# + Revit API: Lesson 3 - Fundamental Types of Data in C#","item":"https://blog.aydrafting.com/posts/post-3/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"C# + Revit API: Lesson 3 - Fundamental Types of Data in C#","name":"C# \u002b Revit API: Lesson 3 - Fundamental Types of Data in C#","description":"Boolean bool true (1) false (0) Integer int Whole number:\n1, 2, 3, etc.\nNumbers come in different formats but by default they are signable (can be negative).\nTypically, they use 32 bits based.\nDouble double Decimal number:\n0.0, 1.5, 6.592, -5.00, etc.\nDoubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.\nCharacters char \u0026lsquo;a\u0026rsquo;, \u0026lsquo;b\u0026rsquo;, \u0026lsquo;c\u0026rsquo;, etc.\n","keywords":["C#","Revit","Tutorial"],"articleBody":"Boolean bool true (1) false (0) Integer int Whole number:\n1, 2, 3, etc.\nNumbers come in different formats but by default they are signable (can be negative).\nTypically, they use 32 bits based.\nDouble double Decimal number:\n0.0, 1.5, 6.592, -5.00, etc.\nDoubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.\nCharacters char ‘a’, ‘b’, ‘c’, etc.\nChars store a single character (which can be a number - it is ASCII based behind the scenes). They use 1 byte (8 bits).\nStrings str “string”, “example”, etc.\nStrings are technically an array of characters (a consecutive set of [[chars]] in memory). They are abstracted for us in C#, and you might sometimes see them called a [[char*]] (CharStar).\nNull pointer null Always written as [[null]]\nNulls are a special object that points to the first byte in memory. It represents an absence of data and may commonly be caused through an error or exception.\nNullable Types Most objects you use will be [[Nullable]], in that they can be represented and set to [[null]]. [[Integers]] are an example of a type which cannot be set to [[null]] unless you declare them as [[nullable]] (which makes them a different type). Revit API Classes are generally nullable. Lists or Arrays? [[Arrays]] are important for memory management eventually, but I recommend skipping the use of them initially.\nThe Revit API generally works with [[Lists]].\n[[Lists]] - differ to [[arrays]] in that we can add additional objects to them, whereas [[arrays]] have a fixed size upon creation.\nWe will learn about [[Lists]] later.\nCompiling Generally, [[C#]] code will be faster than languages such as [[Python]] as it is compiled before execution. Compiling refers to the conversion of written code into machine code (1’s and 0’s). When we build our solution before running it, it is turning our code into a [[Dynamic Linked Library]] ([[DLL]]) which is executed by the application. Languages like [[Python]] instead use [[interpreters]]. Declaring a Variable in C# [[modifier(s)]] type variableName;\n[[public]] [[private]] [[static]] [[internal]] [[virtual]] We will return to access modifiers later, for now we can avoid using them in basic examples.\nWe tell the compiler what [[type]] we need first.\nWe then tell it the [[variableName]] to assign to it.\nAssign a Variable in C# [[type]] [[variableName]] = value;\nWe can assign a value upon creating the variable.\nOr, we can assign it later on…\ntype variableName; // \u003c= Initialize variableName = value; // \u003c= Assign When we assign a value, you need to give it a valid value for its [[type]]: int myInteger = 5; The assigned value must suit the variable type upon assignment. Type safety in C# will ensure this. Examples below would cause an error: int myInteger = 3.5; // \u003c= Should be a double int myInteger = \"5\"; // \u003c= Should be a string Creating a List in C# List\u003cint\u003e()myList = new List\u003cint\u003e(); We can also declare a list and store objects to is: List\u003cint\u003e()myList = new List\u003cint\u003e(){1,2,3}; We will come back to the braces later. Making use of var var myList = new List\u003cint\u003e(); If the value being assigned on the right implies a specific type, we can instead use the var keyword to simplify our code. This is generally best practice. However, if the right side is ambiguous, declare the type on the left. This will matter when we learn about class inheritance. var myList = new List\u003cobject\u003e(); Object is a special type which allows the storage of many things. It can be a useful but ambiguous return type for functions and classes through which you might need to pass many things in/out of. We will learn in a later lesson about type casting, where the object class can be a useful intermediate type to take advantage of. Inheritance 101 The RevitAPI uses a lot of class inheritance. Metaphorical example:\nDogs and Cats are both Animals Dogs are not Cats Cats are not Dogs But the they both inherit the Animal RevitAPI Example:\nViews and Floors are both Elements\nViews are not Floors\nFloors are not Views\nBut they both inherit the Element\nElements have an ElementID property\nViews and Floors have an ElementID from Element Class\nFloors have a SlabShapeEditor Elements DO NOT Views DO NOT Basic Type Checking object is type variableName This syntax can be used to logically check if an object is or inherits a specific type/class. We can assign a variable to this object as that type in a statement (e.g. if) to locally work with it as that type instead. We now have… A basic understanding of:\nHow computation works, Basic variable types/classes How to declare variables How to assign variables Inheritance We will be applying these concepts soon.\nThese tutorials were inspired by the work of Aussie BIM Guru. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.\n","wordCount":"827","inLanguage":"en","image":"https://blog.aydrafting.com/LogoAYD.png","datePublished":"2025-08-06T14:29:29+03:00","dateModified":"2025-08-06T14:29:29+03:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.aydrafting.com/posts/post-3/"},"publisher":{"@type":"Organization","name":"Blog","logo":{"@type":"ImageObject","url":"https://blog.aydrafting.com/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://blog.aydrafting.com/ accesskey=h title="Blog (Alt + H)">Blog</a></div><div class="logo main-logo"><a href=https://aydrafting.com target=_blank><img src=/LogoAYD.png alt=Blog height=40></a></div><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)">
-<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://blog.aydrafting.com/>Home</a>&nbsp;»&nbsp;<a href=https://blog.aydrafting.com/posts/>Posts</a></div><h1 class="post-title entry-hint-parent">C# + Revit API: Lesson 3 - Fundamental Types of Data in C#</h1><div class=post-meta><span title='2025-08-06 14:29:29 +0300 MSK'>August 6, 2025</span>&nbsp;·&nbsp;4 min&nbsp;|&nbsp;<a href=mailto:aydimir@aydrafting.com/posts/Post%20%e2%84%963.md rel="noopener noreferrer edit" target=_blank>Suggest Changes</a></div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#boolean-bool aria-label="Boolean bool">Boolean bool</a></li><li><a href=#integer-int aria-label="Integer int">Integer int</a></li><li><a href=#double-double aria-label="Double double">Double double</a></li><li><a href=#characters-char aria-label="Characters char">Characters char</a></li><li><a href=#strings-str aria-label="Strings str">Strings str</a></li><li><a href=#null-pointer-null aria-label="Null pointer null">Null pointer null</a></li><li><a href=#nullable-types aria-label="Nullable Types">Nullable Types</a></li><li><a href=#lists-or-arrays aria-label="Lists or Arrays?">Lists or Arrays?</a></li><li><a href=#compiling aria-label=Compiling>Compiling</a></li><li><a href=#declaring-a-variable-in-c aria-label="Declaring a Variable in C#">Declaring a Variable in C#</a></li><li><a href=#assign-a-variable-in-c aria-label="Assign a Variable in C#">Assign a Variable in C#</a></li><li><a href=#creating-a-list-in-c aria-label="Creating a List in C#">Creating a List in C#</a></li><li><a href=#making-use-of-var aria-label="Making use of var">Making use of var</a></li><li><a href=#inheritance-101 aria-label="Inheritance 101">Inheritance 101</a></li><li><a href=#basic-type-checking aria-label="Basic Type Checking">Basic Type Checking</a></li><li><a href=#we-now-have aria-label="We now have&mldr;">We now have&mldr;</a></li></ul></div></details></div><div class=post-content><h1 id=boolean-bool>Boolean <code>bool</code><a hidden class=anchor aria-hidden=true href=#boolean-bool>#</a></h1><ul><li>true (1)</li><li>false (0)</li></ul><h1 id=integer-int>Integer <code>int</code><a hidden class=anchor aria-hidden=true href=#integer-int>#</a></h1><ul><li><p>Whole number:</p></li><li><p>1, 2, 3, etc.</p></li><li><p>Numbers come in different formats but by default they are signable (can be negative).</p></li><li><p>Typically, they use 32 bits based.</p></li></ul><h1 id=double-double>Double <code>double</code><a hidden class=anchor aria-hidden=true href=#double-double>#</a></h1><ul><li><p>Decimal number:</p></li><li><p>0.0, 1.5, 6.592, -5.00, etc.</p></li><li><p>Doubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.</p></li></ul><h1 id=characters-char>Characters <code>char</code><a hidden class=anchor aria-hidden=true href=#characters-char>#</a></h1><ul><li><p>&lsquo;a&rsquo;, &lsquo;b&rsquo;, &lsquo;c&rsquo;, etc.</p></li><li><p>Chars store a single character (which can be a number - it is ASCII based behind the scenes). They use 1 byte (8 bits).</p></li></ul><h1 id=strings-str>Strings <code>str</code><a hidden class=anchor aria-hidden=true href=#strings-str>#</a></h1><ul><li><p>&ldquo;string&rdquo;, &ldquo;example&rdquo;, etc.</p></li><li><p>Strings are technically an array of characters (a consecutive set of [[chars]] in memory). They are abstracted for us in C#, and you might sometimes see them called a [[char*]] (CharStar).</p></li></ul><h1 id=null-pointer-null>Null pointer <code>null</code><a hidden class=anchor aria-hidden=true href=#null-pointer-null>#</a></h1><ul><li><p>Always written as [[null]]</p></li><li><p>Nulls are a special object that points to the first byte in memory. It represents an absence of data and may commonly be caused through an error or exception.</p></li></ul><h1 id=nullable-types><code>Nullable</code> Types<a hidden class=anchor aria-hidden=true href=#nullable-types>#</a></h1><ul><li>Most objects you use will be [[Nullable]], in that they can be represented and set to [[null]].</li><li>[[Integers]] are an example of a type which cannot be set to [[null]] unless you declare them as [[nullable]] (which makes them a different type).</li><li>Revit API Classes are generally nullable.</li></ul><h1 id=lists-or-arrays><code>Lists</code> or <code>Arrays</code>?<a hidden class=anchor aria-hidden=true href=#lists-or-arrays>#</a></h1><ul><li><p>[[Arrays]] are important for memory management eventually, but I recommend skipping the use of them initially.</p></li><li><p>The Revit API generally works with [[Lists]].</p></li><li><p>[[Lists]] - differ to [[arrays]] in that we can add additional objects to them, whereas [[arrays]] have a fixed size upon creation.</p></li><li><p>We will learn about [[Lists]] later.</p></li></ul><h1 id=compiling><code>Compiling</code><a hidden class=anchor aria-hidden=true href=#compiling>#</a></h1><ul><li>Generally, [[C#]] code will be faster than languages such as [[Python]] as it is compiled before execution.</li><li>Compiling refers to the conversion of written code into machine code (1&rsquo;s and 0&rsquo;s).</li><li>When we build our solution before running it, it is turning our code into a [[Dynamic Linked Library]] ([[DLL]]) which is executed by the application.</li><li>Languages like [[Python]] instead use [[interpreters]].</li></ul><h1 id=declaring-a-variable-in-c><code>Declaring</code> a Variable in <code>C#</code><a hidden class=anchor aria-hidden=true href=#declaring-a-variable-in-c>#</a></h1><ul><li><p>[[modifier(s)]] type variableName;</p><ul><li>[[public]]</li><li>[[private]]</li><li>[[static]]</li><li>[[internal]]</li><li>[[virtual]]</li></ul></li><li><p>We will return to access modifiers later, for now we can avoid using them in basic examples.</p></li><li><p>We tell the compiler what [[type]] we need first.</p></li><li><p>We then tell it the [[variableName]] to assign to it.</p></li></ul><h1 id=assign-a-variable-in-c><code>Assign</code> a Variable in <code>C#</code><a hidden class=anchor aria-hidden=true href=#assign-a-variable-in-c>#</a></h1><ul><li><p>[[type]] [[variableName]] = value;</p></li><li><p>We can assign a value upon creating the variable.</p></li><li><p>Or, we can assign it later on&mldr;</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C# data-lang=C#><span style=display:flex><span>type variableName;     <span style=color:#75715e>// &lt;= Initialize</span>
-</span></span><span style=display:flex><span>variableName = <span style=color:#66d9ef>value</span>; <span style=color:#75715e>// &lt;= Assign</span>
-</span></span></code></pre></div><ul><li>When we assign a value, you need to give it a valid value for its [[type]]:</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C# data-lang=C#><span style=display:flex><span><span style=color:#66d9ef>int</span> myInteger = <span style=color:#ae81ff>5</span>;
-</span></span></code></pre></div><ul><li>The assigned value must suit the variable type upon assignment.</li><li>Type safety in C# will ensure this.</li><li>Examples below would cause an error:</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C# data-lang=C#><span style=display:flex><span><span style=color:#66d9ef>int</span> myInteger = <span style=color:#ae81ff>3.5</span>;   <span style=color:#75715e>// &lt;= Should be a double</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> myInteger = <span style=color:#e6db74>&#34;5&#34;</span>;   <span style=color:#75715e>// &lt;= Should be a string</span>
-</span></span></code></pre></div><h1 id=creating-a-list-in-c>Creating a <code>List</code> in <code>C#</code><a hidden class=anchor aria-hidden=true href=#creating-a-list-in-c>#</a></h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C# data-lang=C#><span style=display:flex><span>List&lt;<span style=color:#66d9ef>int</span>&gt;()myList = <span style=color:#66d9ef>new</span> List&lt;<span style=color:#66d9ef>int</span>&gt;();
-</span></span></code></pre></div><ul><li>We can also declare a list and store objects to is:</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C# data-lang=C#><span style=display:flex><span>List&lt;<span style=color:#66d9ef>int</span>&gt;()myList = <span style=color:#66d9ef>new</span> List&lt;<span style=color:#66d9ef>int</span>&gt;(){<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>3</span>};
-</span></span></code></pre></div><ul><li>We will come back to the braces later.</li></ul><h1 id=making-use-of-var>Making use of <code>var</code><a hidden class=anchor aria-hidden=true href=#making-use-of-var>#</a></h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C# data-lang=C#><span style=display:flex><span><span style=color:#66d9ef>var</span> myList = <span style=color:#66d9ef>new</span> List&lt;<span style=color:#66d9ef>int</span>&gt;();
-</span></span></code></pre></div><ul><li>If the value being assigned on the right implies a specific type, we can instead use the var keyword to simplify our code. This is generally best practice.</li><li>However, if the right side is ambiguous, declare the type on the left. This will matter when we learn about <strong>class inheritance</strong>.</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C# data-lang=C#><span style=display:flex><span><span style=color:#66d9ef>var</span> myList = <span style=color:#66d9ef>new</span> List&lt;<span style=color:#66d9ef>object</span>&gt;();
-</span></span></code></pre></div><ul><li><strong>Object</strong> is a special type which allows the storage of many things. It can be a useful but ambiguous return type for functions and classes through which you might need to pass many things in/out of.</li><li>We will learn in a later lesson about type casting, where the object class can be a useful intermediate type to take advantage of.</li></ul><h1 id=inheritance-101><code>Inheritance</code> 101<a hidden class=anchor aria-hidden=true href=#inheritance-101>#</a></h1><ul><li>The <strong>RevitAPI</strong> uses a lot of class inheritance.</li></ul><p><strong>Metaphorical example:</strong></p><ul><li>Dogs and Cats are both Animals</li><li>Dogs are not Cats</li><li>Cats are not Dogs</li><li>But the they both inherit the Animal</li></ul><p><strong>RevitAPI Example:</strong></p><ul><li><p>Views and Floors are both Elements</p></li><li><p>Views are not Floors</p></li><li><p>Floors are not Views</p></li><li><p>But they both inherit the Element</p><ul><li><p>Elements have an Element<strong>ID</strong> property</p></li><li><p>Views and Floors have an Element<strong>ID</strong> from Element Class</p><ul><li>Floors have a SlabShapeEditor</li><li>Elements DO NOT</li><li>Views DO NOT</li></ul></li></ul></li></ul><h1 id=basic-type-checking>Basic <code>Type</code> Checking<a hidden class=anchor aria-hidden=true href=#basic-type-checking>#</a></h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C# data-lang=C#><span style=display:flex><span><span style=color:#66d9ef>object</span> <span style=color:#66d9ef>is</span> type variableName
-</span></span></code></pre></div><ul><li>This syntax can be used to logically check if an object is or inherits a specific type/class.</li><li>We can assign a variable to this object as that type in a statement (e.g. if) to locally work with it as that type instead.</li></ul><h1 id=we-now-have>We now have&mldr;<a hidden class=anchor aria-hidden=true href=#we-now-have>#</a></h1><p>A basic understanding of:</p><ul><li>How <code>computation</code> works,</li><li>Basic <code>variable</code> types/classes</li><li>How to <code>declare</code> variables</li><li>How to <code>assign</code> variables</li><li><code>Inheritance</code></li></ul><p>We will be applying these concepts soon.</p><blockquote><p>These tutorials were inspired by the work of <a href=https://www.youtube.com/@AussieBIMGuru>Aussie BIM Guru</a>. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.</p></blockquote></div><footer class=post-footer><ul class=post-tags><li><a href=https://blog.aydrafting.com/tags/c%23/>C#</a></li><li><a href=https://blog.aydrafting.com/tags/revit/>Revit</a></li><li><a href=https://blog.aydrafting.com/tags/tutorial/>Tutorial</a></li></ul><nav class=paginav><a class=prev href=https://blog.aydrafting.com/posts/post-4/><span class=title>« Prev</span><br><span>C# + Revit API: Lesson 4 - Logical Operators</span>
-</a><a class=next href=https://blog.aydrafting.com/posts/post-2/><span class=title>Next »</span><br><span>C# + Revit API: Lesson 2 - Bits & Bytes, ASCII Table, Pointers & Structs - Programming 101</span></a></nav></footer></article></main><footer class=footer><span>© 2025 AYDrafting. All rights reserved.</span> ·
-<span>Powered by
-<a href=https://aydrafting.com/ rel="noopener noreferrer" target=_blank>AYDrafting</a> &
-<a href=https://github.com/aydimir95/ rel=noopener target=_blank>GitHub</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+&lsquo;a&rsquo;, &lsquo;b&rsquo;, &lsquo;c&rsquo;, etc.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://127.0.0.1:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "C# + Revit API: Lesson 3 - Fundamental Types of Data in C#",
+      "item": "http://127.0.0.1:1313/posts/post-3/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C# + Revit API: Lesson 3 - Fundamental Types of Data in C#",
+  "name": "C# \u002b Revit API: Lesson 3 - Fundamental Types of Data in C#",
+  "description": "Boolean bool true (1) false (0) Integer int Whole number:\n1, 2, 3, etc.\nNumbers come in different formats but by default they are signable (can be negative).\nTypically, they use 32 bits based.\nDouble double Decimal number:\n0.0, 1.5, 6.592, -5.00, etc.\nDoubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.\nCharacters char \u0026lsquo;a\u0026rsquo;, \u0026lsquo;b\u0026rsquo;, \u0026lsquo;c\u0026rsquo;, etc.\n",
+  "keywords": [
+    "C#", "Revit", "Tutorial"
+  ],
+  "articleBody": "Boolean bool true (1) false (0) Integer int Whole number:\n1, 2, 3, etc.\nNumbers come in different formats but by default they are signable (can be negative).\nTypically, they use 32 bits based.\nDouble double Decimal number:\n0.0, 1.5, 6.592, -5.00, etc.\nDoubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.\nCharacters char ‘a’, ‘b’, ‘c’, etc.\nChars store a single character (which can be a number - it is ASCII based behind the scenes). They use 1 byte (8 bits).\nStrings str “string”, “example”, etc.\nStrings are technically an array of characters (a consecutive set of [[chars]] in memory). They are abstracted for us in C#, and you might sometimes see them called a [[char*]] (CharStar).\nNull pointer null Always written as [[null]]\nNulls are a special object that points to the first byte in memory. It represents an absence of data and may commonly be caused through an error or exception.\nNullable Types Most objects you use will be [[Nullable]], in that they can be represented and set to [[null]]. [[Integers]] are an example of a type which cannot be set to [[null]] unless you declare them as [[nullable]] (which makes them a different type). Revit API Classes are generally nullable. Lists or Arrays? [[Arrays]] are important for memory management eventually, but I recommend skipping the use of them initially.\nThe Revit API generally works with [[Lists]].\n[[Lists]] - differ to [[arrays]] in that we can add additional objects to them, whereas [[arrays]] have a fixed size upon creation.\nWe will learn about [[Lists]] later.\nCompiling Generally, [[C#]] code will be faster than languages such as [[Python]] as it is compiled before execution. Compiling refers to the conversion of written code into machine code (1’s and 0’s). When we build our solution before running it, it is turning our code into a [[Dynamic Linked Library]] ([[DLL]]) which is executed by the application. Languages like [[Python]] instead use [[interpreters]]. Declaring a Variable in C# [[modifier(s)]] type variableName;\n[[public]] [[private]] [[static]] [[internal]] [[virtual]] We will return to access modifiers later, for now we can avoid using them in basic examples.\nWe tell the compiler what [[type]] we need first.\nWe then tell it the [[variableName]] to assign to it.\nAssign a Variable in C# [[type]] [[variableName]] = value;\nWe can assign a value upon creating the variable.\nOr, we can assign it later on…\ntype variableName; // \u003c= Initialize variableName = value; // \u003c= Assign When we assign a value, you need to give it a valid value for its [[type]]: int myInteger = 5; The assigned value must suit the variable type upon assignment. Type safety in C# will ensure this. Examples below would cause an error: int myInteger = 3.5; // \u003c= Should be a double int myInteger = \"5\"; // \u003c= Should be a string Creating a List in C# List\u003cint\u003e()myList = new List\u003cint\u003e(); We can also declare a list and store objects to is: List\u003cint\u003e()myList = new List\u003cint\u003e(){1,2,3}; We will come back to the braces later. Making use of var var myList = new List\u003cint\u003e(); If the value being assigned on the right implies a specific type, we can instead use the var keyword to simplify our code. This is generally best practice. However, if the right side is ambiguous, declare the type on the left. This will matter when we learn about class inheritance. var myList = new List\u003cobject\u003e(); Object is a special type which allows the storage of many things. It can be a useful but ambiguous return type for functions and classes through which you might need to pass many things in/out of. We will learn in a later lesson about type casting, where the object class can be a useful intermediate type to take advantage of. Inheritance 101 The RevitAPI uses a lot of class inheritance. Metaphorical example:\nDogs and Cats are both Animals Dogs are not Cats Cats are not Dogs But the they both inherit the Animal RevitAPI Example:\nViews and Floors are both Elements\nViews are not Floors\nFloors are not Views\nBut they both inherit the Element\nElements have an ElementID property\nViews and Floors have an ElementID from Element Class\nFloors have a SlabShapeEditor Elements DO NOT Views DO NOT Basic Type Checking object is type variableName This syntax can be used to logically check if an object is or inherits a specific type/class. We can assign a variable to this object as that type in a statement (e.g. if) to locally work with it as that type instead. We now have… A basic understanding of:\nHow computation works, Basic variable types/classes How to declare variables How to assign variables Inheritance We will be applying these concepts soon.\nThese tutorials were inspired by the work of Aussie BIM Guru. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.\n",
+  "wordCount" : "827",
+  "inLanguage": "en",
+  "image": "http://127.0.0.1:1313/LogoAYD.png","datePublished": "2025-08-06T14:29:29+03:00",
+  "dateModified": "2025-08-06T14:29:29+03:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://127.0.0.1:1313/posts/post-3/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://127.0.0.1:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        
+        <div class="logo">
+            <a href="http://127.0.0.1:1313/" accesskey="h" title="Blog (Alt + H)">Blog</a>
+        </div>
+
+        
+        <div class="logo main-logo">
+            <a href="https://aydrafting.com" target="_blank">
+                <img src="/LogoAYD.png" alt="Blog" height="40">
+            </a>
+        </div>
+
+        
+        <div class="logo-switches">
+            <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://127.0.0.1:1313/">Home</a>&nbsp;»&nbsp;<a href="http://127.0.0.1:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      C# &#43; Revit API: Lesson 3 - Fundamental Types of Data in C#
+    </h1>
+    <div class="post-meta"><span title='2025-08-06 14:29:29 +0300 MSK'>August 6, 2025</span>&nbsp;·&nbsp;4 min&nbsp;|&nbsp;<a href="mailto:aydimir@aydrafting.com/posts/Post%20%e2%84%963.md" rel="noopener noreferrer edit" target="_blank">Suggest Changes</a>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#boolean-bool" aria-label="Boolean bool">Boolean bool</a></li>
+                <li>
+                    <a href="#integer-int" aria-label="Integer int">Integer int</a></li>
+                <li>
+                    <a href="#double-double" aria-label="Double double">Double double</a></li>
+                <li>
+                    <a href="#characters-char" aria-label="Characters char">Characters char</a></li>
+                <li>
+                    <a href="#strings-str" aria-label="Strings str">Strings str</a></li>
+                <li>
+                    <a href="#null-pointer-null" aria-label="Null pointer null">Null pointer null</a></li>
+                <li>
+                    <a href="#nullable-types" aria-label="Nullable Types">Nullable Types</a></li>
+                <li>
+                    <a href="#lists-or-arrays" aria-label="Lists or Arrays?">Lists or Arrays?</a></li>
+                <li>
+                    <a href="#compiling" aria-label="Compiling">Compiling</a></li>
+                <li>
+                    <a href="#declaring-a-variable-in-c" aria-label="Declaring a Variable in C#">Declaring a Variable in C#</a></li>
+                <li>
+                    <a href="#assign-a-variable-in-c" aria-label="Assign a Variable in C#">Assign a Variable in C#</a></li>
+                <li>
+                    <a href="#creating-a-list-in-c" aria-label="Creating a List in C#">Creating a List in C#</a></li>
+                <li>
+                    <a href="#making-use-of-var" aria-label="Making use of var">Making use of var</a></li>
+                <li>
+                    <a href="#inheritance-101" aria-label="Inheritance 101">Inheritance 101</a></li>
+                <li>
+                    <a href="#basic-type-checking" aria-label="Basic Type Checking">Basic Type Checking</a></li>
+                <li>
+                    <a href="#we-now-have" aria-label="We now have&hellip;">We now have&hellip;</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="boolean-bool">Boolean <code>bool</code><a hidden class="anchor" aria-hidden="true" href="#boolean-bool">#</a></h1>
+<ul>
+<li>true (1)</li>
+<li>false (0)</li>
+</ul>
+<h1 id="integer-int">Integer <code>int</code><a hidden class="anchor" aria-hidden="true" href="#integer-int">#</a></h1>
+<ul>
+<li>
+<p>Whole number:</p>
+</li>
+<li>
+<p>1, 2, 3, etc.</p>
+</li>
+<li>
+<p>Numbers come in different formats but by default they are signable (can be negative).</p>
+</li>
+<li>
+<p>Typically, they use 32 bits based.</p>
+</li>
+</ul>
+<h1 id="double-double">Double <code>double</code><a hidden class="anchor" aria-hidden="true" href="#double-double">#</a></h1>
+<ul>
+<li>
+<p>Decimal number:</p>
+</li>
+<li>
+<p>0.0, 1.5, 6.592, -5.00, etc.</p>
+</li>
+<li>
+<p>Doubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.</p>
+</li>
+</ul>
+<h1 id="characters-char">Characters <code>char</code><a hidden class="anchor" aria-hidden="true" href="#characters-char">#</a></h1>
+<ul>
+<li>
+<p>&lsquo;a&rsquo;, &lsquo;b&rsquo;, &lsquo;c&rsquo;, etc.</p>
+</li>
+<li>
+<p>Chars store a single character (which can be a number - it is ASCII based behind the scenes). They use 1 byte (8 bits).</p>
+</li>
+</ul>
+<h1 id="strings-str">Strings <code>str</code><a hidden class="anchor" aria-hidden="true" href="#strings-str">#</a></h1>
+<ul>
+<li>
+<p>&ldquo;string&rdquo;, &ldquo;example&rdquo;, etc.</p>
+</li>
+<li>
+<p>Strings are technically an array of characters (a consecutive set of [[chars]] in memory). They are abstracted for us in C#, and you might sometimes see them called a [[char*]] (CharStar).</p>
+</li>
+</ul>
+<h1 id="null-pointer-null">Null pointer <code>null</code><a hidden class="anchor" aria-hidden="true" href="#null-pointer-null">#</a></h1>
+<ul>
+<li>
+<p>Always written as [[null]]</p>
+</li>
+<li>
+<p>Nulls are a special object that points to the first byte in memory. It represents an absence of data and may commonly be caused through an error or exception.</p>
+</li>
+</ul>
+<h1 id="nullable-types"><code>Nullable</code> Types<a hidden class="anchor" aria-hidden="true" href="#nullable-types">#</a></h1>
+<ul>
+<li>Most objects you use will be [[Nullable]], in that they can be represented and set to [[null]].</li>
+<li>[[Integers]] are an example of a type which cannot be set to [[null]] unless you declare them as [[nullable]] (which makes them a different type).</li>
+<li>Revit API Classes are generally nullable.</li>
+</ul>
+<h1 id="lists-or-arrays"><code>Lists</code> or <code>Arrays</code>?<a hidden class="anchor" aria-hidden="true" href="#lists-or-arrays">#</a></h1>
+<ul>
+<li>
+<p>[[Arrays]] are important for memory management eventually, but I recommend skipping the use of them initially.</p>
+</li>
+<li>
+<p>The Revit API generally works with [[Lists]].</p>
+</li>
+<li>
+<p>[[Lists]] - differ to [[arrays]] in that we can add additional objects to them, whereas [[arrays]] have a fixed size upon creation.</p>
+</li>
+<li>
+<p>We will learn about [[Lists]] later.</p>
+</li>
+</ul>
+<h1 id="compiling"><code>Compiling</code><a hidden class="anchor" aria-hidden="true" href="#compiling">#</a></h1>
+<ul>
+<li>Generally, [[C#]] code will be faster than languages such as [[Python]] as it is compiled before execution.</li>
+<li>Compiling refers to the conversion of written code into machine code (1&rsquo;s and 0&rsquo;s).</li>
+<li>When we build our solution before running it, it is turning our code into a [[Dynamic Linked Library]] ([[DLL]]) which is executed by the application.</li>
+<li>Languages like [[Python]] instead use [[interpreters]].</li>
+</ul>
+<h1 id="declaring-a-variable-in-c"><code>Declaring</code> a Variable in <code>C#</code><a hidden class="anchor" aria-hidden="true" href="#declaring-a-variable-in-c">#</a></h1>
+<ul>
+<li>
+<p>[[modifier(s)]] type variableName;</p>
+<ul>
+<li>[[public]]</li>
+<li>[[private]]</li>
+<li>[[static]]</li>
+<li>[[internal]]</li>
+<li>[[virtual]]</li>
+</ul>
+</li>
+<li>
+<p>We will return to access modifiers later, for now we can avoid using them in basic examples.</p>
+</li>
+<li>
+<p>We tell the compiler what [[type]] we need first.</p>
+</li>
+<li>
+<p>We then tell it the [[variableName]] to assign to it.</p>
+</li>
+</ul>
+<h1 id="assign-a-variable-in-c"><code>Assign</code> a Variable in <code>C#</code><a hidden class="anchor" aria-hidden="true" href="#assign-a-variable-in-c">#</a></h1>
+<ul>
+<li>
+<p>[[type]] [[variableName]] = value;</p>
+</li>
+<li>
+<p>We can assign a value upon creating the variable.</p>
+</li>
+<li>
+<p>Or, we can assign it later on&hellip;</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C#" data-lang="C#"><span style="display:flex;"><span>type variableName;     <span style="color:#75715e">// &lt;= Initialize</span>
+</span></span><span style="display:flex;"><span>variableName = <span style="color:#66d9ef">value</span>; <span style="color:#75715e">// &lt;= Assign</span>
+</span></span></code></pre></div><ul>
+<li>When we assign a value, you need to give it a valid value for its [[type]]:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C#" data-lang="C#"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> myInteger = <span style="color:#ae81ff">5</span>;
+</span></span></code></pre></div><ul>
+<li>The assigned value must suit the variable type upon assignment.</li>
+<li>Type safety in C# will ensure this.</li>
+<li>Examples below would cause an error:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C#" data-lang="C#"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> myInteger = <span style="color:#ae81ff">3.5</span>;   <span style="color:#75715e">// &lt;= Should be a double</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> myInteger = <span style="color:#e6db74">&#34;5&#34;</span>;   <span style="color:#75715e">// &lt;= Should be a string</span>
+</span></span></code></pre></div><h1 id="creating-a-list-in-c">Creating a <code>List</code> in <code>C#</code><a hidden class="anchor" aria-hidden="true" href="#creating-a-list-in-c">#</a></h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C#" data-lang="C#"><span style="display:flex;"><span>List&lt;<span style="color:#66d9ef">int</span>&gt;()myList = <span style="color:#66d9ef">new</span> List&lt;<span style="color:#66d9ef">int</span>&gt;();
+</span></span></code></pre></div><ul>
+<li>We can also declare a list and store objects to is:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C#" data-lang="C#"><span style="display:flex;"><span>List&lt;<span style="color:#66d9ef">int</span>&gt;()myList = <span style="color:#66d9ef">new</span> List&lt;<span style="color:#66d9ef">int</span>&gt;(){<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>};
+</span></span></code></pre></div><ul>
+<li>We will come back to the braces later.</li>
+</ul>
+<h1 id="making-use-of-var">Making use of <code>var</code><a hidden class="anchor" aria-hidden="true" href="#making-use-of-var">#</a></h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C#" data-lang="C#"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> myList = <span style="color:#66d9ef">new</span> List&lt;<span style="color:#66d9ef">int</span>&gt;();
+</span></span></code></pre></div><ul>
+<li>If the value being assigned on the right implies a specific type, we can instead use the var keyword to simplify our code. This is generally best practice.</li>
+<li>However, if the right side is ambiguous, declare the type on the left. This will matter when we learn about <strong>class inheritance</strong>.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C#" data-lang="C#"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> myList = <span style="color:#66d9ef">new</span> List&lt;<span style="color:#66d9ef">object</span>&gt;();
+</span></span></code></pre></div><ul>
+<li><strong>Object</strong> is a special type which allows the storage of many things. It can be a useful but ambiguous return type for functions and classes through which you might need to pass many things in/out of.</li>
+<li>We will learn in a later lesson about type casting, where the object class can be a useful intermediate type to take advantage of.</li>
+</ul>
+<h1 id="inheritance-101"><code>Inheritance</code> 101<a hidden class="anchor" aria-hidden="true" href="#inheritance-101">#</a></h1>
+<ul>
+<li>The <strong>RevitAPI</strong> uses a lot of class inheritance.</li>
+</ul>
+<p><strong>Metaphorical example:</strong></p>
+<ul>
+<li>Dogs and Cats are both Animals</li>
+<li>Dogs are not Cats</li>
+<li>Cats are not Dogs</li>
+<li>But the they both inherit the Animal</li>
+</ul>
+<p><strong>RevitAPI Example:</strong></p>
+<ul>
+<li>
+<p>Views and Floors are both Elements</p>
+</li>
+<li>
+<p>Views are not Floors</p>
+</li>
+<li>
+<p>Floors are not Views</p>
+</li>
+<li>
+<p>But they both inherit the Element</p>
+<ul>
+<li>
+<p>Elements have an Element<strong>ID</strong> property</p>
+</li>
+<li>
+<p>Views and Floors have an Element<strong>ID</strong> from Element Class</p>
+<ul>
+<li>Floors have a SlabShapeEditor</li>
+<li>Elements DO NOT</li>
+<li>Views DO NOT</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="basic-type-checking">Basic <code>Type</code> Checking<a hidden class="anchor" aria-hidden="true" href="#basic-type-checking">#</a></h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C#" data-lang="C#"><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#66d9ef">is</span> type variableName
+</span></span></code></pre></div><ul>
+<li>This syntax can be used to logically check if an object is or inherits a specific type/class.</li>
+<li>We can assign a variable to this object as that type in a statement (e.g. if) to locally work with it as that type instead.</li>
+</ul>
+<h1 id="we-now-have">We now have&hellip;<a hidden class="anchor" aria-hidden="true" href="#we-now-have">#</a></h1>
+<p>A basic understanding of:</p>
+<ul>
+<li>How <code>computation</code> works,</li>
+<li>Basic <code>variable</code> types/classes</li>
+<li>How to <code>declare</code> variables</li>
+<li>How to <code>assign</code> variables</li>
+<li><code>Inheritance</code></li>
+</ul>
+<p>We will be applying these concepts soon.</p>
+<blockquote>
+<p>These tutorials were inspired by the work of <a href="https://www.youtube.com/@AussieBIMGuru">Aussie BIM Guru</a>. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.</p></blockquote>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://127.0.0.1:1313/tags/c%23/">C#</a></li>
+      <li><a href="http://127.0.0.1:1313/tags/revit/">Revit</a></li>
+      <li><a href="http://127.0.0.1:1313/tags/tutorial/">Tutorial</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://127.0.0.1:1313/posts/post-4/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>C# &#43; Revit API: Lesson 4 - Logical Operators</span>
+  </a>
+  <a class="next" href="http://127.0.0.1:1313/posts/post-2/">
+    <span class="title">Next »</span>
+    <br>
+    <span>C# &#43; Revit API: Lesson 2 - Bits &amp; Bytes, ASCII Table, Pointers &amp; Structs - Programming 101</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>© 2025 AYDrafting. All rights reserved.</span> · 
+
+    <span>
+        Powered by
+        <a href="https://aydrafting.com/" rel="noopener noreferrer" target="_blank">AYDrafting</a> &
+        <a href="https://github.com/aydimir95/" rel="noopener" target="_blank">GitHub</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
