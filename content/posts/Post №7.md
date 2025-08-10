@@ -443,15 +443,15 @@ When you run `StartupCommand`, you’ll still get your original workflow, but no
 
 ---
 # 5. Methods
-A **method** is an action your `class` can perform.
+A **method** is an action your class can perform.
 
-While **properties** store data, **methods** usually _do something_ — either with the data in the class or with arguments you pass to them.
+Think of it this way:
+- **Properties** = what the object **is** (its data).
+- **Methods** = what the object **does** (its behavior).
 
-- You **call** a method in a similar way to accessing a property, but methods can take **arguments** (optional) and can run multiple lines of logic.
-    
-- Instead of declaring a _type_ (like a property), you declare a `return` **type** — the type of value the method sends back to you when it finishes.
-    
-- If the method doesn’t return anything, use the `void` keyword as the return type.
+Key points:
+- Methods can take **arguments** (optional).
+- Methods have a **return type**. If they return nothing, use void.
 
 ### Declaring a method
 ```C#
@@ -460,32 +460,215 @@ class ClassName
     modifiers returnType MethodName(optionalArguments)
     {
         // Code logic here
-        return objectOfType; // Only if the method returns a value
+        return objectOfType; // omit if return type is void
     }
 }
 ```
-### Example:
+## Example (continuing our SheetResult)
+
+- We’ll extend SheetResult with a method that **formats** its data for display.
+- This reinforces: **field + property + constructor + method** working together.
 ```C#
-public class Calculator
+using Autodesk.Revit.UI;
+
+namespace guRoo.Forms
 {
-    public int Add(int a, int b)
+    // ------- CALLER (static helper you can invoke from your command) -------
+    public static class Custom
     {
-        return a + b; // Returns the sum
+        public static void ShowSheetResultDemo()
+        {
+            var s1 = new SheetResult();                               // generic ctor
+            var s2 = new SheetResult("A101 - Floor Plan", "S-001");   // specific ctor
+
+            // Call a METHOD that uses the properties/field
+            TaskDialog.Show("Methods Demo",
+                $"s1 label: {s1.FormatLabel()}\n" +
+                $"s2 label: {s2.FormatLabel()}");
+        }
     }
 
-    public void ShowMessage(string message)
+    // ------- DATA MODEL (class with properties, field, constructors, methods) -------
+    public class SheetResult
     {
-        Console.WriteLine(message); // Returns nothing (void)
+        // Properties
+        public string SheetName { get; set; } // auto-property
+
+        // Private field + property with simple validation
+        private string _sheetNumber;          // field (camelCase with leading underscore is common)
+        public string SheetNumber
+        {
+            get => _sheetNumber;
+            set => _sheetNumber = string.IsNullOrWhiteSpace(value) ? "No Number" : value;
+        }
+
+        // Constructors
+        public SheetResult()
+        {
+            SheetName = "Untitled Sheet";
+            SheetNumber = "No Number";
+        }
+
+        public SheetResult(string sheetName, string sheetNumber = "No Number")
+        {
+            SheetName = sheetName;
+            SheetNumber = sheetNumber;
+        }
+
+        // METHODS
+        // Returns a formatted label combining the properties
+        public string FormatLabel()
+        {
+            return $"{SheetNumber} - {SheetName}";
+        }
+
+        // Example of a void method that changes state (optional)
+        public void Rename(string newName)
+        {
+            SheetName = string.IsNullOrWhiteSpace(newName) ? SheetName : newName;
+        }
     }
 }
 ```
 
 ### Homework
+- Create a `class`
 - Add some `properties` 
+- Give it a `constructor`
 - Demonstrate how to use a `field`
 - Demonstrate how to make a `method`
-- Call on our `class` in some code
+- Reference  our `class` in another part of your code base
 
+
+### Solution
+
+#### `Custom.cs`
+```C#
+using System.Collections.Generic;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+
+namespace guRoo.Forms
+{
+    public class FormResult
+    {
+        // ====== Field + wrapped property (best practice) ======
+        private bool _cancelled;
+        public bool ExampleCancelled
+        {
+            get => _cancelled;
+            set => _cancelled = value;
+        }
+
+        // ====== Properties ======
+        public object Payload { get; set; }
+        public List<object> Items { get; set; }
+        public bool Cancelled { get; set; }
+        public bool Valid { get; set; }
+        public bool Affirmative { get; set; }
+
+        // ====== Constructors ======
+        public FormResult()
+        {
+            Payload = null;
+            Items = new List<object>();
+            _cancelled = true;
+            Cancelled = true;
+            Valid = false;
+            Affirmative = false;
+        }
+
+        public FormResult(bool isValid)
+        {
+            Payload = null;
+            Items = new List<object>();
+            _cancelled = !isValid;
+            Cancelled = !isValid;
+            Valid = isValid;
+            Affirmative = isValid;
+        }
+
+        // ====== Methods ======
+
+        // Change state to invalid
+        public void SetToInvalid()
+        {
+            _cancelled = true;
+            Cancelled = true;
+            Valid = false;
+            Affirmative = false;
+        }
+
+        // Summary for debugging or UI
+        public string Summary() =>
+            $"Valid: {Valid}, Cancelled: {Cancelled}, Affirmative: {Affirmative}, Items: {Items.Count}";
+
+        // Real-world method: tries to create a sheet based on form state
+        public string TryCreateSheet(Document doc)
+        {
+            if (!Valid || Cancelled)
+                return "Form is invalid or cancelled. No sheet created.";
+
+            // Grab first available title block
+            ElementId titleBlockId = new FilteredElementCollector(doc)
+                .OfCategory(BuiltInCategory.OST_TitleBlocks)
+                .WhereElementIsElementType()
+                .FirstElementId();
+
+            if (titleBlockId == ElementId.InvalidElementId)
+                return "No title block types found. Cannot create sheet.";
+
+            using (Transaction tx = new Transaction(doc, "Create Sheet"))
+            {
+                tx.Start();
+                ViewSheet.Create(doc, titleBlockId);
+                tx.Commit();
+            }
+
+            return "Sheet created successfully!";
+        }
+    }
+}
+```
+
+#### `StartCommand.cs`
+```C#
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using Nice3point.Revit.Toolkit.External;
+using gFrm = guRoo.Forms;
+
+namespace guRoo.Commands
+{
+    [UsedImplicitly]
+    [Transaction(TransactionMode.Manual)]
+    public class StartupCommand : ExternalCommand
+    {
+        public override void Execute()
+        {
+            // Example 1: Default constructor (invalid form)
+            // var formResult = new gFrm.FormResult();
+
+            // Example 2: Affirmative constructor (valid form)
+            var formResult = new gFrm.FormResult(true);
+
+            // Attach the Revit Document to our form object
+            formResult.Payload = Document;
+
+            // Optionally, flip it to invalid to test
+            // formResult.SetToInvalid();
+
+            // Try to create the sheet
+            string operationResult = formResult.TryCreateSheet(Document);
+
+            // Show result to the user
+            TaskDialog.Show("Form + Sheet Creation",
+                formResult.Summary() + "\n\n" + operationResult);
+        }
+    }
+}
+```
 ### Disposal
 - Later on, we will look into other things we can make use of, such as specifying what happens to our class instances when they are `disposed`.
 - Generally, an object will be `disposed` when it us not needed anymore. The compiler tracks and determines when this occurs for us, but we can also manually dispose of or with the disposal of objects.

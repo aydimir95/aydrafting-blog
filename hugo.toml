@@ -27,6 +27,11 @@ enableRobotsTXT = true
 canonifyURLs = true
 enableEmoji = true
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 # OpenGraph and Twitter Card metadata
 [params.editPost]
 URL = "mailto:aydimir@aydrafting.com"

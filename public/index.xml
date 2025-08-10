@@ -1,364 +1,505 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Fri, 08 Aug 2025 13:06:57 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 7 - Introduction to Classes</title><link>https://blog.aydrafting.com/posts/post-7/</link><pubDate>Fri, 08 Aug 2025 13:06:57 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-7/</guid><description>&lt;h1 id="1-introduction">1. Introduction&lt;/h1>
-&lt;h3 id="project-folder-structure">Project Folder Structure&lt;/h3>
-&lt;ol>
-&lt;li>Commands&lt;/li>
-&lt;li>Extensions&lt;/li>
-&lt;li>Forms&lt;/li>
-&lt;li>General&lt;/li>
-&lt;li>Resources&lt;/li>
-&lt;li>Utilities
-&lt;em>These are &lt;code>folders&lt;/code> which contain various files that our toolbar will utilize.&lt;/em>&lt;/li>
-&lt;/ol>
-&lt;ul>
-&lt;li>&lt;em>Note that these are not necessarily aligned with &lt;code>namespaces&lt;/code> (which will be covered later)&lt;/em>&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h1 id="2-what-is-a-class">2. What is a Class?&lt;/h1>
-&lt;ol>
-&lt;li>In C#, classes are templates related to the creation and management of objects. There are many predefined &lt;code>classes&lt;/code> available in C# and the Revit API.&lt;/li>
-&lt;li>We use them for a wide range of things and will regularly be creating and developing our own classes.&lt;/li>
-&lt;/ol>
-&lt;hr>
-&lt;h3 id="accessing-properties--methods-of-a-class">Accessing properties / methods of a Class&lt;/h3>
-&lt;ol>
-&lt;li>Property:
-&lt;ol>
-&lt;li>&lt;code>object.Property&lt;/code> -&amp;gt; to access a property&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Method:
-&lt;ol>
-&lt;li>&lt;code>Object.Method(argument1, argument2, etc)&lt;/code> -&amp;gt; to access a method&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;h3 id="namespaces">Namespaces&lt;/h3>
-&lt;ol>
-&lt;li>When we create classes, we first tell them where they belong in our project.&lt;/li>
-&lt;li>&lt;code>Namespaces&lt;/code> can be nested within others using a dot separator, eventually tied back to our &lt;code>.addin&lt;/code> namespace.&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// Revit API&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">using&lt;/span> Autodesk.Revit.Attributes;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">using&lt;/span> Autodesk.Revit.UI;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// geeWiz - internal project objects&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">using&lt;/span> geeWiz.Extensions;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">using&lt;/span> geeWiz = geeWiz.Forms;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">using&lt;/span> geeWiz = geeWiz.Utilities.Workshare_Utils;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// The class belongs to the Commands namespace&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">namespace&lt;/span> geeWiz.Cmds_Audit
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Cmd_DeletePatterns&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Cmd_PurgeRooms&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Cmd_PurgeTemplates&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Cmd_PurgeFilters&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="basic-class-anatomy">Basic Class Anatomy&lt;/h3>
-&lt;ol>
-&lt;li>&lt;code>modifers class ClassName : Interface(s)&lt;/code>
-&lt;ol>
-&lt;li>Constructor (optional)&lt;/li>
-&lt;li>Properties (optional)&lt;/li>
-&lt;li>Methods (optional)&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;ul>
-&lt;li>&lt;code>Access modifiers&lt;/code> control how this code can be accessed inside and outside your project.&lt;/li>
-&lt;li>You will typically need to declare at least on of &lt;em>&lt;strong>&lt;code>public/private&lt;/code>&lt;/strong>&lt;/em>,
-&lt;ul>
-&lt;li>And sometimes &lt;em>&lt;strong>&lt;code>static&lt;/code>&lt;/strong>&lt;/em> for the purposes we will use them for early on.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="static-modifier">&lt;code>Static&lt;/code> Modifier&lt;/h3>
-&lt;ul>
-&lt;li>The &lt;code>static&lt;/code> &lt;code>access&lt;/code> &lt;code>modifier&lt;/code> is a difficult concept to grasp at first, so we will simplify it somewhat.
-&lt;ul>
-&lt;li>Classes with a &lt;code>static&lt;/code> &lt;code>modifier&lt;/code> do not support the creation of &lt;code>objects&lt;/code> of that &lt;code>class&lt;/code> (instantiated).&lt;/li>
-&lt;li>We commonly take advantage of this to create classes which behave more like toolkits, where the class itself acts more like a singe object we can call upon to do things for us.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;blockquote>
-&lt;p>So basically, the &lt;code>Static&lt;/code> &lt;code>modifier&lt;/code> is one instrument that you could use to build a complex script with.&lt;/p></description></item><item><title>C# + Revit API: Lesson 6 - try &amp; catch Statements</title><link>https://blog.aydrafting.com/posts/post-6/</link><pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-6/</guid><description>&lt;h1 id="pseudocode">Pseudocode&lt;/h1>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">try&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span> to &lt;span style="color:#66d9ef">do&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">catch&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#66d9ef">try&lt;/span> gets exception, rollback and &lt;span style="color:#66d9ef">do&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="exceptions">Exceptions&lt;/h2>
-&lt;blockquote>
-&lt;p>Exceptions come in many forms and Revit API Docs typically specifies the types of Exceptions we can catch for its methods. There are also system type exceptions.&lt;/p>&lt;/blockquote>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#75715e">// Exception as &amp;#34;e&amp;#34; to print the error&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> To &lt;span style="color:#66d9ef">catch&lt;/span> a specific exceptions, &lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#66d9ef">as&lt;/span> e;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">catch&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> To &lt;span style="color:#66d9ef">catch&lt;/span> all exceptions, &lt;span style="color:#66d9ef">do&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// but better to catch specific exceptions, &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// otherwise you will catch all necessary and unecessary exceptions.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">finally&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> To run a final code regardless of outcome;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;h2 id="use-dont-abuse">Use Don&amp;rsquo;t Abuse&lt;/h2>
-&lt;blockquote>
-&lt;p>When you first begin using languages, try statements seem great - you can write code, and if you make a mistake your code can continue. THIS IS WRONG!&lt;/p></description></item><item><title>C# + Revit API: Lesson 5 - `if` Statements</title><link>https://blog.aydrafting.com/posts/post-5/</link><pubDate>Wed, 06 Aug 2025 17:36:22 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-5/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#75715e">// Condition&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> run &lt;span style="color:#66d9ef">if&lt;/span> condition &lt;span style="color:#66d9ef">is&lt;/span> &lt;span style="color:#66d9ef">true&lt;/span>;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#75715e">// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> run &lt;span style="color:#66d9ef">if&lt;/span> condition &lt;span style="color:#66d9ef">is&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="else-if-statement">&lt;code>else if&lt;/code> Statement&lt;/h1>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#75715e">// Condition&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> run &lt;span style="color:#66d9ef">if&lt;/span> condition &lt;span style="color:#66d9ef">is&lt;/span> &lt;span style="color:#66d9ef">true&lt;/span>;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#75715e">// Condition&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> run &lt;span style="color:#66d9ef">if&lt;/span> there are more conditions;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#75715e">// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> run &lt;span style="color:#66d9ef">if&lt;/span> condition &lt;span style="color:#66d9ef">is&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="shorthand-if-statements">Shorthand &lt;code>if&lt;/code> Statements&lt;/h1>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C#" data-lang="C#">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">value&lt;/span> = condition?then:&lt;span style="color:#66d9ef">else&lt;/span>;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>Nearly always used for quickly setting another variable to one of two possibilities, using a conditional outcome. Only used if it&amp;rsquo;s a simple one liner task.&lt;/p></description></item><item><title>C# + Revit API: Lesson 4 - Logical Operators</title><link>https://blog.aydrafting.com/posts/post-4/</link><pubDate>Wed, 06 Aug 2025 15:50:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-4/</guid><description>&lt;blockquote>
-&lt;p>They control logic and flow in our tools.
-We will have a good understanding of core statements we can use to build Revit Add-ins.&lt;/p>&lt;/blockquote>
-&lt;h1 id="logical-operators">Logical Operators&lt;/h1>
-&lt;p>&lt;code>x == y&lt;/code> =&amp;gt; &lt;em>true if x is equal to y&lt;/em>
-&lt;code>x != y&lt;/code> =&amp;gt; &lt;em>true if x is not equal to y&lt;/em>
-&lt;code>x &amp;gt; y&lt;/code> =&amp;gt; &lt;em>true if x is greater than y&lt;/em>
-&lt;code>x &amp;lt; y&lt;/code> =&amp;gt; &lt;em>true if x is less than y&lt;/em>
-&lt;code>x &amp;gt;= y&lt;/code> =&amp;gt; &lt;em>true if x greater than or equals to y&lt;/em>
-&lt;code>x &amp;lt;= y&lt;/code> =&amp;gt; &lt;em>true if x less than or equals to y&lt;/em>&lt;/p></description></item><item><title>C# + Revit API: Lesson 3 - Fundamental Types of Data in C#</title><link>https://blog.aydrafting.com/posts/post-3/</link><pubDate>Wed, 06 Aug 2025 14:29:29 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-3/</guid><description>&lt;h1 id="boolean-bool">Boolean &lt;code>bool&lt;/code>&lt;/h1>
-&lt;ul>
-&lt;li>true (1)&lt;/li>
-&lt;li>false (0)&lt;/li>
-&lt;/ul>
-&lt;h1 id="integer-int">Integer &lt;code>int&lt;/code>&lt;/h1>
-&lt;ul>
-&lt;li>
-&lt;p>Whole number:&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>1, 2, 3, etc.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Numbers come in different formats but by default they are signable (can be negative).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Typically, they use 32 bits based.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;h1 id="double-double">Double &lt;code>double&lt;/code>&lt;/h1>
-&lt;ul>
-&lt;li>
-&lt;p>Decimal number:&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>0.0, 1.5, 6.592, -5.00, etc.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Doubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;h1 id="characters-char">Characters &lt;code>char&lt;/code>&lt;/h1>
-&lt;ul>
-&lt;li>
-&lt;p>&amp;lsquo;a&amp;rsquo;, &amp;lsquo;b&amp;rsquo;, &amp;lsquo;c&amp;rsquo;, etc.&lt;/p></description></item><item><title>C# + Revit API: Lesson 2 - Bits &amp; Bytes, ASCII Table, Pointers &amp; Structs - Programming 101</title><link>https://blog.aydrafting.com/posts/post-2/</link><pubDate>Wed, 06 Aug 2025 14:23:14 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-2/</guid><description>&lt;h4 id="i-suggest-taking-cs50-course-to-understand-the-basics-of-programming">I suggest taking &lt;a href="https://pll.harvard.edu/course/cs50-introduction-computer-science">CS50 Course&lt;/a> to understand the basics of Programming&lt;/h4>
-&lt;ol>
-&lt;li>True &amp;amp; False&lt;/li>
-&lt;li>0 and 1&lt;/li>
-&lt;li>Base 2 numbering system&lt;/li>
-&lt;/ol>
-&lt;pre tabindex="0">&lt;code>1 0 1
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Blog</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Blog</description>
+    <image>
+      <title>Blog</title>
+      <url>http://localhost:1313/LogoAYD.png</url>
+      <link>http://localhost:1313/LogoAYD.png</link>
+    </image>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>en-us</language>
+    <copyright>2025 AYDrafting. All rights reserved.</copyright>
+    <lastBuildDate>Fri, 08 Aug 2025 13:53:29 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C# &#43; Revit API: Lesson 9 - </title>
+      <link>http://localhost:1313/posts/post-9/</link>
+      <pubDate>Fri, 08 Aug 2025 13:53:29 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-9/</guid>
+      <description>&lt;h1 id=&#34;2025-08-09&#34;&gt;2025-08-09&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Quick Summary&lt;/strong&gt;: Python: What to learn after basics.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Project List:
+&lt;img alt=&#34;Pasted image 20250809211136.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809211136.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809211308.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809211308.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809211345.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809211345.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809211706.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809211706.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212211.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212211.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212251.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212251.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212330.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212330.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212415.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212415.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212429.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212429.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212609.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212609.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212648.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212648.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212715.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212715.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212743.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212743.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212820.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212820.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212915.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212915.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809212959.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809212959.png&#34;&gt;
+&lt;img alt=&#34;Pasted image 20250809213045.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250809213045.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 8 - Tooltips &amp; Icons -&gt; Extension Methods</title>
+      <link>http://localhost:1313/posts/post-8/</link>
+      <pubDate>Fri, 08 Aug 2025 13:13:50 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-8/</guid>
+      <description>&lt;h1 id=&#34;1-base-command-name&#34;&gt;1. Base Command Name&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Command namespace&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;guRoo.Cmds_GroupName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//Command Class&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;guRoo.Cmds_GroupName.Cmd_CommandName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Preferred method:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;GroupName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;GroupName._CommandName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// The Approach we will use:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;guRoo.Cmds_GroupName.Cmd_CommandName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Remove guRoo.Cmds_&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;GroupName.Cmd_CommandName
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Remove .Cmd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;GrouName_CommandName
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;or-you-can-make-things-even-more-resilient-by-using&#34;&gt;Or you can make things even more resilient by using:&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;typeof&lt;/span&gt;(CommandName).FullName
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;how-to-name-my-resources&#34;&gt;How to Name my Resources&lt;/h3&gt;
+&lt;p&gt;Tooltipkey = base name&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;GroupName
+GroupName_CommandName&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Icons:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;GroupName##
+GroupName_CommandName##&lt;/p&gt;
+&lt;h2 id=&#34;-resolution-in-pixels-16--32px&#34;&gt;=&amp;gt; Resolution in pixels (16 / 32px)&lt;/h2&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;how-we-will-manage-tooltips&#34;&gt;How we will manage &lt;code&gt;Tooltips&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;We will create a &lt;strong&gt;Resources (resx)&lt;/strong&gt; file in C# and embed this into our project. It will be available in memory for our project whilst it runs to access. We will store the tooltip and description as a dictionary of keys and values.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 7 - Introduction to Classes</title>
+      <link>http://localhost:1313/posts/post-7/</link>
+      <pubDate>Fri, 08 Aug 2025 13:06:57 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-7/</guid>
+      <description>&lt;h1 id=&#34;1-introduction&#34;&gt;1. Introduction&lt;/h1&gt;
+&lt;h3 id=&#34;project-folder-structure&#34;&gt;Project Folder Structure&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Commands&lt;/li&gt;
+&lt;li&gt;Extensions&lt;/li&gt;
+&lt;li&gt;Forms&lt;/li&gt;
+&lt;li&gt;General&lt;/li&gt;
+&lt;li&gt;Resources&lt;/li&gt;
+&lt;li&gt;Utilities
+&lt;em&gt;These are &lt;code&gt;folders&lt;/code&gt; which contain various files that our toolbar will utilize.&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Note that these are not necessarily aligned with &lt;code&gt;namespaces&lt;/code&gt; (which will be covered later)&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;2-what-is-a-class&#34;&gt;2. What is a Class?&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;In C#, classes are templates related to the creation and management of objects. There are many predefined &lt;code&gt;classes&lt;/code&gt; available in C# and the Revit API.&lt;/li&gt;
+&lt;li&gt;We use them for a wide range of things and will regularly be creating and developing our own classes.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;accessing-properties--methods-of-a-class&#34;&gt;Accessing properties / methods of a Class&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Property:
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;object.Property&lt;/code&gt; -&amp;gt; to access a property&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Method:
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Object.Method(argument1, argument2, etc)&lt;/code&gt; -&amp;gt; to access a method&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;namespaces&#34;&gt;Namespaces&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;When we create classes, we first tell them where they belong in our project.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Namespaces&lt;/code&gt; can be nested within others using a dot separator, eventually tied back to our &lt;code&gt;.addin&lt;/code&gt; namespace.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Revit API&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Autodesk.Revit.Attributes;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; Autodesk.Revit.UI;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// geeWiz - internal project objects&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; geeWiz.Extensions;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; geeWiz = geeWiz.Forms;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; geeWiz = geeWiz.Utilities.Workshare_Utils;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// The class belongs to the Commands namespace&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;namespace&lt;/span&gt; geeWiz.Cmds_Audit
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Cmd_DeletePatterns&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Cmd_PurgeRooms&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Cmd_PurgeTemplates&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Cmd_PurgeFilters&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;basic-class-anatomy&#34;&gt;Basic Class Anatomy&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;modifers class ClassName : Interface(s)&lt;/code&gt;
+&lt;ol&gt;
+&lt;li&gt;Constructor (optional)&lt;/li&gt;
+&lt;li&gt;Properties (optional)&lt;/li&gt;
+&lt;li&gt;Methods (optional)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Access modifiers&lt;/code&gt; control how this code can be accessed inside and outside your project.&lt;/li&gt;
+&lt;li&gt;You will typically need to declare at least on of &lt;em&gt;&lt;strong&gt;&lt;code&gt;public/private&lt;/code&gt;&lt;/strong&gt;&lt;/em&gt;,
+&lt;ul&gt;
+&lt;li&gt;And sometimes &lt;em&gt;&lt;strong&gt;&lt;code&gt;static&lt;/code&gt;&lt;/strong&gt;&lt;/em&gt; for the purposes we will use them for early on.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;static-modifier&#34;&gt;&lt;code&gt;Static&lt;/code&gt; Modifier&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;static&lt;/code&gt; &lt;code&gt;access&lt;/code&gt; &lt;code&gt;modifier&lt;/code&gt; is a difficult concept to grasp at first, so we will simplify it somewhat.
+&lt;ul&gt;
+&lt;li&gt;Classes with a &lt;code&gt;static&lt;/code&gt; &lt;code&gt;modifier&lt;/code&gt; do not support the creation of &lt;code&gt;objects&lt;/code&gt; of that &lt;code&gt;class&lt;/code&gt; (instantiated).&lt;/li&gt;
+&lt;li&gt;We commonly take advantage of this to create classes which behave more like toolkits, where the class itself acts more like a singe object we can call upon to do things for us.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;So basically, the &lt;code&gt;Static&lt;/code&gt; &lt;code&gt;modifier&lt;/code&gt; is one instrument that you could use to build a complex script with.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 6 - try &amp; catch Statements</title>
+      <link>http://localhost:1313/posts/post-6/</link>
+      <pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-6/</guid>
+      <description>&lt;h1 id=&#34;pseudocode&#34;&gt;Pseudocode&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; to &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; gets exception, rollback and &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;exceptions&#34;&gt;Exceptions&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Exceptions come in many forms and Revit API Docs typically specifies the types of Exceptions we can catch for its methods. There are also system type exceptions.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// Exception as &amp;#34;e&amp;#34; to print the error&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	To &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; a specific exceptions, &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; e;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	To &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; all exceptions, &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// but better to catch specific exceptions, &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// otherwise you will catch all necessary and unecessary exceptions.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;finally&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	To run a final code regardless of outcome;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;use-dont-abuse&#34;&gt;Use Don&amp;rsquo;t Abuse&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;When you first begin using languages, try statements seem great - you can write code, and if you make a mistake your code can continue. THIS IS WRONG!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 5 - `if` Statements</title>
+      <link>http://localhost:1313/posts/post-5/</link>
+      <pubDate>Wed, 06 Aug 2025 17:36:22 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-5/</guid>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// Condition&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	run &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; condition &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	run &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; condition &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;else-if-statement&#34;&gt;&lt;code&gt;else if&lt;/code&gt; Statement&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// Condition&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	run &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; condition &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// Condition&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	run &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; there are more conditions;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	run &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; condition &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;shorthand-if-statements&#34;&gt;Shorthand &lt;code&gt;if&lt;/code&gt; Statements&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt; = condition?then:&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;Nearly always used for quickly setting another variable to one of two possibilities, using a conditional outcome. Only used if it&amp;rsquo;s a simple one liner task.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 4 - Logical Operators</title>
+      <link>http://localhost:1313/posts/post-4/</link>
+      <pubDate>Wed, 06 Aug 2025 15:50:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-4/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;They control logic and flow in our tools.
+We will have a good understanding of core statements we can use to build Revit Add-ins.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h1 id=&#34;logical-operators&#34;&gt;Logical Operators&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;x == y&lt;/code&gt; =&amp;gt; &lt;em&gt;true  if x is equal to y&lt;/em&gt;
+&lt;code&gt;x != y&lt;/code&gt; =&amp;gt; &lt;em&gt;true if x is not equal to y&lt;/em&gt;
+&lt;code&gt;x &amp;gt; y&lt;/code&gt; =&amp;gt; &lt;em&gt;true if x is greater than y&lt;/em&gt;
+&lt;code&gt;x &amp;lt; y&lt;/code&gt; =&amp;gt; &lt;em&gt;true if x is less than y&lt;/em&gt;
+&lt;code&gt;x &amp;gt;= y&lt;/code&gt; =&amp;gt; &lt;em&gt;true if x greater than or equals to y&lt;/em&gt;
+&lt;code&gt;x &amp;lt;= y&lt;/code&gt; =&amp;gt; &lt;em&gt;true if x less than or equals to y&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 3 - Fundamental Types of Data in C#</title>
+      <link>http://localhost:1313/posts/post-3/</link>
+      <pubDate>Wed, 06 Aug 2025 14:29:29 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-3/</guid>
+      <description>&lt;h1 id=&#34;boolean-bool&#34;&gt;Boolean &lt;code&gt;bool&lt;/code&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;true (1)&lt;/li&gt;
+&lt;li&gt;false (0)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;integer-int&#34;&gt;Integer &lt;code&gt;int&lt;/code&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Whole number:&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1, 2, 3, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Numbers come in different formats but by default they are signable (can be negative).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Typically, they use 32 bits based.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;double-double&#34;&gt;Double &lt;code&gt;double&lt;/code&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Decimal number:&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;0.0, 1.5, 6.592, -5.00, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Doubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;characters-char&#34;&gt;Characters &lt;code&gt;char&lt;/code&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;lsquo;a&amp;rsquo;, &amp;lsquo;b&amp;rsquo;, &amp;lsquo;c&amp;rsquo;, etc.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 2 - Bits &amp; Bytes, ASCII Table, Pointers &amp; Structs - Programming 101</title>
+      <link>http://localhost:1313/posts/post-2/</link>
+      <pubDate>Wed, 06 Aug 2025 14:23:14 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-2/</guid>
+      <description>&lt;h4 id=&#34;i-suggest-taking-cs50-course-to-understand-the-basics-of-programming&#34;&gt;I suggest taking &lt;a href=&#34;https://pll.harvard.edu/course/cs50-introduction-computer-science&#34;&gt;CS50 Course&lt;/a&gt; to understand the basics of Programming&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;True &amp;amp; False&lt;/li&gt;
+&lt;li&gt;0 and 1&lt;/li&gt;
+&lt;li&gt;Base 2 numbering system&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 0 1
 x x x
-4 2 1 = 5
+4 2 1 = 5 
+	
 In other words:
 2 2 2
 x x x
 2 1 0
-4 2 1 = 5
+	 
+4 2 1 = 5 
 1 0 1
-&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>We call these bits
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;We call these bits 
 Eight bits = 1 byte
 Memory is addressed into bytes
-&lt;/code>&lt;/pre>&lt;h2 id="ascii-tables-bring-meaning-to-what-various-bytes-represent">ASCII Tables bring meaning to what various bytes represent:&lt;/h2>
-&lt;pre tabindex="0">&lt;code>ASCII 48 = 0
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;ascii-tables-bring-meaning-to-what-various-bytes-represent&#34;&gt;ASCII Tables bring meaning to what various bytes represent:&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ASCII 48 = 0
 (00) 110000
 1 * 2^4 = 16
 1 * 2^5 = 32
 16 + 32 = 48
 48 = 0 (in ASCII Table)
-&lt;/code>&lt;/pre>&lt;h1 id="pointers--structs-in-c">Pointers = Structs (in C)&lt;/h1>
-&lt;p>Pointers are hexadecimal based values that identify an address in computer memory.&lt;/p></description></item><item><title>C# + Revit API: Lesson 1 - A Simple Walkthrough of the Command</title><link>https://blog.aydrafting.com/posts/post-1/</link><pubDate>Wed, 06 Aug 2025 01:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-1/</guid><description>&lt;p>This post explains &lt;strong>one concrete command&lt;/strong>—line by line—so a beginner can follow without extra abstractions.&lt;/p>
-&lt;p>&lt;strong>What this command does when you click your add-in button:&lt;/strong>&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>Tries to create a &lt;strong>sheet&lt;/strong> (using an &lt;strong>invalid&lt;/strong> title block on purpose → shows how error handling works).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Collects up to &lt;strong>10 existing sheets&lt;/strong> and formats their numbers/names.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Displays the result in a &lt;strong>WPF dialog&lt;/strong> via a ViewModel.&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>✅ This article focuses only on the command. It assumes you’ve already wired a ribbon button (and .addin) that triggers StartupCommand.&lt;/p></description></item><item><title>C# + Revit API: Lesson 0</title><link>https://blog.aydrafting.com/posts/post-0/</link><pubDate>Wed, 06 Aug 2025 00:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-0/</guid><description>&lt;h3 id="why-c">Why C#?&lt;/h3>
-&lt;ol>
-&lt;li>Scalability&lt;/li>
-&lt;/ol>
-&lt;h1 id="start-with">Start with:&lt;/h1>
-&lt;ol>
-&lt;li>&lt;a href="https://visualstudio.microsoft.com/downloads/">Install Visual Studio 2022 Community&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dotnet.microsoft.com/en-us/download/visual-studio-sdks">Install .NET SDKs (.NET4.8 &amp;amp; .NET8)&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/Nice3point/RevitTemplates">Install Nice3Point Templates&lt;/a>&lt;/li>
-&lt;/ol>
-&lt;h1 id="solution">Solution&lt;/h1>
-&lt;ol>
-&lt;li>Start a solution / project
-&lt;ol>
-&lt;li>Create a new project&lt;/li>
-&lt;li>Choose the Revit Addin (Nic3Point) Template&lt;/li>
-&lt;li>Configure your new project
-&lt;ol>
-&lt;li>Name of the project&lt;/li>
-&lt;li>Location&lt;/li>
-&lt;li>Solution Name - same as project name (it&amp;rsquo;s a folder name that holds many projects)&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Additional Information
-&lt;ol>
-&lt;li>Add-in type -&amp;gt; Application&lt;/li>
-&lt;li>User Interface -&amp;gt; None&lt;/li>
-&lt;li>IoC -&amp;gt; Disabled&lt;/li>
-&lt;li>Serilog support -&amp;gt; unchecked&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Explore Visual Studio
-&lt;ol>
-&lt;li>Properties &amp;amp; Solution Explorer (Project Browser in Revit)&lt;/li>
-&lt;li>Error &amp;amp; Output&lt;/li>
-&lt;li>CSProj -&amp;gt; Preconfigured up to Revit v.2025&lt;/li>
-&lt;li>.addin -&amp;gt; Change GUID (The rest we will change later)&lt;/li>
-&lt;li>Application Class:
-&lt;ol>
-&lt;li>Tells your addin how to begin and how to finish when Revit opens and closes.&lt;/li>
-&lt;li>Class: External Application&lt;/li>
-&lt;li>Method: OnStartup()
-&lt;ol>
-&lt;li>Will run &amp;ldquo;Create Ribbon()&amp;rdquo;&lt;/li>
-&lt;li>Creates a &lt;strong>Panel&lt;/strong>&lt;/li>
-&lt;li>Adds a &lt;strong>PushButton&lt;/strong> to that &lt;strong>Panel&lt;/strong>&lt;/li>
-&lt;li>With 2 &lt;strong>Icons&lt;/strong>&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Our Application
-&lt;ol>
-&lt;li>OnStartup&lt;/li>
-&lt;li>When it begins, it calls a Function &amp;ldquo;CreateRibbon()&amp;rdquo;&lt;/li>
-&lt;li>And CreateRibbon is a defined function below that:
-&lt;ol>
-&lt;li>Creates a panel
-&lt;ol>
-&lt;li>This is possible due to pre-configured Revit API that we are using&lt;/li>
-&lt;li>CreatePanel - is a pre-defined method under Revit API that, you guessed it, Creates a Panel in Revit.&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Creates a button
-&lt;ol>
-&lt;li>Same for the Button&lt;/li>
-&lt;li>AddPushButton Method in Revit API - Creates a button&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Commands Folder
-&lt;ol>
-&lt;li>Core Code&lt;/li>
-&lt;li>Currently: Task Dialog - Shows the name of the addin
-&lt;ol>
-&lt;li>ExternalCommand, but we should use IExternalCommand&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>This is the part that writes the logic for your button&lt;/li>
-&lt;li>Once you click the button, whatever is under Commands Folder connected to the button will be executed.&lt;/li>
-&lt;li>If you change the TaskDialog.Show(Document.Title, &amp;ldquo;Hello World&amp;rdquo;);
-&lt;ol>
-&lt;li>Once you press the button in Revit it would show &amp;ldquo;Hello World&amp;rdquo;&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Resources:
-&lt;ol>
-&lt;li>Icons&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Everything is saved in windows explorer&lt;/li>
-&lt;li>Configurations:
-&lt;ol>
-&lt;li>Debug and Release&lt;/li>
-&lt;li>Per Revit Version from R20 to R25&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>References:
-&lt;ol>
-&lt;li>Under: This PC &amp;gt; Windows (C:) &amp;gt; Program Files &amp;gt; Autodesk &amp;gt; Revit [2025].&lt;/li>
-&lt;li>DLL Files that you can reference to your project to build something.&lt;/li>
-&lt;li>You could even add an excel package to work with Excel, will do that later.&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Build and test the first plugin
-&lt;ol>
-&lt;li>Build the solution by clicking on Run (Play Button) next to Any CPU.&lt;/li>
-&lt;li>Lauches Revit (Version that you pre-configured)&lt;/li>
-&lt;li>Always Load your Addin&lt;/li>
-&lt;li>What happened behind the scenes:
-&lt;ol>
-&lt;li>VS2022 Added the DLL file and the .addin file into the right folder and launched Revit version that you specified with the Plugin loaded into Revit.&lt;/li>
-&lt;li>That became possible due to preconfigured Visual Studio Nic3Point Template that you ran earlier.&lt;/li>
-&lt;li>Everything is already set and pathed for you for the ease of starting and launching plugins.&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Go to New Project
-&lt;ol>
-&lt;li>Find your new panel in the panel tabs on the top of Revit User Interface.&lt;/li>
-&lt;li>Find your Addin / Plugin&lt;/li>
-&lt;li>Click on it&lt;/li>
-&lt;li>And you will get a message with the name of your Tool.&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Stop Debug
-&lt;ol>
-&lt;li>Closes Revit &amp;amp; Debug Mode&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>These tutorials were inspired by the work of &lt;a href="https://www.youtube.com/@AussieBIMGuru">Aussie BIM Guru&lt;/a>. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.&lt;/p></description></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;pointers--structs-in-c&#34;&gt;Pointers = Structs (in C)&lt;/h1&gt;
+&lt;p&gt;Pointers are hexadecimal based values that identify an address in computer memory.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 1 - A Simple Walkthrough of the Command</title>
+      <link>http://localhost:1313/posts/post-1/</link>
+      <pubDate>Wed, 06 Aug 2025 01:00:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-1/</guid>
+      <description>&lt;p&gt;This post explains &lt;strong&gt;one concrete command&lt;/strong&gt;—line by line—so a beginner can follow without extra abstractions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What this command does when you click your add-in button:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Tries to create a &lt;strong&gt;sheet&lt;/strong&gt; (using an &lt;strong&gt;invalid&lt;/strong&gt; title block on purpose → shows how error handling works).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Collects up to &lt;strong&gt;10 existing sheets&lt;/strong&gt; and formats their numbers/names.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Displays the result in a &lt;strong&gt;WPF dialog&lt;/strong&gt; via a ViewModel.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;✅ This article focuses only on the command. It assumes you’ve already wired a ribbon button (and .addin) that triggers StartupCommand.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 0</title>
+      <link>http://localhost:1313/posts/post-0/</link>
+      <pubDate>Wed, 06 Aug 2025 00:00:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-0/</guid>
+      <description>&lt;h3 id=&#34;why-c&#34;&gt;Why C#?&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Scalability&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;start-with&#34;&gt;Start with:&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://visualstudio.microsoft.com/downloads/&#34;&gt;Install Visual Studio 2022 Community&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dotnet.microsoft.com/en-us/download/visual-studio-sdks&#34;&gt;Install .NET SDKs (.NET4.8 &amp;amp; .NET8)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/Nice3point/RevitTemplates&#34;&gt;Install Nice3Point Templates&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;solution&#34;&gt;Solution&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;Start a solution / project
+&lt;ol&gt;
+&lt;li&gt;Create a new project&lt;/li&gt;
+&lt;li&gt;Choose the Revit Addin (Nic3Point) Template&lt;/li&gt;
+&lt;li&gt;Configure your new project
+&lt;ol&gt;
+&lt;li&gt;Name of the project&lt;/li&gt;
+&lt;li&gt;Location&lt;/li&gt;
+&lt;li&gt;Solution Name - same as project name (it&amp;rsquo;s a folder name that holds many projects)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Additional Information
+&lt;ol&gt;
+&lt;li&gt;Add-in type -&amp;gt; Application&lt;/li&gt;
+&lt;li&gt;User Interface -&amp;gt; None&lt;/li&gt;
+&lt;li&gt;IoC -&amp;gt; Disabled&lt;/li&gt;
+&lt;li&gt;Serilog support -&amp;gt; unchecked&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Explore Visual Studio
+&lt;ol&gt;
+&lt;li&gt;Properties &amp;amp; Solution Explorer (Project Browser in Revit)&lt;/li&gt;
+&lt;li&gt;Error &amp;amp; Output&lt;/li&gt;
+&lt;li&gt;CSProj -&amp;gt; Preconfigured up to Revit v.2025&lt;/li&gt;
+&lt;li&gt;.addin -&amp;gt; Change GUID (The rest we will change later)&lt;/li&gt;
+&lt;li&gt;Application Class:
+&lt;ol&gt;
+&lt;li&gt;Tells your addin how to begin and how to finish when Revit opens and closes.&lt;/li&gt;
+&lt;li&gt;Class: External Application&lt;/li&gt;
+&lt;li&gt;Method: OnStartup()
+&lt;ol&gt;
+&lt;li&gt;Will run &amp;ldquo;Create Ribbon()&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Creates a &lt;strong&gt;Panel&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Adds a &lt;strong&gt;PushButton&lt;/strong&gt; to that &lt;strong&gt;Panel&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;With 2 &lt;strong&gt;Icons&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Our Application
+&lt;ol&gt;
+&lt;li&gt;OnStartup&lt;/li&gt;
+&lt;li&gt;When it begins, it calls a Function &amp;ldquo;CreateRibbon()&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;And CreateRibbon is a defined function below that:
+&lt;ol&gt;
+&lt;li&gt;Creates a panel
+&lt;ol&gt;
+&lt;li&gt;This is possible due to pre-configured Revit API that we are using&lt;/li&gt;
+&lt;li&gt;CreatePanel - is a pre-defined method under Revit API that, you guessed it, Creates a Panel in Revit.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Creates a button
+&lt;ol&gt;
+&lt;li&gt;Same for the Button&lt;/li&gt;
+&lt;li&gt;AddPushButton Method in Revit API - Creates a button&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Commands Folder
+&lt;ol&gt;
+&lt;li&gt;Core Code&lt;/li&gt;
+&lt;li&gt;Currently: Task Dialog - Shows the name of the addin
+&lt;ol&gt;
+&lt;li&gt;ExternalCommand, but we should use IExternalCommand&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;This is the part that writes the logic for your button&lt;/li&gt;
+&lt;li&gt;Once you click the button, whatever is under Commands Folder connected to the button will be executed.&lt;/li&gt;
+&lt;li&gt;If you change the TaskDialog.Show(Document.Title, &amp;ldquo;Hello World&amp;rdquo;);
+&lt;ol&gt;
+&lt;li&gt;Once you press the button in Revit it would show &amp;ldquo;Hello World&amp;rdquo;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Resources:
+&lt;ol&gt;
+&lt;li&gt;Icons&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Everything is saved in windows explorer&lt;/li&gt;
+&lt;li&gt;Configurations:
+&lt;ol&gt;
+&lt;li&gt;Debug and Release&lt;/li&gt;
+&lt;li&gt;Per Revit Version from R20 to R25&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;References:
+&lt;ol&gt;
+&lt;li&gt;Under: This PC &amp;gt; Windows (C:) &amp;gt; Program Files &amp;gt; Autodesk &amp;gt; Revit [2025].&lt;/li&gt;
+&lt;li&gt;DLL Files that you can reference to your project to build something.&lt;/li&gt;
+&lt;li&gt;You could even add an excel package to work with Excel, will do that later.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Build and test the first plugin
+&lt;ol&gt;
+&lt;li&gt;Build the solution by clicking on Run (Play Button) next to Any CPU.&lt;/li&gt;
+&lt;li&gt;Lauches Revit (Version that you pre-configured)&lt;/li&gt;
+&lt;li&gt;Always Load your Addin&lt;/li&gt;
+&lt;li&gt;What happened behind the scenes:
+&lt;ol&gt;
+&lt;li&gt;VS2022 Added the DLL file and the .addin file into the right folder and launched Revit version that you specified with the Plugin loaded into Revit.&lt;/li&gt;
+&lt;li&gt;That became possible due to preconfigured Visual Studio Nic3Point Template that you ran earlier.&lt;/li&gt;
+&lt;li&gt;Everything is already set and pathed for you for the ease of starting and launching plugins.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Go to New Project
+&lt;ol&gt;
+&lt;li&gt;Find your new panel in the panel tabs on the top of Revit User Interface.&lt;/li&gt;
+&lt;li&gt;Find your Addin / Plugin&lt;/li&gt;
+&lt;li&gt;Click on it&lt;/li&gt;
+&lt;li&gt;And you will get a message with the name of your Tool.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Stop Debug
+&lt;ol&gt;
+&lt;li&gt;Closes Revit &amp;amp; Debug Mode&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;These tutorials were inspired by the work of &lt;a href=&#34;https://www.youtube.com/@AussieBIMGuru&#34;&gt;Aussie BIM Guru&lt;/a&gt;. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

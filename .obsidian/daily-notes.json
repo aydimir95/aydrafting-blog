@@ -1,4 +1,4 @@
 {
   "template": "template/_template",
-  "autorun": true
+  "autorun": false
 }
