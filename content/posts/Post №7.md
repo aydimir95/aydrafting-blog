@@ -5,7 +5,14 @@ draft = false
 tags = ["C#", "Revit", "Tutorial"]
 +++
 
-{{< shooter strategy="burst" count="5" spread="1.0" >}}
+<!-- {{< shooter strategy="burst" count="5" spread="1.0" >}} -->
+
+{{< classcard
+  title="SheetResult"
+  props="string SheetName { get; set; }|string SheetNumber { get; set; }"
+  ctors="SheetResult()|SheetResult(string sheetName, string sheetNumber = 'No Number')"
+  methods="string FormatLabel()"
+>}}
 
 # 1. Introduction
 ### Project Folder Structure

@@ -1,0 +1,73 @@
+:root {
+  --cc-canvas-bg: #f8fafc;
+  --cc-progress: #64748b;
+  --cc-score: #059669;
+  --cc-message: #1e293b;
+  --cc-instruction: #64748b;
+  --cc-border: #e2e8f0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cc-canvas-bg: #0f172a;       /* slate-900 */
+    --cc-progress: #94a3b8;        /* slate-400 */
+    --cc-score: #34d399;           /* emerald-400 */
+    --cc-message: #e2e8f0;         /* slate-200 */
+    --cc-instruction: #94a3b8;     /* slate-400 */
+    --cc-border: #334155;          /* slate-700 */
+  }
+}
+
+/* Manual override support */
+[data-theme="dark"], .dark {
+  --cc-canvas-bg: #0f172a;
+  --cc-progress: #94a3b8;
+  --cc-score: #34d399;
+  --cc-message: #e2e8f0;
+  --cc-instruction: #94a3b8;
+  --cc-border: #334155;
+}
+
+/* Responsive styles for classcard game */
+.class-card-embed {
+  width: 100%;
+  max-width: 840px;
+  margin: 1rem auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  contain: content;
+  -webkit-font-smoothing: antialiased;
+}
+
+.class-card-embed canvas {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  display: block;
+  background: var(--cc-canvas-bg);
+  border: 2px solid var(--cc-border);
+  border-radius: 8px;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  outline: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .class-card-embed {
+    margin: 0.5rem auto;
+  }
+  
+  .class-card-embed canvas {
+    border-width: 1px;
+    border-radius: 4px;
+  }
+}
+

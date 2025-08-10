@@ -1,0 +1,37 @@
+{{- $id := .Get "id" | default (printf "classcard-%d" now.UnixNano) -}}
+<div
+  id="{{ $id }}"
+  class="class-card-embed"
+  data-title="{{ .Get "title" | default "C# Classes" }}"
+  data-props="{{ .Get "props" | default "string Name|int Age|string Type" }}"
+  data-ctors="{{ .Get "ctors" | default "Constructor()|Constructor(string name)" }}"
+  data-methods="{{ .Get "methods" | default "void DoSomething()|string GetInfo()" }}"
+></div>
+
+{{- if not (.Page.Scratch.Get "classcard-script-included") -}}
+  {{- $ts := resources.Get "js/classcard.ts" | js.Build (dict
+    "minify" true
+    "target" "es2018"
+    "format" "iife") | fingerprint "sha512" -}}
+  <script defer src="{{ $ts.RelPermalink }}" integrity="{{ $ts.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- .Page.Scratch.Set "classcard-script-included" true -}}
+{{- end -}}
+
+{{- if eq (.Get "themeToggle") "true" -}}
+  <button id="{{ $id }}-toggle" class="cc-theme-toggle" type="button" aria-pressed="false" style="margin:0.5rem 0;">
+    🌓 Theme
+  </button>
+  <script>
+    (function(){
+      var btn = document.getElementById('{{ $id }}-toggle');
+      if (!btn) return;
+      btn.addEventListener('click', function(){
+        var root = document.documentElement;
+        var cur = root.getAttribute('data-theme');
+        var next = (cur === 'dark') ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        btn.setAttribute('aria-pressed', String(next === 'dark'));
+      });
+    })();
+  </script>
+{{- end -}}

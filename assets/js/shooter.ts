@@ -48,11 +48,8 @@ class BurstShootingStrategy extends ShootingStrategy {
   }
 }
 
-declare global {
-  interface Window {
-    initShooter: (opts: { mountId: string; strategy?: 'single'|'burst'; count?: number; spread?: number }) => void;
-  }
-}
+// Define the function type
+type InitShooterFunction = (opts: { mountId: string; strategy?: 'single'|'burst'; count?: number; spread?: number }) => void;
 
 function makeButton(text: string, onClick: () => void) {
   const b = document.createElement('button');
@@ -62,7 +59,7 @@ function makeButton(text: string, onClick: () => void) {
   return b;
 }
 
-window.initShooter = ({ mountId, strategy = 'burst', count = 3, spread = Math.PI / 4 }) => {
+const initShooter: InitShooterFunction = ({ mountId, strategy = 'burst', count = 3, spread = Math.PI / 4 }) => {
   const mount = document.getElementById(mountId)!;
   mount.innerHTML = '';
 
@@ -136,7 +133,7 @@ window.initShooter = ({ mountId, strategy = 'burst', count = 3, spread = Math.PI
       const count = parseInt(node.getAttribute('data-count') || '3', 10);
       const spread = parseFloat(node.getAttribute('data-spread') || `${Math.PI / 4}`);
       if (mountId) {
-        window.initShooter({ mountId, strategy, count, spread });
+        initShooter({ mountId, strategy, count, spread });
       }
     });
   }
