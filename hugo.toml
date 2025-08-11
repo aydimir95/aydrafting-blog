@@ -46,9 +46,9 @@ block = true
 
 # OpenGraph and Twitter Card metadata
 [params.editPost]
-URL = "aydimir@aydrafting.com"
+URL = "mailto: aydimir@aydrafting.com"
 Text = "Suggest Changes"
-appendFilePath = true
+appendFilePath = false
 
 # Schema.org metadata
 [params.schema]
