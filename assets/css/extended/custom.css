@@ -71,3 +71,119 @@
   }
 }
 
+/* --- Code blocks: make tabs look like VSCode and improve readability --- */
+/* Set tab width to 4 spaces across common highlighter wrappers */
+pre,
+code,
+pre code,
+.highlight code,
+.chroma code {
+  tab-size: 4;       /* VSCode-like tab width */
+  -moz-tab-size: 4;  /* Firefox */
+}
+
+/* Optional but helpful: prevent wide code from breaking layout */
+pre {
+  overflow: auto;
+}
+
+/* Keep code font consistent and tidy (does not change theme colors) */
+pre code,
+code {
+  font-family: Consolas, Menlo, Monaco, "Courier New", monospace;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+/* --- Code block language labels (VSCode-like) --- */
+:root {
+  --code-lang-bg: #e5e7eb; /* slate-200 */
+  --code-lang-fg: #374151; /* gray-700 */
+  --code-lang-border: #cbd5e1; /* slate-300 */
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --code-lang-bg: #111827; /* gray-900 */
+    --code-lang-fg: #e5e7eb; /* slate-200 */
+    --code-lang-border: #374151; /* gray-700 */
+  }
+}
+[data-theme="dark"], .dark {
+  --code-lang-bg: #111827;
+  --code-lang-fg: #e5e7eb;
+  --code-lang-border: #374151;
+}
+
+/* Position the label within the code block */
+pre {
+  position: relative;
+  padding-top: 1.75rem; /* room for the label */
+}
+
+/* Generic: if Goldmark/Chroma outputs data-lang on <code>, show it */
+pre code[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--code-lang-border);
+  background: var(--code-lang-bg);
+  color: var(--code-lang-fg);
+  text-transform: none; /* keep original case */
+  pointer-events: none;
+}
+
+/* Fallbacks: if there is no data-lang attribute, detect common classes */
+pre code[class*="language-"]::before,
+pre code[class^="language-"]::before {
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--code-lang-border);
+  background: var(--code-lang-bg);
+  color: var(--code-lang-fg);
+  pointer-events: none;
+}
+
+/* Map common language classes to readable labels */
+pre code.language-bash::before { content: "bash"; }
+pre code.language-sh::before { content: "sh"; }
+pre code.language-shell::before { content: "shell"; }
+pre code.language-powershell::before { content: "powershell"; }
+pre code.language-json::before { content: "json"; }
+pre code.language-yaml::before, pre code.language-yml::before { content: "yaml"; }
+pre code.language-toml::before { content: "toml"; }
+pre code.language-xml::before { content: "xml"; }
+pre code.language-markdown::before, pre code.language-md::before { content: "markdown"; }
+pre code.language-html::before { content: "html"; }
+pre code.language-css::before { content: "css"; }
+pre code.language-scss::before { content: "scss"; }
+pre code.language-less::before { content: "less"; }
+pre code.language-javascript::before, pre code.language-js::before { content: "javascript"; }
+pre code.language-typescript::before, pre code.language-ts::before { content: "typescript"; }
+pre code.language-tsx::before { content: "tsx"; }
+pre code.language-jsx::before { content: "jsx"; }
+pre code.language-python::before, pre code.language-py::before { content: "python"; }
+pre code.language-go::before { content: "go"; }
+pre code.language-rust::before, pre code.language-rs::before { content: "rust"; }
+pre code.language-php::before { content: "php"; }
+pre code.language-ruby::before, pre code.language-rb::before { content: "ruby"; }
+pre code.language-java::before { content: "java"; }
+pre code.language-kotlin::before, pre code.language-kt::before { content: "kotlin"; }
+pre code.language-csharp::before, pre code.language-cs::before { content: "c#"; }
+pre code.language-cpp::before, pre code.language-cxx::before, pre code.language-cc::before { content: "c++"; }
+pre code.language-c::before { content: "c"; }
+pre code.language-swift::before { content: "swift"; }
+pre code.language-dart::before { content: "dart"; }
+pre code.language-sql::before { content: "sql"; }
+pre code.language-bicep::before { content: "bicep"; }
+pre code.language-hcl::before { content: "hcl"; }
+pre code.language-powershell::before { content: "powershell"; }

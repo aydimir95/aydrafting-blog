@@ -816,23 +816,19 @@ From this you can get:
 #### **Step 3 — Implementation in Application.cs**
 ```C#
 // Autodesk
-using Autodesk.Revit.UI
+using Autodesk.Revit.UI;
 
 // This application belongs to the root namespace
 namespace guRoo
 {
-	// Implementing the interface for applications
-	public class Application: IExternalApplication
+	// Implementing the interface for application.cs class
+	public class Application: IExternalApplication 
+	// IExternalApplication for the interface
 	{
-		//This will run on Startup
+		//This will return a result on Startup method - requires uiCtlApp
 		public Result OnStartup(UIControlledApplication uiCtlApp)
 		{
-			// Not sure what this does, explain:
-			car ctlApp = uiCtlApp.ControlledApplication;
-
-			Not sure, explain better:
-			// This is supposed to be the end of the construction of our toolbar
-			// Meaning it has to result in Success when Revit Launches. 
+			var ctlApp = uiCtlApp.ControlledApplication;
 			return Result.Succeeded; // or Cancelled
 		}
 
@@ -845,6 +841,76 @@ namespace guRoo
 }
 ```
 
+## Re-organizing the project solution:
+```C#
+Solution
+|-> guRoo
+	|-> Dependencies
+	|-> Commands
+		|-> General (Ribbon Panel)
+			|-> Cmds_General.cs
+	|-> Forms
+	|-> Resources
+	|-> Application.cs
+	|-> guRoo.addin
+```
+#### Example after re-organizing:
+```C#
+// Autodesk
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+
+namespace guRoo.Cmds_General
+{
+	/// <summary>
+	///		Example Command
+	/// </summary>
+	[Transaction(TransactionMode.Manual)]
+	public class Cmd_Test: IExternalCommand
+	{
+		public Result Execute(ExternalCommandData CommandData, 
+								ref string message, 
+								ElementSet elements)
+		{
+			UIApplication uiApp = commandData.Application;
+			UIDocument uiDoc = uiApp.ActiveUIDocument;
+			Document doc = uiDoc.Document;
+
+			// Code logic here:
+
+
+			// Final return here:
+			return Result.Succeeded;
+		}
+	}
+
+
+
+
+	/// <summary>
+	///		Example Command
+	/// </summary>
+	[Transaction(TransactionMode.Manual)]
+	public class Cmd_Test2: IExternalCommand
+	{
+		public Result Execute(ExternalCommandData CommandData, 
+								ref string message, 
+								ElementSet elements)
+		{
+			UIApplication uiApp = commandData.Application;
+			UIDocument uiDoc = uiApp.ActiveUIDocument;
+			Document doc = uiDoc.Document;
+
+			// Code logic here:
+			
+
+			// Final return here:
+			return Result.Succeeded;
+		}
+	}
+}
+```
+- Typically, when working with interfaces you start with collecting information from your Revit document.
 
 
 **We now have a basic understanding of:**

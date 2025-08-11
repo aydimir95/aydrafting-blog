@@ -35,10 +35,14 @@ enableEmoji = true
       unsafe = true
   [markup.highlight]
     noClasses = false
-    style = "github"      # or "dracula", "monokai"
+    style = "dracula"      # or "dracula", "monokai", "github"
     codeFences = true
     guessSyntax = true
-    lineNos = false
+    lineNos = true
+    noHl = false
+
+[markup.goldmark.parser.attribute]
+block = true
 
 # OpenGraph and Twitter Card metadata
 [params.editPost]
