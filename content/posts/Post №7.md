@@ -814,6 +814,8 @@ From this you can get:
 - `Ribbon` and `UI` setup methods (you can add `panels` and `buttons` here).
 ---
 #### **Step 3 — Implementation in Application.cs**
+
+#### `Application.cs`
 ```C#
 // Autodesk
 using Autodesk.Revit.UI;
@@ -847,14 +849,15 @@ Solution
 |-> guRoo
 	|-> Dependencies
 	|-> Commands
-		|-> General (Ribbon Panel)
-			|-> Cmds_General.cs
+		|-> General // Create a Ribbon Panel Folder
+			|-> Cmds_General.cs // Create a Ribbon Panel
 	|-> Forms
 	|-> Resources
 	|-> Application.cs
 	|-> guRoo.addin
 ```
 #### Example after re-organizing:
+#### `Cmds_General.cs`
 ```C#
 // Autodesk
 using Autodesk.Revit.Attributes;
@@ -921,26 +924,36 @@ namespace guRoo.Cmds_General
 - `Document` Classes
 
 # 7. Create a `PushButton`
-- Let's set up a button we can run our command from (we had this before, but we're doing it the typical way vs the `Nice3point` way).
-- We will create a tab, a panel, a button and finally set up a basic command that runs when we press it.
+Now we’ll set up a button in Revit’s ribbon to run our command.
 
-## Understanding Names
-1. `RibbonTab`
-2. `RibbonPanel`
-	- `Ribbon`
-3. `PushButton`
+We’ve done something similar before, but this time we’ll follow the **standard Revit API approach** instead of the Nice3point method.
 
-### What do we need to do?
-1. Create our `add-in` `Tab`
-2. Add a `RibbonPanel` to the Tab
-3. Add a `PushButton` to the Ribbon Panel
+**We’ll create:**
+- `RibbonTab` 
+- `RibbonPanel` 
+- `PushButton` 
+- `Command` 
 
-#### *Related API Classes:*
-1. `UIControlledApplication` > Tab
-2. `Tab` > `RibbonPannel`
-3. `RibbonPanel` > `PushButtonData` > `PushButton`
+## **Understanding the Terms**
 
-#### *Properties of a PushButton*
+1. `RibbonTab` – A top-level tab in the Revit ribbon interface. Each RibbonTab groups related functionality and contains one or more RibbonPanels. For example, the “Annotate” tab contains tools related to dimensions, text, and tags.
+    
+2. `RibbonPanel` – A container within a RibbonTab that holds one or more buttons. Panels help organize commands visually and logically within a tab. For instance, the “Text” panel inside the “Annotate” tab might contain buttons for adding text, leaders, and notes.
+    
+3. `PushButton` – A clickable button (or a pull-down button with multiple options) that executes a specific Command. There are several related button types in the Revit API:
+    
+    - `PulldownButton` – Displays a drop-down list of other buttons or commands when clicked.
+        
+    - `PushButton` – The most common button type. To create one in an add-in, you first create a PushButtonData object to define its properties (name, tooltip, images, and linked command), then add it to a RibbonPanel with RibbonPanel.AddItem(), which returns a PushButton object.
+        
+    - `RadioButton` – Allows users to select one option from a set. When placed in a group, selecting one radio button automatically deselects the others.
+        
+    - `SplitButton` – Combines a PushButton with a PulldownButton. The top half performs a default action, while the bottom half opens a list of related actions.
+        
+    - `ToggleButton` – Acts like an on/off switch. It maintains its state after being clicked, making it useful for settings that need to stay enabled or disabled until changed again.
+    
+4. `Command` – The underlying logic that executes when a button is pressed. In Revit API development, a Command is typically implemented as a class that implements IExternalCommand, containing the Execute() method where your code runs.
+### Properties of a `PushButton`
 
 | **Property**            | **Description**                                                                                                                                                                             |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -958,25 +971,270 @@ namespace guRoo.Cmds_General
 | `ToolTip`               | The description that appears as a tooltip for the item.                                                                                                                                     |
 | `ToolTipImage`          | The image to show as part of the button’s extended tooltip.                                                                                                                                 |
 | `Visible`               | Gets or sets a value indicating whether the item is visible.                                                                                                                                |
-#### One Important Method -> GetRibbonPanels 
+### Step-by-step:
+1. Create a `Tab`
+2. Add a `RibbonPanel` to the `Tab`
+3. Add a `PushButton` to the `RibbonPanel`
+#### *Related API Classes:*
+1. `UIControlledApplication` > `GetRibbonPannels` Method > `Tab`
+2. `Tab` > `RibbonPannel` > `AddItem` Method
+3. `RibbonPanel` > `PushButtonData` Constructor > `PushButton` Object > Icon / Tooltip
+#### **One Important Method -> `GetRibbonPanels` :**
+
 1. `GetRibbonPannels` - Get all the custom Panels on Add-Ins Tab of Revit.
 2. `GetRibbonPannels`(String) - Get all the custom Panels on a designated Revit Tab.
 3. `GetRibbonPannel`(Tab) - Get all the custom Panels on a designated standard Revit Tab.
 
-## Executing Assembly 
+#### Executing Assembly 
 - When our add-in is running, all the classes, resources and code we have produced are executed as an Assembly. We will access this to connect commands to buttons.
 ```C#
 using System.Reflection
 Assembly.GetExecutingAssembly()
 ```
-## Homework
-1. Create a `static` utility class
-2. Add `methods` to `static utility class` that we need
-3. Run these methods in `OnStartup` method
 
-- Create and assign `icons` and `tooltips`,
-- Develop a `naming system` to simplify it all.
+---
+### Homework
+1. Create a `static` utility class 
+2. Add `methods` to `static` utility class that we need
+3. Run these `methods` in `OnStartup` method
 
+### Solution
+
+#### Overview:
+```C#
+Solution
+|-> guRoo
+	|-> Dependencies
+	|-> Commands
+		|-> General // Create a Ribbon Panel Folder
+			|-> Cmds_General.cs // Create a Ribbon Panel
+	|-> Forms
+	|-> Resources
+	|-> Utilities // Add a New Utilities Folder
+		|-> Ribbon_Utils.cs // Add a New Ribbon Utilities Class
+	|-> Application.cs // Adjust Application Class
+	|-> guRoo.addin
+```
+
+
+#### `Ribbon_Utils.cs`
+```C#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Task;
+
+namespace guRoo.Utilities
+{
+	public static class Ribbon_Utils
+	{
+		// Method to create a "Tab"
+		public static Result AddRibbonTab(UIControlledApplication uiCtlApp, string tabName)
+		{
+			try
+			{
+				uiCtlApp.CreateRibbonTab(tabName)
+				return Result.Succeeded;
+			}
+			catch
+			{
+				Debug.WriteLine($"Error: Coulnd not create a tab: {tabName}");
+				return Result.Failed;
+			}
+		}
+
+		// Method to create a "Panel"
+		public static RibbonPanel AddRibbonPanelToTab(UIControlledApplication uiCtlApp, string tabName, string panelName)
+		{
+			try
+			{
+				uiCtlApp.CreateRibbonPanel(tabName, panelName)
+			}
+			catch
+			{
+				Debug.WriteLine($"Error: Could not add {panelName} to {tabName}")
+				return null;
+			}
+
+			GetRibbonPanelByName(uiCtlApp, tabName, panelName)
+		}
+
+		// Method to get that "Panel"
+		public static RibbonPannel GetRibbonPanelByName(UIControlledApplication uiCtlApp, string panelName)
+		{
+			var panels = uiCtlApp.GetRibbonPanels(tabName);
+			foreach (var panel in panels)
+			{
+				if (panel.Name == panelName)
+				{
+					return panel;
+				}
+
+				return null;
+			}
+		}
+
+		// Method to create a "Button" to "Panel"
+		/// <summary>
+		/// Fill this summary for Methods to be described on Mouse Hover.
+		/// </summary>
+		/// <param name="panel">This is the ribbonpannel to add to.</param>
+		/// <param name="buttonName">Test</param>
+		/// <param name="className">Test</param>
+		/// <param name="internalName">Test</param>
+		/// <param name="assemblyPath">Test</param>
+		/// <returns></returns>
+		public static PushButton AddPushButtonToPanel(
+			RibbonPanel panel, 
+			string buttonName, 
+			string className, 
+			string internalName, 
+			string assemblyPath)
+			{
+				if (panel is null)
+				{
+					Debug.WriteLine($Error: Could not create {buttonName}.)
+					return null;
+				}
+				// Open PushButtonData Constructor and check what's needed
+				
+				var pushButtonData = new PushButtonData(
+					internalName, 
+					buttonName, 
+					assemblyPath, 
+					className);
+				
+				if (panel.AddItem(pushButtonData) is PushButton pushButton)
+				{
+					pushButton.ToolTip = "Testing tooltip";
+					// pushButton.Image = null;
+					// pushButton.LargeImage = null;
+					return pushButton;
+				}
+				else
+				{
+					Debug.WriteLine($Error: Could not create {buttonName}.)
+					return null;
+				}
+			}
+	}
+}
+```
+
+#### `Application.cs`
+```C#
+// System
+using System.Reflection;
+
+// Autodesk
+using Autodesk.Revit.UI;
+
+// guRoo
+using gRib = guRoo.Utilities.Ribbon_Utils;
+
+// This application belongs to the root namespace
+namespace guRoo
+{
+	// Implementing the interface for application.cs class
+	public class Application: IExternalApplication 
+	// IExternalApplication for the interface
+	{
+		//This will return a result on Startup method - requires uiCtlApp
+		public Result OnStartup(UIControlledApplication uiCtlApp)
+		{
+			// Collect the controlled application:
+			var ctlApp = uiCtlApp.ControlledApplication;
+			var assembly = Assembly.GetExecutingAssembly();
+			avr assemblyPath = assembly.Location;
+
+			// Variables
+			string tabName = "guRoo"
+
+			// Add RibbonTab
+			gRib.AddRibbonTab(uiCtlApp, tabName);
+
+			// Create RibbonPanel
+			var panelGeneral = gRib.AddRibbonPanelToTab(
+												uiCtlApp, 
+												tabName, 
+												"General");
+
+			// Add PushButton to RibbonPanel
+			var buttonTest = gRib.AddPushButtonToPanel(
+												panelGeneral, 
+												"Testing", 
+												"guRoo.Cmds_General.Cmd_Test",
+												assemblyPath)
+
+			// Final return:
+			return Result.Succeeded; // or Cancelled
+		}
+
+		// This will urn on shutdown
+		public Result OnShutdown(UIControlledApplication uiCtlApp)
+		{
+			return Result.Succeeded;
+		}
+	}
+}
+```
+#### `Cmds_General.cs`
+```C#
+// Autodesk
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+
+namespace guRoo.Cmds_General
+{
+	/// <summary>
+	///		Example Command
+	/// </summary>
+	[Transaction(TransactionMode.Manual)]
+	public class Cmd_Test: IExternalCommand
+	{
+		public Result Execute(ExternalCommandData CommandData, 
+								ref string message, 
+								ElementSet elements)
+		{
+			UIApplication uiApp = commandData.Application;
+			UIDocument uiDoc = uiApp.ActiveUIDocument;
+			Document doc = uiDoc.Document;
+
+			// Code logic here:
+
+
+			// Final return here:
+			return Result.Succeeded;
+		}
+	}
+
+
+
+
+	/// <summary>
+	///		Example Command
+	/// </summary>
+	[Transaction(TransactionMode.Manual)]
+	public class Cmd_Test2: IExternalCommand
+	{
+		public Result Execute(ExternalCommandData CommandData, 
+								ref string message, 
+								ElementSet elements)
+		{
+			UIApplication uiApp = commandData.Application;
+			UIDocument uiDoc = uiApp.ActiveUIDocument;
+			Document doc = uiDoc.Document;
+
+			// Code logic here:
+			TaskDialog.Show("It's Working!", doc.Title);
+
+			// Final return here:
+			return Result.Succeeded;
+		}
+	}
+}
+```
 
 # 8. `Global` Variables
 Some programming languages support '`global`' variables, which can be accessed anywhere at any time once set in the project.
