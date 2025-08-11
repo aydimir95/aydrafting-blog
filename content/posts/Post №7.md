@@ -62,13 +62,13 @@ namespace geeWiz.Cmds_Audit
 
 ### Basic Class Anatomy
 1. `modifers class ClassName : Interface(s)`
-	1. Constructor (optional)
-	2. Properties (optional)
-	3. Methods (optional)
+	- Constructor (optional)
+	- Properties (optional)
+	- Methods (optional)
 
 - `Access modifiers` control how this code can be accessed inside and outside your project.
-- You will typically need to declare at least on of ***`public/private`***, 
-	- And sometimes ***`static`*** for the purposes we will use them for early on.
+- You will typically need to declare at least on of *`public`/`private`*, 
+	- And sometimes *`static`* for the purposes we will use them for early on.
 ### `Static` Modifier
 - The `static` `access` `modifier` is a difficult concept to grasp at first, so we will simplify it somewhat.
 	- Classes with a `static` `modifier` do not support the creation of `objects` of that `class` (instantiated).
@@ -77,8 +77,8 @@ namespace geeWiz.Cmds_Audit
  > So basically, the `Static` `modifier` is one instrument that you could use to build a complex script with.
 
 ### `Public` and `Private` Modifier
-- The ***`public`*** modifier lets you access something anywhere in your project.
-- The ***`private`*** modifier limits access to the same class instead (generally for behind-the-scenes code in the class itself).
+- The *`public`* modifier lets you access something anywhere in your project.
+- The *`private`* modifier limits access to the same class instead (generally for behind-the-scenes code in the class itself).
 
 *There are `other modifiers`, but let's keep it simple.*
 
@@ -1000,7 +1000,7 @@ Assembly.GetExecutingAssembly()
 
 ### Solution
 
-#### Overview:
+#### `Overview`
 ```C#
 Solution
 |-> guRoo

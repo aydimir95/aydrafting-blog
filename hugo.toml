@@ -35,7 +35,7 @@ enableEmoji = true
       unsafe = true
   [markup.highlight]
     noClasses = false
-    style = "dracula"      # or "dracula", "monokai", "github"
+    style = "monokai"      # or "dracula", "monokai", "github"
     codeFences = true
     guessSyntax = true
     lineNos = true

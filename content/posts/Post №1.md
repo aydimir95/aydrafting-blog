@@ -27,10 +27,10 @@ This post explains **one concrete command**—line by line—so a beginner can f
 ```C#
 using Autodesk.Revit.Attributes;
 using Nice3point.Revit.Toolkit.External;
-using UKON.Views;
-using UKON.ViewModels;
+using guRoo.Views;
+using guRoo.ViewModels;
 
-namespace UKON.Commands
+namespace guRoo.Commands
 {
     /// <summary>
     ///     External command entry point
@@ -41,7 +41,7 @@ namespace UKON.Commands
     {
         public override void Execute()
         {
-            var viewModel = Host.GetService<UKONViewModel>();
+            var viewModel = Host.GetService<guRooViewModel>();
             
             var titleBlockId = ElementId.InvalidElementId;
             string resultMessage = "";
@@ -93,7 +93,7 @@ namespace UKON.Commands
             
             viewModel.ResultMessage = resultMessage;
             
-            var view = new UKONView(viewModel);
+            var view = new guRooView(viewModel);
             view.ShowDialog();
         }
     }
@@ -111,8 +111,8 @@ namespace UKON.Commands
 ```C#
 using Autodesk.Revit.Attributes;         // [Transaction(...)] attribute
 using Nice3point.Revit.Toolkit.External; // ExternalCommand base + Host DI
-using UKON.Views;                        // WPF Window (UKONView)
-using UKON.ViewModels;                   // ViewModel (UKONViewModel)
+using guRoo.Views;                        // WPF Window (guRooView)
+using guRoo.ViewModels;                   // ViewModel (guRooViewModel)
 ```
 
 - **Revit attributes** let you declare transaction behaviour.
@@ -132,41 +132,39 @@ using UKON.ViewModels;                   // ViewModel (UKONViewModel)
 public class StartupCommand : ExternalCommand
 ```
 
-- StartupCommand runs **when the user clicks** your button.
+- `StartupCommand` runs **when the user clicks** your button.
     
 - `[Transaction(TransactionMode.Manual)]` = **you** start/commit/rollback changes.
     
-- ExternalCommand (Nice3point) simplifies the Revit command pattern.
-    
+- `ExternalCommand` (Nice3point) simplifies the Revit command pattern.
 
   
 
-> UsedImplicitly is an analyzer hint (e.g., JetBrains) so tooling doesn’t flag it as “unused.”
+> `UsedImplicitly` is an analyzer hint (e.g., JetBrains) so tooling doesn’t flag it as “unused.”
 
 ---
 
 ### **3) Getting the `ViewModel`**
 
 ```C#
-var viewModel = Host.GetService<UKONViewModel>();
+var viewModel = Host.GetService<UguRooViewModel>();
 ```
 
-- Pulls a **ViewModel instance** from DI so the dialog can display results via data binding.
-    
+- Pulls a `ViewModel` instance from DI so the dialog can display results via data binding.
 
 ---
 
 ### **4) Intentionally Invalid Title Block**
 
 ```C#
-var titleBlockId = ElementId.InvalidElementId; // invalid on purpose
+var titleBlockId = ElementId.InvalidElementId; 
+// invalid on purpose
+
 string resultMessage = "";
 ```
 
 - We **force a failure** to demonstrate safe error handling.
-    
-- resultMessage will collect feedback for the user.
-    
+- `resultMessage` will collect feedback for the user.
 
 ---
 
@@ -198,11 +196,8 @@ using (var transaction = new Transaction(Document, "Create Sheet"))
 ```
 
 - **Revit is read-only** unless you’re inside a Transaction.
-    
-- Creating a sheet with an invalid title block throws **ArgumentException** → we **rollback** safely and show the message.
-    
+- Creating a sheet with an invalid title block throws `ArgumentException` → we `rollback` safely and show the message.
 - Any unexpected error also triggers a rollback.
-    
 
   
 
@@ -219,12 +214,8 @@ var allSheets = new FilteredElementCollector(Document)
 				    .ToList();
 ```
 
-- Use FilteredElementCollector to **find elements** in the document.
-    
+- Use `FilteredElementCollector` to **find elements** in the document.
 - Here we collect **all sheets**.
-    
-
-  
 
 Then we format a short list for display:
 
@@ -247,9 +238,7 @@ else
 ```
 
 - We show **up to 10** sheets as "A101 - Floor Plan".
-    
 - If there are none, we display that clearly.
-    
 
 ---
 
@@ -258,18 +247,16 @@ else
 ```C#
 viewModel.ResultMessage = resultMessage;
 
-var view = new UKONView(viewModel);
+var view = new guRooView(viewModel);
 view.ShowDialog();
 ```
 
-- Set the ViewModel **property** (MVVM). 
+- Set the `ViewModel` **property** (MVVM). 
 - Open your WPF **dialog** to show the message.
 
 ---
 
 ## **Why the Sheet Creation “Fails” (and How to Make It Succeed)**
-
-  
 
 It fails because we passed `ElementId.InvalidElementId`. To actually create a sheet, find a **real title block type** first:
 
@@ -280,14 +267,13 @@ var titleBlockId = new FilteredElementCollector(Document)
     .FirstElementId(); // throws if none exist
 ```
 
-> Replace the invalid id with this titleBlockId before ViewSheet.Create(...) and the command will create a sheet (assuming at least one title block type is loaded).
+> Replace the invalid id with this titleBlockId before `ViewSheet.Create(...)` and the command will create a sheet (assuming at least one title block type is loaded).
 
 ---
 
 ## **Optional Cleanups (Beginner-Safe)**
 
 - **Safer casting with LINQ**:
-    
 
 ```C#
 var sheets = new FilteredElementCollector(Document)
@@ -296,23 +282,16 @@ var sheets = new FilteredElementCollector(Document)
     .ToList();
 ```
 
--   
-    
-- **StringBuilder** for long messages (not required, just tidy for larger outputs).
-    
+- `StringBuilder` for long messages (not required, just tidy for larger outputs).
 
 ---
 
 ## **Key Takeaways**
 
 - **Always use a Transaction** to modify the model.
-    
 - **Handle exceptions** and **rollback** on failure—never leave a transaction open.
-    
 - **Collectors** are how you **find elements** efficiently.
-    
 - **MVVM + WPF**: set data on the ViewModel; the dialog updates automatically.
-    
 - For creating sheets, you need a **valid title block type** (`OST_TitleBlocks`).
 
 > These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.
