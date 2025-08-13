@@ -1,508 +1,595 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Fri, 08 Aug 2025 13:53:29 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 9 -</title><link>https://blog.aydrafting.com/posts/post-9/</link><pubDate>Fri, 08 Aug 2025 13:53:29 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-9/</guid><description/></item><item><title>C# + Revit API: Lesson 8 - Tooltips &amp; Icons</title><link>https://blog.aydrafting.com/posts/post-8/</link><pubDate>Fri, 08 Aug 2025 13:13:50 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-8/</guid><description>&lt;p>In the previous lesson, we built a &lt;code>PushButton&lt;/code> using classes, constructors, properties, methods, interfaces, and a few global variables. In this lesson, we’ll put that button in its proper place on the ribbon and make sure everything—panel, icon, and tooltip—works end to end:&lt;/p>
-&lt;p>&lt;strong>This is what we are trying to create:&lt;/strong>&lt;/p>
-&lt;ol>
-&lt;li>&lt;code>Ribbon&lt;/code>&lt;/li>
-&lt;li>&lt;code>Panel&lt;/code>&lt;/li>
-&lt;li>&lt;code>PushButton&lt;/code>&lt;/li>
-&lt;li>&lt;code>Icon&lt;/code>&lt;/li>
-&lt;li>&lt;code>Tooltip&lt;/code>
-&lt;img alt="Pasted image 20250813140525.png" loading="lazy" src="https://blog.aydrafting.com/images/Pasted%20image%2020250813140525.png">&lt;/li>
-&lt;/ol>
-&lt;ul>
-&lt;li>We will cover how to manage &lt;code>resource&lt;/code>/&lt;code>command&lt;/code> naming,&lt;/li>
-&lt;li>And, how to easily manage &lt;code>tooltips&lt;/code> for our tools,&lt;/li>
-&lt;li>As well as, the &lt;code>standard&lt;/code>/&lt;code>large&lt;/code> image &lt;code>icons&lt;/code>,&lt;/li>
-&lt;li>Finally, we will test the &lt;code>tool&lt;/code> in action.&lt;/li>
-&lt;/ul>
-&lt;h1 id="base-command-naming">Base Command Naming&lt;/h1>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Command namespace&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmds_GroupName&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//Command Class&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmds_GroupName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmd_CommandName&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="preferred-method">Preferred Method:&lt;/h2>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;span class="lnt">9
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Before: &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmds_GroupName&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// After:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//Before:&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmds_GroupName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmd_CommandName&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//After&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">_CommandName&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="the-approach-we-will-use">The Approach we will use:&lt;/h2>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmds_GroupName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmd_CommandName&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Remove guRoo.Cmds_&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmd_CommandName&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Remove .Cmd&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GrouName_CommandName&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="or-you-can-make-things-even-more-resilient-by-using">Or you can make things even more resilient by using:&lt;/h2>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="k">typeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">CommandName&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">FullName&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="tooltipkey-is-base-name">Tooltipkey is base name:&lt;/h3>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="n">GrouName&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName_CommandName&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="icons">Icons:&lt;/h3>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName&lt;/span>&lt;span class="err">##&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName_CommandName&lt;/span>&lt;span class="err">##&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">##&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Reolusion&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="n">pixels&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="m">16&lt;/span> &lt;span class="n">or&lt;/span> &lt;span class="m">32&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h1 id="how-we-will-manage-tooltips">How we will manage &lt;code>Tooltips&lt;/code>&lt;/h1>
-&lt;p>We will create a &lt;code>Resources&lt;/code> (resx) file in C# and embed this into our project. It will be available in memory for our project whilst it runs to access. We will store the tooltip and description as a &lt;code>dictionary&lt;/code> of &lt;code>keys&lt;/code> and &lt;code>values&lt;/code>.&lt;/p></description></item><item><title>C# + Revit API: Lesson 7 - Creating a PushButton</title><link>https://blog.aydrafting.com/posts/post-7/</link><pubDate>Fri, 08 Aug 2025 13:06:57 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-7/</guid><description>&lt;h1 id="game-introduction-to-classes">Game: Introduction to Classes&lt;/h1>
-&lt;blockquote>
-&lt;p>Let&amp;rsquo;s play a little game that would help you quickly visualize a &lt;code>Class&lt;/code>, &lt;code>Properties&lt;/code>, &lt;code>Methods&lt;/code>, and &lt;code>Interface&lt;/code>. And select the &lt;code>interface&lt;/code> that matches the &lt;code>class&lt;/code>.&lt;/p>&lt;/blockquote>
-&lt;p>Think of the &lt;code>interface&lt;/code> as a Template the Class should follow or in other words the Category the Class belongs to.&lt;/p>
-&lt;p>Simply, the &lt;code>Interface&lt;/code> is a Category of the Class, the &lt;code>Class&lt;/code> is a Template of an Object, and the &lt;code>Object&lt;/code>, for example, is an actual Dog.&lt;/p></description></item><item><title>C# + Revit API: Lesson 6 - try &amp; catch Statements</title><link>https://blog.aydrafting.com/posts/post-6/</link><pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-6/</guid><description>&lt;h1 id="pseudocode">Pseudocode&lt;/h1>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="k">try&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="k">do&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">catch&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="k">try&lt;/span> &lt;span class="n">gets&lt;/span> &lt;span class="n">exception&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">rollback&lt;/span> &lt;span class="n">and&lt;/span> &lt;span class="k">do&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="exceptions">Exceptions&lt;/h2>
-&lt;blockquote>
-&lt;p>Exceptions come in many forms and Revit API Docs typically specifies the types of Exceptions we can catch for its methods. There are also system type exceptions.&lt;/p>&lt;/blockquote>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="k">catch&lt;/span> &lt;span class="c1">// Exception as &amp;#34;e&amp;#34; to print the error&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">To&lt;/span> &lt;span class="k">catch&lt;/span> &lt;span class="n">a&lt;/span> &lt;span class="n">specific&lt;/span> &lt;span class="n">exceptions&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">catch&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">catch&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">To&lt;/span> &lt;span class="k">catch&lt;/span> &lt;span class="n">all&lt;/span> &lt;span class="n">exceptions&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">do&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// but better to catch specific exceptions, &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// otherwise you will catch all necessary and unecessary exceptions.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">finally&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">To&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="n">a&lt;/span> &lt;span class="n">final&lt;/span> &lt;span class="n">code&lt;/span> &lt;span class="n">regardless&lt;/span> &lt;span class="n">of&lt;/span> &lt;span class="n">outcome&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="use-dont-abuse">Use Don&amp;rsquo;t Abuse&lt;/h2>
-&lt;blockquote>
-&lt;p>When you first begin using languages, try statements seem great - you can write code, and if you make a mistake your code can continue. THIS IS WRONG!&lt;/p></description></item><item><title>C# + Revit API: Lesson 5 - `if` Statements</title><link>https://blog.aydrafting.com/posts/post-5/</link><pubDate>Wed, 06 Aug 2025 17:36:22 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-5/</guid><description>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="c1">// Condition&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">run&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">condition&lt;/span> &lt;span class="k">is&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span> &lt;span class="c1">// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">run&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">condition&lt;/span> &lt;span class="k">is&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h1 id="else-if-statement">&lt;code>else if&lt;/code> Statement&lt;/h1>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="c1">// Condition&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">run&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">condition&lt;/span> &lt;span class="k">is&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="c1">// Condition&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">run&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">there&lt;/span> &lt;span class="n">are&lt;/span> &lt;span class="n">more&lt;/span> &lt;span class="n">conditions&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span> &lt;span class="c1">// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">run&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">condition&lt;/span> &lt;span class="k">is&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h1 id="shorthand-if-statements">Shorthand &lt;code>if&lt;/code> Statements&lt;/h1>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="k">value&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">condition&lt;/span>&lt;span class="p">?&lt;/span>&lt;span class="n">then&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;blockquote>
-&lt;p>Nearly always used for quickly setting another variable to one of two possibilities, using a conditional outcome. Only used if it&amp;rsquo;s a simple one liner task.&lt;/p></description></item><item><title>C# + Revit API: Lesson 4 - Logical Operators</title><link>https://blog.aydrafting.com/posts/post-4/</link><pubDate>Wed, 06 Aug 2025 15:50:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-4/</guid><description>&lt;blockquote>
-&lt;p>They control logic and flow in our tools.
-We will have a good understanding of core statements we can use to build Revit Add-ins.&lt;/p>&lt;/blockquote>
-&lt;h1 id="logical-operators">Logical Operators&lt;/h1>
-&lt;p>&lt;code>x == y&lt;/code> =&amp;gt; &lt;em>true if x is equal to y&lt;/em>
-&lt;code>x != y&lt;/code> =&amp;gt; &lt;em>true if x is not equal to y&lt;/em>
-&lt;code>x &amp;gt; y&lt;/code> =&amp;gt; &lt;em>true if x is greater than y&lt;/em>
-&lt;code>x &amp;lt; y&lt;/code> =&amp;gt; &lt;em>true if x is less than y&lt;/em>
-&lt;code>x &amp;gt;= y&lt;/code> =&amp;gt; &lt;em>true if x greater than or equals to y&lt;/em>
-&lt;code>x &amp;lt;= y&lt;/code> =&amp;gt; &lt;em>true if x less than or equals to y&lt;/em>&lt;/p></description></item><item><title>C# + Revit API: Lesson 3 - Fundamental Types of Data in C#</title><link>https://blog.aydrafting.com/posts/post-3/</link><pubDate>Wed, 06 Aug 2025 14:29:29 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-3/</guid><description>&lt;h1 id="boolean-bool">Boolean &lt;code>bool&lt;/code>&lt;/h1>
-&lt;ul>
-&lt;li>true (1)&lt;/li>
-&lt;li>false (0)&lt;/li>
-&lt;/ul>
-&lt;h1 id="integer-int">Integer &lt;code>int&lt;/code>&lt;/h1>
-&lt;ul>
-&lt;li>
-&lt;p>Whole number:&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>1, 2, 3, etc.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Numbers come in different formats but by default they are signable (can be negative).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Typically, they use 32 bits based.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;h1 id="double-double">Double &lt;code>double&lt;/code>&lt;/h1>
-&lt;ul>
-&lt;li>
-&lt;p>Decimal number:&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>0.0, 1.5, 6.592, -5.00, etc.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Doubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;h1 id="characters-char">Characters &lt;code>char&lt;/code>&lt;/h1>
-&lt;ul>
-&lt;li>
-&lt;p>&amp;lsquo;a&amp;rsquo;, &amp;lsquo;b&amp;rsquo;, &amp;lsquo;c&amp;rsquo;, etc.&lt;/p></description></item><item><title>C# + Revit API: Lesson 2 - Bits &amp; Bytes, ASCII Table, Pointers &amp; Structs - Programming 101</title><link>https://blog.aydrafting.com/posts/post-2/</link><pubDate>Wed, 06 Aug 2025 14:23:14 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-2/</guid><description>&lt;h4 id="i-suggest-taking-cs50-course-to-understand-the-basics-of-programming">I suggest taking &lt;a href="https://pll.harvard.edu/course/cs50-introduction-computer-science">CS50 Course&lt;/a> to understand the basics of Programming&lt;/h4>
-&lt;ol>
-&lt;li>True &amp;amp; False&lt;/li>
-&lt;li>0 and 1&lt;/li>
-&lt;li>Base 2 numbering system&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">1 0 1
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x x x
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4 2 1 = 5
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">In other words:
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2 2 2
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x x x
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2 1 0
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4 2 1 = 5
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1 0 1
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">We call these bits
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Eight bits = 1 byte
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Memory is addressed into bytes
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="ascii-tables-bring-meaning-to-what-various-bytes-represent">ASCII Tables bring meaning to what various bytes represent:&lt;/h2>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">ASCII 48 = 0
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">(00) 110000
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1 * 2^4 = 16
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1 * 2^5 = 32
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">16 + 32 = 48
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">48 = 0 (in ASCII Table)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h1 id="pointers--structs-in-c">Pointers = Structs (in C)&lt;/h1>
-&lt;p>Pointers are hexadecimal based values that identify an address in computer memory.&lt;/p></description></item><item><title>C# + Revit API: Lesson 1 - A Simple Walkthrough of the Command</title><link>https://blog.aydrafting.com/posts/post-1/</link><pubDate>Wed, 06 Aug 2025 01:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-1/</guid><description>&lt;p>This post explains &lt;strong>one concrete command&lt;/strong>—line by line—so a beginner can follow without extra abstractions.&lt;/p>
-&lt;p>&lt;strong>What this command does when you click your add-in button:&lt;/strong>&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>Tries to create a &lt;strong>sheet&lt;/strong> (using an &lt;strong>invalid&lt;/strong> title block on purpose → shows how error handling works).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Collects up to &lt;strong>10 existing sheets&lt;/strong> and formats their numbers/names.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Displays the result in a &lt;strong>WPF dialog&lt;/strong> via a ViewModel.&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>✅ This article focuses only on the command. It assumes you’ve already wired a ribbon button (and .addin) that triggers StartupCommand.&lt;/p></description></item><item><title>C# + Revit API: Lesson 0</title><link>https://blog.aydrafting.com/posts/post-0/</link><pubDate>Wed, 06 Aug 2025 00:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-0/</guid><description>&lt;h3 id="why-c">Why C#?&lt;/h3>
-&lt;ol>
-&lt;li>Scalability&lt;/li>
-&lt;/ol>
-&lt;h1 id="start-with">Start with:&lt;/h1>
-&lt;ol>
-&lt;li>&lt;a href="https://visualstudio.microsoft.com/downloads/">Install Visual Studio 2022 Community&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dotnet.microsoft.com/en-us/download/visual-studio-sdks">Install .NET SDKs (.NET4.8 &amp;amp; .NET8)&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/Nice3point/RevitTemplates">Install Nice3Point Templates&lt;/a>&lt;/li>
-&lt;/ol>
-&lt;h1 id="solution">Solution&lt;/h1>
-&lt;ol>
-&lt;li>Start a solution / project
-&lt;ol>
-&lt;li>Create a new project&lt;/li>
-&lt;li>Choose the Revit Addin (Nic3Point) Template&lt;/li>
-&lt;li>Configure your new project
-&lt;ol>
-&lt;li>Name of the project&lt;/li>
-&lt;li>Location&lt;/li>
-&lt;li>Solution Name - same as project name (it&amp;rsquo;s a folder name that holds many projects)&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Additional Information
-&lt;ol>
-&lt;li>Add-in type -&amp;gt; Application&lt;/li>
-&lt;li>User Interface -&amp;gt; None&lt;/li>
-&lt;li>IoC -&amp;gt; Disabled&lt;/li>
-&lt;li>Serilog support -&amp;gt; unchecked&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Explore Visual Studio
-&lt;ol>
-&lt;li>Properties &amp;amp; Solution Explorer (Project Browser in Revit)&lt;/li>
-&lt;li>Error &amp;amp; Output&lt;/li>
-&lt;li>CSProj -&amp;gt; Preconfigured up to Revit v.2025&lt;/li>
-&lt;li>.addin -&amp;gt; Change GUID (The rest we will change later)&lt;/li>
-&lt;li>Application Class:
-&lt;ol>
-&lt;li>Tells your addin how to begin and how to finish when Revit opens and closes.&lt;/li>
-&lt;li>Class: External Application&lt;/li>
-&lt;li>Method: OnStartup()
-&lt;ol>
-&lt;li>Will run &amp;ldquo;Create Ribbon()&amp;rdquo;&lt;/li>
-&lt;li>Creates a &lt;strong>Panel&lt;/strong>&lt;/li>
-&lt;li>Adds a &lt;strong>PushButton&lt;/strong> to that &lt;strong>Panel&lt;/strong>&lt;/li>
-&lt;li>With 2 &lt;strong>Icons&lt;/strong>&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Our Application
-&lt;ol>
-&lt;li>OnStartup&lt;/li>
-&lt;li>When it begins, it calls a Function &amp;ldquo;CreateRibbon()&amp;rdquo;&lt;/li>
-&lt;li>And CreateRibbon is a defined function below that:
-&lt;ol>
-&lt;li>Creates a panel
-&lt;ol>
-&lt;li>This is possible due to pre-configured Revit API that we are using&lt;/li>
-&lt;li>CreatePanel - is a pre-defined method under Revit API that, you guessed it, Creates a Panel in Revit.&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Creates a button
-&lt;ol>
-&lt;li>Same for the Button&lt;/li>
-&lt;li>AddPushButton Method in Revit API - Creates a button&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Commands Folder
-&lt;ol>
-&lt;li>Core Code&lt;/li>
-&lt;li>Currently: Task Dialog - Shows the name of the addin
-&lt;ol>
-&lt;li>ExternalCommand, but we should use IExternalCommand&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>This is the part that writes the logic for your button&lt;/li>
-&lt;li>Once you click the button, whatever is under Commands Folder connected to the button will be executed.&lt;/li>
-&lt;li>If you change the TaskDialog.Show(Document.Title, &amp;ldquo;Hello World&amp;rdquo;);
-&lt;ol>
-&lt;li>Once you press the button in Revit it would show &amp;ldquo;Hello World&amp;rdquo;&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Resources:
-&lt;ol>
-&lt;li>Icons&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Everything is saved in windows explorer&lt;/li>
-&lt;li>Configurations:
-&lt;ol>
-&lt;li>Debug and Release&lt;/li>
-&lt;li>Per Revit Version from R20 to R25&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>References:
-&lt;ol>
-&lt;li>Under: This PC &amp;gt; Windows (C:) &amp;gt; Program Files &amp;gt; Autodesk &amp;gt; Revit [2025].&lt;/li>
-&lt;li>DLL Files that you can reference to your project to build something.&lt;/li>
-&lt;li>You could even add an excel package to work with Excel, will do that later.&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Build and test the first plugin
-&lt;ol>
-&lt;li>Build the solution by clicking on Run (Play Button) next to Any CPU.&lt;/li>
-&lt;li>Lauches Revit (Version that you pre-configured)&lt;/li>
-&lt;li>Always Load your Addin&lt;/li>
-&lt;li>What happened behind the scenes:
-&lt;ol>
-&lt;li>VS2022 Added the DLL file and the .addin file into the right folder and launched Revit version that you specified with the Plugin loaded into Revit.&lt;/li>
-&lt;li>That became possible due to preconfigured Visual Studio Nic3Point Template that you ran earlier.&lt;/li>
-&lt;li>Everything is already set and pathed for you for the ease of starting and launching plugins.&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Go to New Project
-&lt;ol>
-&lt;li>Find your new panel in the panel tabs on the top of Revit User Interface.&lt;/li>
-&lt;li>Find your Addin / Plugin&lt;/li>
-&lt;li>Click on it&lt;/li>
-&lt;li>And you will get a message with the name of your Tool.&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Stop Debug
-&lt;ol>
-&lt;li>Closes Revit &amp;amp; Debug Mode&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>These tutorials were inspired by the work of &lt;a href="https://www.youtube.com/@AussieBIMGuru">Aussie BIM Guru&lt;/a>. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Blog</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Blog</description>
+    <image>
+      <title>Blog</title>
+      <url>http://localhost:1313/LogoAYD.png</url>
+      <link>http://localhost:1313/LogoAYD.png</link>
+    </image>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>en-us</language>
+    <copyright>2025 AYDrafting. All rights reserved.</copyright>
+    <lastBuildDate>Fri, 08 Aug 2025 13:53:29 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C# &#43; Revit API: Lesson 9 - </title>
+      <link>http://localhost:1313/posts/post-9/</link>
+      <pubDate>Fri, 08 Aug 2025 13:53:29 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-9/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 8 - Tooltips &amp; Icons</title>
+      <link>http://localhost:1313/posts/post-8/</link>
+      <pubDate>Fri, 08 Aug 2025 13:13:50 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-8/</guid>
+      <description>&lt;p&gt;In the previous lesson, we built a &lt;code&gt;PushButton&lt;/code&gt; using classes, constructors, properties, methods, interfaces, and a few global variables. In this lesson, we’ll put that button in its proper place on the ribbon and make sure everything—panel, icon, and tooltip—works end to end:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This is what we are trying to create:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Ribbon&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Panel&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PushButton&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Icon&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Tooltip&lt;/code&gt;
+&lt;img alt=&#34;Pasted image 20250813140525.png&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/Pasted%20image%2020250813140525.png&#34;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;We will cover how to manage &lt;code&gt;resource&lt;/code&gt;/&lt;code&gt;command&lt;/code&gt; naming,&lt;/li&gt;
+&lt;li&gt;And, how to easily manage &lt;code&gt;tooltips&lt;/code&gt; for our tools,&lt;/li&gt;
+&lt;li&gt;As well as, the &lt;code&gt;standard&lt;/code&gt;/&lt;code&gt;large&lt;/code&gt; image &lt;code&gt;icons&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;Finally, we will test the &lt;code&gt;tool&lt;/code&gt; in action.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;base-command-naming&#34;&gt;Base Command Naming&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Command namespace&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;guRoo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cmds_GroupName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//Command Class&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;guRoo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cmds_GroupName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cmd_CommandName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;preferred-method&#34;&gt;Preferred Method:&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Before: &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;guRoo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cmds_GroupName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// After:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;GroupName&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//Before:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;guRoo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cmds_GroupName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cmd_CommandName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//After&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;GroupName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_CommandName&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;the-approach-we-will-use&#34;&gt;The Approach we will use:&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;guRoo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cmds_GroupName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cmd_CommandName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Remove guRoo.Cmds_&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;GroupName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cmd_CommandName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Remove .Cmd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;GrouName_CommandName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;or-you-can-make-things-even-more-resilient-by-using&#34;&gt;Or you can make things even more resilient by using:&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;typeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CommandName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FullName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;tooltipkey-is-base-name&#34;&gt;Tooltipkey is base name:&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;GrouName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;GroupName_CommandName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;icons&#34;&gt;Icons:&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;GroupName&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;##&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;GroupName_CommandName&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;##&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;##&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Reolusion&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pixels&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;or&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;how-we-will-manage-tooltips&#34;&gt;How we will manage &lt;code&gt;Tooltips&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;We will create a &lt;code&gt;Resources&lt;/code&gt; (resx) file in C# and embed this into our project. It will be available in memory for our project whilst it runs to access. We will store the tooltip and description as a &lt;code&gt;dictionary&lt;/code&gt; of &lt;code&gt;keys&lt;/code&gt; and &lt;code&gt;values&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 7 - Creating a PushButton</title>
+      <link>http://localhost:1313/posts/post-7/</link>
+      <pubDate>Fri, 08 Aug 2025 13:06:57 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-7/</guid>
+      <description>&lt;h1 id=&#34;game-introduction-to-classes&#34;&gt;Game: Introduction to Classes&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Let&amp;rsquo;s play a little game that would help you quickly visualize a &lt;code&gt;Class&lt;/code&gt;, &lt;code&gt;Properties&lt;/code&gt;, &lt;code&gt;Methods&lt;/code&gt;, and &lt;code&gt;Interface&lt;/code&gt;. And select the &lt;code&gt;interface&lt;/code&gt; that matches the &lt;code&gt;class&lt;/code&gt;.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Think of the &lt;code&gt;interface&lt;/code&gt; as a Template the Class should follow or in other words the Category the Class belongs to.&lt;/p&gt;
+&lt;p&gt;Simply, the &lt;code&gt;Interface&lt;/code&gt; is a Category of the Class, the &lt;code&gt;Class&lt;/code&gt; is a Template of an Object, and the &lt;code&gt;Object&lt;/code&gt;, for example, is an actual Dog.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 6 - try &amp; catch Statements</title>
+      <link>http://localhost:1313/posts/post-6/</link>
+      <pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-6/</guid>
+      <description>&lt;h1 id=&#34;pseudocode&#34;&gt;Pseudocode&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gets&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exception&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rollback&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;exceptions&#34;&gt;Exceptions&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Exceptions come in many forms and Revit API Docs typically specifies the types of Exceptions we can catch for its methods. There are also system type exceptions.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Exception as &amp;#34;e&amp;#34; to print the error&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;To&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;specific&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exceptions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;To&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exceptions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;// but better to catch specific exceptions, &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;// otherwise you will catch all necessary and unecessary exceptions.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;finally&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;To&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;code&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;regardless&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;of&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;outcome&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;use-dont-abuse&#34;&gt;Use Don&amp;rsquo;t Abuse&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;When you first begin using languages, try statements seem great - you can write code, and if you make a mistake your code can continue. THIS IS WRONG!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 5 - `if` Statements</title>
+      <link>http://localhost:1313/posts/post-5/</link>
+      <pubDate>Wed, 06 Aug 2025 17:36:22 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-5/</guid>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Condition&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;condition&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;condition&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;else-if-statement&#34;&gt;&lt;code&gt;else if&lt;/code&gt; Statement&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Condition&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;condition&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Condition&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;there&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;are&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;more&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;conditions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// If we have no false outcome -&amp;gt; we can skip &amp;#39;else&amp;#39; branch altogether&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;condition&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;shorthand-if-statements&#34;&gt;Shorthand &lt;code&gt;if&lt;/code&gt; Statements&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;condition&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;Nearly always used for quickly setting another variable to one of two possibilities, using a conditional outcome. Only used if it&amp;rsquo;s a simple one liner task.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 4 - Logical Operators</title>
+      <link>http://localhost:1313/posts/post-4/</link>
+      <pubDate>Wed, 06 Aug 2025 15:50:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-4/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;They control logic and flow in our tools.
+We will have a good understanding of core statements we can use to build Revit Add-ins.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h1 id=&#34;logical-operators&#34;&gt;Logical Operators&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;x == y&lt;/code&gt; =&amp;gt; &lt;em&gt;true  if x is equal to y&lt;/em&gt;
+&lt;code&gt;x != y&lt;/code&gt; =&amp;gt; &lt;em&gt;true if x is not equal to y&lt;/em&gt;
+&lt;code&gt;x &amp;gt; y&lt;/code&gt; =&amp;gt; &lt;em&gt;true if x is greater than y&lt;/em&gt;
+&lt;code&gt;x &amp;lt; y&lt;/code&gt; =&amp;gt; &lt;em&gt;true if x is less than y&lt;/em&gt;
+&lt;code&gt;x &amp;gt;= y&lt;/code&gt; =&amp;gt; &lt;em&gt;true if x greater than or equals to y&lt;/em&gt;
+&lt;code&gt;x &amp;lt;= y&lt;/code&gt; =&amp;gt; &lt;em&gt;true if x less than or equals to y&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 3 - Fundamental Types of Data in C#</title>
+      <link>http://localhost:1313/posts/post-3/</link>
+      <pubDate>Wed, 06 Aug 2025 14:29:29 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-3/</guid>
+      <description>&lt;h1 id=&#34;boolean-bool&#34;&gt;Boolean &lt;code&gt;bool&lt;/code&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;true (1)&lt;/li&gt;
+&lt;li&gt;false (0)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;integer-int&#34;&gt;Integer &lt;code&gt;int&lt;/code&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Whole number:&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1, 2, 3, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Numbers come in different formats but by default they are signable (can be negative).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Typically, they use 32 bits based.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;double-double&#34;&gt;Double &lt;code&gt;double&lt;/code&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Decimal number:&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;0.0, 1.5, 6.592, -5.00, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Doubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;characters-char&#34;&gt;Characters &lt;code&gt;char&lt;/code&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;lsquo;a&amp;rsquo;, &amp;lsquo;b&amp;rsquo;, &amp;lsquo;c&amp;rsquo;, etc.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 2 - Bits &amp; Bytes, ASCII Table, Pointers &amp; Structs - Programming 101</title>
+      <link>http://localhost:1313/posts/post-2/</link>
+      <pubDate>Wed, 06 Aug 2025 14:23:14 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-2/</guid>
+      <description>&lt;h4 id=&#34;i-suggest-taking-cs50-course-to-understand-the-basics-of-programming&#34;&gt;I suggest taking &lt;a href=&#34;https://pll.harvard.edu/course/cs50-introduction-computer-science&#34;&gt;CS50 Course&lt;/a&gt; to understand the basics of Programming&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;True &amp;amp; False&lt;/li&gt;
+&lt;li&gt;0 and 1&lt;/li&gt;
+&lt;li&gt;Base 2 numbering system&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 0 1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;x x x
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;4 2 1 = 5 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;In other words:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2 2 2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;x x x
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2 1 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;4 2 1 = 5 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 0 1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;We call these bits 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Eight bits = 1 byte
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Memory is addressed into bytes
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;ascii-tables-bring-meaning-to-what-various-bytes-represent&#34;&gt;ASCII Tables bring meaning to what various bytes represent:&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ASCII 48 = 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;(00) 110000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 * 2^4 = 16
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 * 2^5 = 32
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;16 + 32 = 48
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;48 = 0 (in ASCII Table)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;pointers--structs-in-c&#34;&gt;Pointers = Structs (in C)&lt;/h1&gt;
+&lt;p&gt;Pointers are hexadecimal based values that identify an address in computer memory.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 1 - A Simple Walkthrough of the Command</title>
+      <link>http://localhost:1313/posts/post-1/</link>
+      <pubDate>Wed, 06 Aug 2025 01:00:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-1/</guid>
+      <description>&lt;p&gt;This post explains &lt;strong&gt;one concrete command&lt;/strong&gt;—line by line—so a beginner can follow without extra abstractions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What this command does when you click your add-in button:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Tries to create a &lt;strong&gt;sheet&lt;/strong&gt; (using an &lt;strong&gt;invalid&lt;/strong&gt; title block on purpose → shows how error handling works).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Collects up to &lt;strong&gt;10 existing sheets&lt;/strong&gt; and formats their numbers/names.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Displays the result in a &lt;strong&gt;WPF dialog&lt;/strong&gt; via a ViewModel.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;✅ This article focuses only on the command. It assumes you’ve already wired a ribbon button (and .addin) that triggers StartupCommand.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C# &#43; Revit API: Lesson 0</title>
+      <link>http://localhost:1313/posts/post-0/</link>
+      <pubDate>Wed, 06 Aug 2025 00:00:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/post-0/</guid>
+      <description>&lt;h3 id=&#34;why-c&#34;&gt;Why C#?&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Scalability&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;start-with&#34;&gt;Start with:&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://visualstudio.microsoft.com/downloads/&#34;&gt;Install Visual Studio 2022 Community&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dotnet.microsoft.com/en-us/download/visual-studio-sdks&#34;&gt;Install .NET SDKs (.NET4.8 &amp;amp; .NET8)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/Nice3point/RevitTemplates&#34;&gt;Install Nice3Point Templates&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;solution&#34;&gt;Solution&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;Start a solution / project
+&lt;ol&gt;
+&lt;li&gt;Create a new project&lt;/li&gt;
+&lt;li&gt;Choose the Revit Addin (Nic3Point) Template&lt;/li&gt;
+&lt;li&gt;Configure your new project
+&lt;ol&gt;
+&lt;li&gt;Name of the project&lt;/li&gt;
+&lt;li&gt;Location&lt;/li&gt;
+&lt;li&gt;Solution Name - same as project name (it&amp;rsquo;s a folder name that holds many projects)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Additional Information
+&lt;ol&gt;
+&lt;li&gt;Add-in type -&amp;gt; Application&lt;/li&gt;
+&lt;li&gt;User Interface -&amp;gt; None&lt;/li&gt;
+&lt;li&gt;IoC -&amp;gt; Disabled&lt;/li&gt;
+&lt;li&gt;Serilog support -&amp;gt; unchecked&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Explore Visual Studio
+&lt;ol&gt;
+&lt;li&gt;Properties &amp;amp; Solution Explorer (Project Browser in Revit)&lt;/li&gt;
+&lt;li&gt;Error &amp;amp; Output&lt;/li&gt;
+&lt;li&gt;CSProj -&amp;gt; Preconfigured up to Revit v.2025&lt;/li&gt;
+&lt;li&gt;.addin -&amp;gt; Change GUID (The rest we will change later)&lt;/li&gt;
+&lt;li&gt;Application Class:
+&lt;ol&gt;
+&lt;li&gt;Tells your addin how to begin and how to finish when Revit opens and closes.&lt;/li&gt;
+&lt;li&gt;Class: External Application&lt;/li&gt;
+&lt;li&gt;Method: OnStartup()
+&lt;ol&gt;
+&lt;li&gt;Will run &amp;ldquo;Create Ribbon()&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Creates a &lt;strong&gt;Panel&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Adds a &lt;strong&gt;PushButton&lt;/strong&gt; to that &lt;strong&gt;Panel&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;With 2 &lt;strong&gt;Icons&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Our Application
+&lt;ol&gt;
+&lt;li&gt;OnStartup&lt;/li&gt;
+&lt;li&gt;When it begins, it calls a Function &amp;ldquo;CreateRibbon()&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;And CreateRibbon is a defined function below that:
+&lt;ol&gt;
+&lt;li&gt;Creates a panel
+&lt;ol&gt;
+&lt;li&gt;This is possible due to pre-configured Revit API that we are using&lt;/li&gt;
+&lt;li&gt;CreatePanel - is a pre-defined method under Revit API that, you guessed it, Creates a Panel in Revit.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Creates a button
+&lt;ol&gt;
+&lt;li&gt;Same for the Button&lt;/li&gt;
+&lt;li&gt;AddPushButton Method in Revit API - Creates a button&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Commands Folder
+&lt;ol&gt;
+&lt;li&gt;Core Code&lt;/li&gt;
+&lt;li&gt;Currently: Task Dialog - Shows the name of the addin
+&lt;ol&gt;
+&lt;li&gt;ExternalCommand, but we should use IExternalCommand&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;This is the part that writes the logic for your button&lt;/li&gt;
+&lt;li&gt;Once you click the button, whatever is under Commands Folder connected to the button will be executed.&lt;/li&gt;
+&lt;li&gt;If you change the TaskDialog.Show(Document.Title, &amp;ldquo;Hello World&amp;rdquo;);
+&lt;ol&gt;
+&lt;li&gt;Once you press the button in Revit it would show &amp;ldquo;Hello World&amp;rdquo;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Resources:
+&lt;ol&gt;
+&lt;li&gt;Icons&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Everything is saved in windows explorer&lt;/li&gt;
+&lt;li&gt;Configurations:
+&lt;ol&gt;
+&lt;li&gt;Debug and Release&lt;/li&gt;
+&lt;li&gt;Per Revit Version from R20 to R25&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;References:
+&lt;ol&gt;
+&lt;li&gt;Under: This PC &amp;gt; Windows (C:) &amp;gt; Program Files &amp;gt; Autodesk &amp;gt; Revit [2025].&lt;/li&gt;
+&lt;li&gt;DLL Files that you can reference to your project to build something.&lt;/li&gt;
+&lt;li&gt;You could even add an excel package to work with Excel, will do that later.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Build and test the first plugin
+&lt;ol&gt;
+&lt;li&gt;Build the solution by clicking on Run (Play Button) next to Any CPU.&lt;/li&gt;
+&lt;li&gt;Lauches Revit (Version that you pre-configured)&lt;/li&gt;
+&lt;li&gt;Always Load your Addin&lt;/li&gt;
+&lt;li&gt;What happened behind the scenes:
+&lt;ol&gt;
+&lt;li&gt;VS2022 Added the DLL file and the .addin file into the right folder and launched Revit version that you specified with the Plugin loaded into Revit.&lt;/li&gt;
+&lt;li&gt;That became possible due to preconfigured Visual Studio Nic3Point Template that you ran earlier.&lt;/li&gt;
+&lt;li&gt;Everything is already set and pathed for you for the ease of starting and launching plugins.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Go to New Project
+&lt;ol&gt;
+&lt;li&gt;Find your new panel in the panel tabs on the top of Revit User Interface.&lt;/li&gt;
+&lt;li&gt;Find your Addin / Plugin&lt;/li&gt;
+&lt;li&gt;Click on it&lt;/li&gt;
+&lt;li&gt;And you will get a message with the name of your Tool.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Stop Debug
+&lt;ol&gt;
+&lt;li&gt;Closes Revit &amp;amp; Debug Mode&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;These tutorials were inspired by the work of &lt;a href=&#34;https://www.youtube.com/@AussieBIMGuru&#34;&gt;Aussie BIM Guru&lt;/a&gt;. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
