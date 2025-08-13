@@ -5,19 +5,20 @@ draft = false
 tags = ["C#", "Revit", "Tutorial"]
 +++
 
+In the previous lesson, we built a `PushButton` using classes, constructors, properties, methods, interfaces, and a few global variables. In this lesson, we’ll put that button in its proper place on the ribbon and make sure everything—panel, icon, and tooltip—works end to end:
+
+**This is what we are trying to create:**
+1. `Ribbon`
+2. `Panel`
+3. `PushButton`
+4. `Icon`
+5. `Tooltip`
+![Pasted image 20250813140525.png](</images/Pasted image 20250813140525.png>)
+
 - We will cover how to manage `resource`/`command` naming,
 - And, how to easily manage `tooltips` for our tools,
 - As well as, the `standard`/`large` image `icons`,
 - Finally, we will test the `tool` in action.
-
-**This is what we are trying to create:**
-1. Ribbon
-2. Panel
-3. PushButton
-4. Icon
-5. Tooltip
-![Pasted image 20250813140525.png](</images/Pasted image 20250813140525.png>)
-
 # Base Command Naming
 ```C#
 // Command namespace
