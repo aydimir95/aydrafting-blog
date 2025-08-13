@@ -63,15 +63,15 @@ sameAs = [
 [params.homeInfoParams]
 Title = "Welcome to Aydimir's Blog"
 Content = '''
-Engineer. 
 
-Founder of AYDrafting.
-
-Sharing Civil and Software Engineering insights I find interesting.
+I'm an Engineer &
+Founder of [AYDrafting](https://www.aydrafting.com).
+<br><br>
+Sharing Civil Software Engineering insights I find interesting.
 
 If it involves Revit or AutoCAD Civil 3D and calls for Automation — I'm your guy.
-
-Subscribe to my channels to follow the journey:
+<br><br>
+Subscribe to my channels to follow the journey or message me anywhere if you want to reach out:
 '''
 
 [[params.socialIcons]]
