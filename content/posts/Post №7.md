@@ -1,5 +1,5 @@
 +++
-title = "C# + Revit API: Lesson 7 - Creating a PushButton or in other words, Intro to Classes / Constructors / Properties / Methods / Interfaces & Global Variables"
+title = "C# + Revit API: Lesson 7 - Creating a PushButton"
 date = 2025-08-08T13:06:57+03:00
 draft = false
 tags = ["C#", "Revit", "Tutorial"]
