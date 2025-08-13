@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Blog</title><link>https://blog.aydrafting.com/posts/</link><description>Recent content in Posts on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Fri, 08 Aug 2025 13:13:50 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 8 - Tooltips &amp; Icons -> Extension Methods</title><link>https://blog.aydrafting.com/posts/post-8/</link><pubDate>Fri, 08 Aug 2025 13:13:50 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-8/</guid><description>&lt;ul>
-&lt;li>We will cover how to manage resource/command naming,&lt;/li>
-&lt;li>And, how to easily manage tooltips for our tools,&lt;/li>
-&lt;li>As well as, the standard/large image icons,&lt;/li>
-&lt;li>Finally, we will test the tool in action.&lt;/li>
+&lt;li>We will cover how to manage &lt;code>resource&lt;/code>/&lt;code>command&lt;/code> naming,&lt;/li>
+&lt;li>And, how to easily manage &lt;code>tooltips&lt;/code> for our tools,&lt;/li>
+&lt;li>As well as, the &lt;code>standard&lt;/code>/&lt;code>large&lt;/code> image &lt;code>icons&lt;/code>,&lt;/li>
+&lt;li>Finally, we will test the &lt;code>tool&lt;/code> in action.&lt;/li>
 &lt;/ul>
+&lt;p>&lt;strong>This is what we are trying to create:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Ribbon&lt;/li>
+&lt;li>Panel&lt;/li>
+&lt;li>PushButton&lt;/li>
+&lt;li>Icon&lt;/li>
+&lt;li>Tooltip
+&lt;img alt="Pasted image 20250813140525.png" loading="lazy" src="https://blog.aydrafting.com/images/Pasted%20image%2020250813140525.png">&lt;/li>
+&lt;/ol>
 &lt;h1 id="base-command-naming">Base Command Naming&lt;/h1>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">

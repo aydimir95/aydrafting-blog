@@ -35,7 +35,8 @@
               "title": "Post №8"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -92,8 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "d3491164a67ec247",
@@ -184,10 +184,12 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "6d9f648c79d0cfe4",
+  "active": "4f48dab4fbbd5f86",
   "lastOpenFiles": [
-    "content/posts/Post №8.md",
+    "public/images/Pasted image 20250813140525.png",
+    "static/images/Pasted image 20250813140525.png",
     "content/posts/Post №7.md",
+    "content/posts/Post №8.md",
     "content/posts/Post №9.md",
     "content/posts/Post №6.md",
     "content/posts/Post №5.md",
@@ -216,7 +218,6 @@
     "static/images/Pasted image 20250809211308.png",
     "static/images/Pasted image 20250809211136.png",
     "public/Pasted image 20250809211345.png",
-    "public/Pasted image 20250809211308.png",
     "content/posts/2025-08-09.md",
     "content/posts/2025-08-08.md",
     "content/posts/double.md",
