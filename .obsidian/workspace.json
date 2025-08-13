@@ -8,7 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "4f48dab4fbbd5f86",
+            "id": "6d9f648c79d0cfe4",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -19,6 +19,20 @@
               },
               "icon": "lucide-file",
               "title": "Post №7"
+            }
+          },
+          {
+            "id": "4f48dab4fbbd5f86",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/posts/Post №8.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Post №8"
             }
           }
         ]
@@ -78,7 +92,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "d3491164a67ec247",
@@ -169,16 +184,19 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "e33aebf358b1bd7e",
+  "active": "6d9f648c79d0cfe4",
   "lastOpenFiles": [
-    "content/posts/Post №1.md",
-    "content/posts/Post №0.md",
+    "content/posts/Post №8.md",
     "content/posts/Post №7.md",
+    "content/posts/Post №9.md",
     "content/posts/Post №6.md",
     "content/posts/Post №5.md",
     "content/posts/Post №4.md",
     "content/posts/Post №3.md",
     "content/posts/Post №2.md",
+    "content/posts/Post №1.md",
+    "content/posts/Post №0.md",
+    "content/posts/Untitled.md",
     "public/assets/css/stylesheet.6d585472a409a8f504e6bf969a2864fd1288e629997cd2926dd96376ae22831b.css",
     "public/assets/css/stylesheet.2c953fe030ead6fca0e52308db824772c4d5043736f281564f4c3048c8095dac.css",
     "public/assets/css/stylesheet.169e853c208a43891d314bf147f8e006ed30769c2e830cd2328724be0138f50c.css",
@@ -189,9 +207,6 @@
     "public/js/classcard.cea736cc792060afe3831cbe01a1ea4c741136e5014fd7d8e0116f53c27d0de41eaf76efa2bf9ebbd4279920a2ca3679a4ef3499c9d3f1a6fe5bc6d5cc216578.js",
     "public/js/classcard.dd64b5d43d4423c55494f2f50494722b716b744ea750464bdb7489d0bfeb4f862dfe9a19b3f0f66f59f5f66704d35199babf5fa274091b86160575519e55c6b3.js",
     "public/js/classcard.d9b09442742940dce136d2f717b9054309c4588b4bee3ba8c16182775239fa880ce8c55994ee58a78cf2f3b1803ee963313a6f3c7cbf86fe053b067652049f01.js",
-    "content/posts/Untitled.md",
-    "content/posts/Post №8.md",
-    "content/posts/Post №9.md",
     "public/images/Pasted image 20250809211706.png",
     "public/images/Pasted image 20250809211345.png",
     "public/images/Pasted image 20250809211308.png",

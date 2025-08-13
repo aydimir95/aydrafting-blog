@@ -1,11 +1,17 @@
 +++
-title = "C# + Revit API: Lesson 7 - Introduction to Classes"
+title = "C# + Revit API: Lesson 7 - Creating a PushButton or in other words, Intro to Classes / Constructors / Properties / Methods / Interfaces & Global Variables"
 date = 2025-08-08T13:06:57+03:00
 draft = false
 tags = ["C#", "Revit", "Tutorial"]
 +++
+# Game: Introduction to Classes
+> Let's play a little game that would help you quickly visualize a `Class`, `Properties`, `Methods`, and `Interface`. And select the `interface` that matches the `class`.
 
-<!-- {{< shooter strategy="burst" count="5" spread="1.0" >}} -->
+Think of the `interface` as a Template the Class should follow or in other words the Category the Class belongs to. 
+
+Simply, the `Interface` is a Category of the Class, the `Class` is a Template of an Object, and the `Object`, for example, is an actual Dog. 
+
+We will explore this pattern below, let's just play the game first, what `Category` or `Interface` does the `Class`:`Dog` belongs? 
 
 {{< classcard
   title="SheetResult"
@@ -16,12 +22,17 @@ tags = ["C#", "Revit", "Tutorial"]
 
 # 1. Introduction
 ### Project Folder Structure
-1. Commands
-2. Extensions
-3. Forms 
-4. General
-5. Resources
-6. Utilities
+```C#
+Solution
+|-> guRoo
+	|-> Dependencies
+	|-> Commands
+	|-> Forms
+	|-> Resources
+	|-> Application.cs
+	|-> guRoo.addin
+```
+
 *These are `folders` which contain various files that our toolbar will utilize.*
 - *Note that these are not necessarily aligned with `namespaces` (which will be covered later)*
 
@@ -260,7 +271,7 @@ We’ll do this in a **Revit API context** by making a simple SheetResult class 
 
 💡 _This will help you understand how constructors work in C#, and how you can use them to set up different ways of creating an object in your Revit add-ins._
 
-#### Solution (Copy Paste -> Compile & Test it in Revit)
+### Solution
 
 #### `Custom.cs`
 ```C#
@@ -640,7 +651,7 @@ namespace guRoo.Forms
 }
 ```
 
-#### `StartCommand.cs`
+#### `StartupCommand.cs`
 ```C#
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -678,11 +689,9 @@ namespace guRoo.Commands
     }
 }
 ```
-### Disposal
+#### Disposal
 - Later on, we will look into other things we can make use of, such as specifying what happens to our class instances when they are `disposed`.
 - Generally, an object will be `disposed` when it us not needed anymore. The compiler tracks and determines when this occurs for us, but we can also manually dispose of or with the disposal of objects.
-
-***From there, we've learnt all about classes!***
 
 We now have a basic understanding of:
 1. `Classes` in C#
@@ -702,6 +711,66 @@ If a class **implements** an interface, it promises to include all the members t
 This is useful for making sure different classes follow the same pattern, even if they work in different ways inside.
 
 > 💡 _Think of it as a checklist: the interface says “you must have these items,” and your class fills in the details._
+
+---
+### `ASCII diagram` showing the real world application of interfaces:
+
+```C#
+        +-------------------+
+        |     IAnimal       |   <- Interface (the contract)
+        |-------------------|
+        | Name   : string   |
+        | Age    : int      |
+        | Fetch(): void     |
+        +-------------------+
+                 ^
+                 |
+     +-----------+------------+
+     |                        |
++------------+         +-------------+
+|    Dog     |         |     Cat     |   <- Class (blueprint)
+|------------|         |-------------|
+| Name       |         | Name        |
+| Age        |         | Age         |
+| Breed      |         | Color       |
+| Bark()     |         | Meow()      |
+| Fetch()    |         | Fetch()     |
+| Sleep()    |         | Sleep()     |
++------------+         +-------------+
+     ^                        ^
+     |                        |
++----------------+     +------------------+
+| myDog          |     | myCat            |   <- Object (instance in memory)
+|----------------|     |------------------|
+| Name = "Buddy" |     | Name = "Mittens" |
+| Age = 3        |     | Age = 2          |
+| Breed = "GR"   |     | Color = "Gray"   |
+| Bark()         |     | Meow()           |
+| Fetch()        |     | Fetch()          |
+| Sleep()        |     | Sleep()          |
++----------------+     +------------------+
+     ^                        ^
+     +-----------+------------+
+                 |
+       +----------------------+
+       |  AnimalPlayground    |   <- Code using IAnimal
+       |----------------------|
+       | Play(IAnimal animal) |
+       +----------------------+
+                 |
+    +-------------------------------+
+    | Works with ANY object that    |
+    | implements IAnimanl (myDog,   |
+    | myCat, future animals, etc.)  |
+    +-------------------------------+
+```
+
+**Flow explanation:**
+
+1. `IAnimal` defines the rules.
+2. `Dog` / `Cat` promise to follow them.
+3. `myDog` / `myCat` are _real_ objects in memory created from those classes.
+4. `AnimalPlayground` can work with **any** object that implements `IAnimal` — no matter what the actual class is.
 
 ---
 
@@ -783,8 +852,8 @@ UIDocument uiDoc = uiApp.ActiveUIDocument;
 Document doc = uiDoc.Document;            // The main Revit document API
 ```
 
-> 💡 _Tip:_ At **`startup`/`shutdown`** you’ll usually have `UIControlledApplication`.   
-> 💡 _Tip:_ During a **`command` / `event`**, you’ll start with `UIApplication`. 
+> 💡 _Tip:_ At `startup`/`shutdown` you’ll usually have `UIControlledApplication`.   
+> 💡 _Tip:_ During a `command` / `event`, you’ll start with `UIApplication`. 
 ### Homework
 - Implement *`IExternalApplication`*
 - Implement *`IExternalCommand`*
@@ -843,7 +912,7 @@ namespace guRoo
 }
 ```
 
-## Re-organizing the project solution:
+#### Re-organizing the project solution:
 ```C#
 Solution
 |-> guRoo
@@ -856,8 +925,8 @@ Solution
 	|-> Application.cs
 	|-> guRoo.addin
 ```
-#### Example after re-organizing:
-#### `Cmds_General.cs`
+##### Example after re-organizing:
+##### `Cmds_General.cs`
 ```C#
 // Autodesk
 using Autodesk.Revit.Attributes;
@@ -1012,7 +1081,7 @@ Solution
 	|-> Resources
 	|-> Utilities // Add a New Utilities Folder
 		|-> Ribbon_Utils.cs // Add a New Ribbon Utilities Class
-	|-> Application.cs // Adjust Application Class
+	|-> Application.cs // Update Application Class
 	|-> guRoo.addin
 ```
 
@@ -1114,7 +1183,7 @@ namespace guRoo.Utilities
 				}
 				else
 				{
-					Debug.WriteLine($Error: Could not create {buttonName}.)
+					Debug.WriteLine("$Error: Could not create {buttonName}.")
 					return null;
 				}
 			}
@@ -1209,9 +1278,6 @@ namespace guRoo.Cmds_General
 		}
 	}
 
-
-
-
 	/// <summary>
 	///		Example Command
 	/// </summary>
@@ -1239,31 +1305,220 @@ namespace guRoo.Cmds_General
 # 8. `Global` Variables
 Some programming languages support '`global`' variables, which can be accessed anywhere at any time once set in the project.
 
-To my knowledge, C# does not have a dedicated system for this. We can still achieve this by utilizing a static class that is dedicated to storing and providing these, however.
-
+To my knowledge, C# does not have a dedicated system for this. We can still achieve this by utilizing a static class that is dedicated to storing and providing these.
+ 
 - Let's set up a Globals Class, which will give us access to objects that would otherwise be inaccessible from various areas of our project.
 - We will also look at how we can use an event to capture the `UIApplication`.
 
-### Why can't we get the `UiApp`?
-We will collect most variables on startup, but the `UiApplication` is not available during this time in Revit. In order to collect it we will take advantage of the `OnIdling Event`.
+## Why can't we get the `UiApp`?
+We will collect most variables on startup, but the `UiApplication` is not available during this time in Revit. In order to collect it we will take advantage of the `Idling Event`.
 
-## Events 101
+## `Events` 101
 1. Events provide us the ability to have code that executes when various events occur in an application. For example, run a code whenever the view is changed.
-2. When Revit is available, it is said to be **`Idling`** (not doing anything). The **`OnIdling`** event is commonly used to run some code as soon as Revit is available for code to be run.
+2. When Revit is available, it is said to be **`Idling`** (not doing anything). The `Idling event` is commonly used to run some code as soon as Revit is available for code to be run.
 
 ## Basic `Sub`/`Unsub` syntax 
 Subscribe to `Idling` event 
 	`UICtlApp.Idling += MethodName`
 
-Unsubsribe from `idling` event
+Unsubscribe from `idling` event
 	`UICtlApp.Idling -= MethodName`
 
 *In most cases, you will want your method to unsubscribe itself once it has run.*
 
 ## Homework
 1. Create a `static` `Globals` Class
-2. Add `properties` and `registration` 
-3. Register the `UiApp` using `IdlingEvent` 
+2. Add `properties` and `registration` method
+3. Register the `UiApp` and Revit User Name using `IdlingEvent` 
+
+## Solution
+
+### `Overview`
+```C#
+Solution
+|-> guRoo
+	|-> Dependencies
+	|-> Commands
+		|-> General 
+			|-> Cmds_General.cs 
+	|-> Forms
+	|-> General // Add a New General Folder
+		|-> Globals.cs // Add a New Globals Class
+	|-> Resources
+	|-> Utilities
+		|-> Ribbon_Utils.cs 
+	|-> Application.cs // Updated
+	|-> guRoo.addin
+```
+
+### `Globals.cs`
+```C#
+using System;
+using System.Collection.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Task;
+using Assembly = System.Reflection.Assembly;
+
+namespace guRoo
+{
+	public static class Globals
+	{
+#region Properties
+		// Applications
+		public static UIControlledApplication UiCtlApp {get;set;}
+		public static ControlledApplication CtlApp {get;set;}
+		public static UIApplication UiApp {get;set;}
+
+		// Assembly
+		public static Assembly Assembly {get;set;} // Ambiguity or missing ref
+		piblic static string AssemblyPath{get;set;}
+
+		// Revit Versions
+		public static string RevitVersion {get;set;}
+		public static int RevitVersionInt {get;set;}
+
+		// User Names
+		public static string UsernameRevit {get;set;}
+		public static string UsernameWindows {get;set;}
+
+		// GUIDs and Versioning
+		public static string AdddinVersionNumber {get;set;}
+		public static string AddinVersionName {get;set;}
+		public static string AddinName {get;set;}
+		public static string AddinGuid {get;set;}
+#endregion
+
+#region Register Method
+		// Method to Register Variable Properties
+		public static void RegisterProperties(UIControlledApplication uiCtlApp)
+		{
+			UiCtlApp = uiCtlApp;
+			CtlApp = uiCtlApp.ContrlledApplication;
+			// UiApp set on idling
+
+			Assembly = Assembly.GetExecutingAssembly();
+			AssemblyPath = Assembly.Location;
+
+			RevitVersion = CtlApp.VersionNumber;
+			RevitVersionInt = Int32.Parse(RevitVersion);
+
+			// Revit Username set to idling
+			UsernameWindows = Environment.UserName;
+
+			AddinVersionNumber = "25.08.12";
+			AddinVersionName = "WIP";
+			AddinName = "guRoo";
+			AddinGuid = "5FD7523B-5832-4AB8-9B3D-0BE7ACFE1207";
+		}
+#endregion
+
+	}
+}
+
+```
+
+### `Application.cs`
+```C#
+// Autodesk
+using Autodesk.Revit.UI;
+
+// guRoo
+using gRib = guRoo.Utilities.Ribbon_Utils;
+
+// This application belongs to the root namespace
+namespace guRoo
+{
+	// Implementing the interface for application.cs class
+	public class Application: IExternalApplication 
+	// IExternalApplication for the interface
+	{
+		// Make a private uiCtlApp method:
+		private static UIControlledApplication _uiCtlApp;
+
+		//This will return a result on Startup method - requires uiCtlApp
+		public Result OnStartup(UIControlledApplication uiCtlApp)
+		{
+#region Globals registration
+			// Store _uiCtlApp, register on idling
+			_uiCtlApp = uiCtlApp;
+
+			try
+			{
+				_uiCtlApp.Idling += RegisterUiApp;
+			}
+			catch
+			{
+				Globals.UiApp = null;
+				Glovals.UsernameRevit = null;
+			}
+
+			// Register Globals
+			Globals.RegisterProperties(uiCtlApp);
+#endregion 
+
+#region Removed because we added the Global Variables: 
+			// Collect the controlled application:
+			// var ctlApp = uiCtlApp.ControlledApplication;
+			// var assembly = Assembly.GetExecutingAssembly();
+			// avr assemblyPath = assembly.Location;
+
+			// Variables
+			// string tabName = "guRoo"
+#endregion
+
+#region Ribbon setup
+			// Add RibbonTab
+			gRib.AddRibbonTab(uiCtlApp, Globals.AddinName); // instead of TabName
+
+			// Create RibbonPanel
+			var panelGeneral = gRib.AddRibbonPanelToTab(
+								uiCtlApp, 
+								Globals.AddinName, // instead of TabName
+								"General");
+
+			// Add PushButton to RibbonPanel
+			var buttonTest = gRib.AddPushButtonToPanel(
+								panelGeneral, 
+								"Testing", 
+								"guRoo.Cmds_General.Cmd_Test",
+								Globals.AssemblyPath) // instead of assemblyPath
+#endregion
+
+
+			// Final return:
+			return Result.Succeeded; // or Cancelled
+		}
+
+#region On shutdown method
+		// This will urn on shutdown
+		public Result OnShutdown(UIControlledApplication uiCtlApp)
+		{
+			return Result.Succeeded;
+		}
+#endregion
+
+#region Use idling to register UiApp
+		// On idling, register UiApp/username
+		private static void RegisterUiApp(object sender, IdlingEvenArgs e)
+		{
+			_uiCtlApp.Idling -= RegisterUiApp;
+
+			if (sender is UIApplication uiApp)
+			{
+				Globals.UiApp = uiApp;
+				Globals.UsernameRevit = uiApp.Application.Username;
+			}
+		}
+#endregion
+
+	}
+}
+```
+
+- Ambiguity - is when Windows API and Revit API has the same class name like `Assembly`
+	- `using Assembly = System.Reflection.Assembly;` - this is how to remove `Ambiguity`.
+- `#region` & `#endregion` let's you organize the code - collapses long paragraphs of code to be able to skim the logic.
 
 
 > These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.

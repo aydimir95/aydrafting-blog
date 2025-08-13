@@ -1,128 +1,109 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Fri, 08 Aug 2025 13:06:57 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 7 - Introduction to Classes</title><link>https://blog.aydrafting.com/posts/post-7/</link><pubDate>Fri, 08 Aug 2025 13:06:57 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-7/</guid><description>&lt;!-- &lt;div
-id="shooter-1754922301279404000"
-class="shooter-embed"
-data-strategy="burst"
-data-count="5"
-data-spread="1.0"
-style="max-width: 680px; margin: 1rem auto;"
->&lt;/div>&lt;script defer src="https://blog.aydrafting.com/js/shooter.js">&lt;/script>
--->
-&lt;div
-id="classcard-1754922301279447000"
-class="class-card-embed"
-data-title="SheetResult"
-data-props="string SheetName { get; set; }|string SheetNumber { get; set; }"
-data-ctors="SheetResult()|SheetResult(string sheetName, string sheetNumber = &amp;#39;No Number&amp;#39;)"
-data-methods="string FormatLabel()"
->&lt;/div>
-&lt;h1 id="1-introduction">1. Introduction&lt;/h1>
-&lt;h3 id="project-folder-structure">Project Folder Structure&lt;/h3>
-&lt;ol>
-&lt;li>Commands&lt;/li>
-&lt;li>Extensions&lt;/li>
-&lt;li>Forms&lt;/li>
-&lt;li>General&lt;/li>
-&lt;li>Resources&lt;/li>
-&lt;li>Utilities
-&lt;em>These are &lt;code>folders&lt;/code> which contain various files that our toolbar will utilize.&lt;/em>&lt;/li>
-&lt;/ol>
-&lt;ul>
-&lt;li>&lt;em>Note that these are not necessarily aligned with &lt;code>namespaces&lt;/code> (which will be covered later)&lt;/em>&lt;/li>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Fri, 08 Aug 2025 13:13:50 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 8 - Tooltips &amp; Icons -> Extension Methods</title><link>https://blog.aydrafting.com/posts/post-8/</link><pubDate>Fri, 08 Aug 2025 13:13:50 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-8/</guid><description>&lt;ul>
+&lt;li>We will cover how to manage resource/command naming,&lt;/li>
+&lt;li>And, how to easily manage tooltips for our tools,&lt;/li>
+&lt;li>As well as, the standard/large image icons,&lt;/li>
+&lt;li>Finally, we will test the tool in action.&lt;/li>
 &lt;/ul>
-&lt;hr>
-&lt;h1 id="2-what-is-a-class">2. What is a Class?&lt;/h1>
-&lt;ol>
-&lt;li>In C#, classes are templates related to the creation and management of objects. There are many predefined &lt;code>classes&lt;/code> available in C# and the Revit API.&lt;/li>
-&lt;li>We use them for a wide range of things and will regularly be creating and developing our own classes.&lt;/li>
-&lt;/ol>
-&lt;hr>
-&lt;h3 id="accessing-properties--methods-of-a-class">Accessing properties / methods of a Class&lt;/h3>
-&lt;ol>
-&lt;li>Property:
-&lt;ol>
-&lt;li>&lt;code>object.Property&lt;/code> -&amp;gt; to access a property&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Method:
-&lt;ol>
-&lt;li>&lt;code>Object.Method(argument1, argument2, etc)&lt;/code> -&amp;gt; to access a method&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ol>
-&lt;h3 id="namespaces">Namespaces&lt;/h3>
-&lt;ol>
-&lt;li>When we create classes, we first tell them where they belong in our project.&lt;/li>
-&lt;li>&lt;code>Namespaces&lt;/code> can be nested within others using a dot separator, eventually tied back to our &lt;code>.addin&lt;/code> namespace.&lt;/li>
-&lt;/ol>
+&lt;h1 id="base-command-naming">Base Command Naming&lt;/h1>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Revit API&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Autodesk.Revit.Attributes&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Autodesk.Revit.UI&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Command namespace&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmds_GroupName&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// geeWiz - internal project objects&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">geeWiz.Extensions&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">geeWiz&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">geeWiz&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Forms&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">geeWiz&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">geeWiz&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Utilities&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Workshare_Utils&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// The class belongs to the Commands namespace&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">namespace&lt;/span> &lt;span class="nn">geeWiz.Cmds_Audit&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Cmd_DeletePatterns&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Cmd_PurgeRooms&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Cmd_PurgeTemplates&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Cmd_PurgeFilters&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//Command Class&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmds_GroupName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmd_CommandName&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="basic-class-anatomy">Basic Class Anatomy&lt;/h3>
-&lt;ol>
-&lt;li>&lt;code>modifers class ClassName : Interface(s)&lt;/code>
-&lt;ul>
-&lt;li>Constructor (optional)&lt;/li>
-&lt;li>Properties (optional)&lt;/li>
-&lt;li>Methods (optional)&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ol>
-&lt;ul>
-&lt;li>&lt;code>Access modifiers&lt;/code> control how this code can be accessed inside and outside your project.&lt;/li>
-&lt;li>You will typically need to declare at least on of &lt;em>&lt;code>public&lt;/code>/&lt;code>private&lt;/code>&lt;/em>,
-&lt;ul>
-&lt;li>And sometimes &lt;em>&lt;code>static&lt;/code>&lt;/em> for the purposes we will use them for early on.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="static-modifier">&lt;code>Static&lt;/code> Modifier&lt;/h3>
-&lt;ul>
-&lt;li>The &lt;code>static&lt;/code> &lt;code>access&lt;/code> &lt;code>modifier&lt;/code> is a difficult concept to grasp at first, so we will simplify it somewhat.
-&lt;ul>
-&lt;li>Classes with a &lt;code>static&lt;/code> &lt;code>modifier&lt;/code> do not support the creation of &lt;code>objects&lt;/code> of that &lt;code>class&lt;/code> (instantiated).&lt;/li>
-&lt;li>We commonly take advantage of this to create classes which behave more like toolkits, where the class itself acts more like a singe object we can call upon to do things for us.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
+&lt;/div>&lt;h2 id="preferred-method">Preferred Method:&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Before: &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmds_GroupName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// After:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//Before:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmds_GroupName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmd_CommandName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//After&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">_CommandName&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="the-approach-we-will-use">The Approach we will use:&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmds_GroupName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmd_CommandName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Remove guRoo.Cmds_&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Cmd_CommandName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Remove .Cmd&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GrouName_CommandName&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="or-you-can-make-things-even-more-resilient-by-using">Or you can make things even more resilient by using:&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="k">typeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">CommandName&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">FullName&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="tooltipkey-is-base-name">Tooltipkey is base name:&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="n">GrouName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName_CommandName&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="icons">Icons:&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName&lt;/span>&lt;span class="err">##&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">GroupName_CommandName&lt;/span>&lt;span class="err">##&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">##&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Reolusion&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="n">pixels&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="m">16&lt;/span> &lt;span class="n">or&lt;/span> &lt;span class="m">32&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="how-we-will-manage-tooltips">How we will manage &lt;code>Tooltips&lt;/code>&lt;/h1>
+&lt;p>We will create a &lt;code>Resources&lt;/code> (resx) file in C# and embed this into our project. It will be available in memory for our project whilst it runs to access. We will store the tooltip and description as a &lt;code>dictionary&lt;/code> of &lt;code>keys&lt;/code> and &lt;code>values&lt;/code>.&lt;/p></description></item><item><title>C# + Revit API: Lesson 7 - Creating a PushButton or in other words, Intro to Classes / Constructors / Properties / Methods / Interfaces &amp; Global Variables</title><link>https://blog.aydrafting.com/posts/post-7/</link><pubDate>Fri, 08 Aug 2025 13:06:57 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-7/</guid><description>&lt;h1 id="game-introduction-to-classes">Game: Introduction to Classes&lt;/h1>
 &lt;blockquote>
-&lt;p>So basically, the &lt;code>Static&lt;/code> &lt;code>modifier&lt;/code> is one instrument that you could use to build a complex script with.&lt;/p></description></item><item><title>C# + Revit API: Lesson 6 - try &amp; catch Statements</title><link>https://blog.aydrafting.com/posts/post-6/</link><pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-6/</guid><description>&lt;h1 id="pseudocode">Pseudocode&lt;/h1>
+&lt;p>Let&amp;rsquo;s play a little game that would help you quickly visualize a &lt;code>Class&lt;/code>, &lt;code>Properties&lt;/code>, &lt;code>Methods&lt;/code>, and &lt;code>Interface&lt;/code>. And select the &lt;code>interface&lt;/code> that matches the &lt;code>class&lt;/code>.&lt;/p>&lt;/blockquote>
+&lt;p>Think of the &lt;code>interface&lt;/code> as a Template the Class should follow or in other words the Category the Class belongs to.&lt;/p>
+&lt;p>Simply, the &lt;code>Interface&lt;/code> is a Category of the Class, the &lt;code>Class&lt;/code> is a Template of an Object, and the &lt;code>Object&lt;/code>, for example, is an actual Dog.&lt;/p></description></item><item><title>C# + Revit API: Lesson 6 - try &amp; catch Statements</title><link>https://blog.aydrafting.com/posts/post-6/</link><pubDate>Fri, 08 Aug 2025 11:47:12 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-6/</guid><description>&lt;h1 id="pseudocode">Pseudocode&lt;/h1>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -514,4 +495,4 @@ We will have a good understanding of core statements we can use to build Revit A
 &lt;/li>
 &lt;/ol>
 &lt;blockquote>
-&lt;p>These tutorials were inspired by the work of &lt;a href="https://www.youtube.com/@AussieBIMGuru">Aussie BIM Guru&lt;/a>. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.&lt;/p></description></item><item><title/><link>https://blog.aydrafting.com/posts/untitled/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog.aydrafting.com/posts/untitled/</guid><description/></item></channel></rss>
+&lt;p>These tutorials were inspired by the work of &lt;a href="https://www.youtube.com/@AussieBIMGuru">Aussie BIM Guru&lt;/a>. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.&lt;/p></description></item></channel></rss>
