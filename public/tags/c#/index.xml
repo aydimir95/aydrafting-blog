@@ -1,4 +1,606 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>C# on Blog</title><link>https://blog.aydrafting.com/tags/c%23/</link><description>Recent content in C# on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Thu, 14 Aug 2025 12:02:26 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/tags/c%23/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 10 - Create a Pulldown Button</title><link>https://blog.aydrafting.com/posts/post-10/</link><pubDate>Thu, 14 Aug 2025 12:02:26 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-10/</guid><description>&lt;h1 id="the-goal">The Goal&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>C# on Blog</title><link>https://blog.aydrafting.com/tags/c%23/</link><description>Recent content in C# on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Thu, 14 Aug 2025 18:30:33 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/tags/c%23/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 11 - Stacking Buttons</title><link>https://blog.aydrafting.com/posts/post-11/</link><pubDate>Thu, 14 Aug 2025 18:30:33 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-11/</guid><description>&lt;h1 id="the-goal">The Goal&lt;/h1>
+&lt;p>&lt;img alt="Pasted image 20250814192206.png" loading="lazy" src="https://blog.aydrafting.com/images/Pasted%20image%2020250814192206.png">&lt;/p>
+&lt;p>&lt;a href="https://www.youtube.com/watch?v=zaouXDa1dTc">Aussie BIM Guru&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>Stacks can vertically contain 2 or 3 items.&lt;/li>
+&lt;/ul>
+&lt;h1 id="homework">Homework&lt;/h1>
+&lt;ol>
+&lt;li>Create a stack&lt;/li>
+&lt;li>Access stacked items&lt;/li>
+&lt;/ol>
+&lt;h1 id="solution">Solution&lt;/h1>
+&lt;h2 id="revit-api">Revit API&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>AddStackedItems&lt;/code> Method
+&lt;ul>
+&lt;li>2 overloads available, you can either add 2 items or 3 items.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>RibbonItemData&lt;/code> Class - is the object that we are going to be adding:
+&lt;ul>
+&lt;li>&lt;code>ComboBoxData&lt;/code> Class&lt;/li>
+&lt;li>&lt;code>RadioButton&lt;/code>Class&lt;/li>
+&lt;li>&lt;code>ButtonData&lt;/code> Class
+&lt;ul>
+&lt;li>&lt;code>PulldownButton&lt;/code>&lt;/li>
+&lt;li>&lt;code>PushButton&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="tips">Tips&lt;/h2>
+&lt;ul>
+&lt;li>We will be adding it to &lt;code>RibbonPanel&lt;/code>&lt;/li>
+&lt;li>But we will not create an &lt;code>Extension&lt;/code> for this, since the the Method itself is sufficient to run this process.&lt;/li>
+&lt;li>But we are going to have to access the projects once we create them as well.&lt;/li>
+&lt;/ul>
+&lt;h3 id="project-solution">&lt;code>Project Solution&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Solution&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">guRoo&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Dependencies&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Commands&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">General&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Cmds_General&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Cmds_Button&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span> &lt;span class="c1">// Add a New Class&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Cmds_PullDown&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Cmds_Stack1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span> &lt;span class="c1">// Add a New Class&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Cmds_Stack2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span> &lt;span class="c1">// Add a New Class&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Cmds_Stack3&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span> &lt;span class="c1">// Add a New Class&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Forms&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">General&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Globals&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Extensions&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">UIControlledApplicaiton_Ext&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">RibbonPanel_Ext&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">PulldownButton_Ext&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Resources&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Files&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Tooltips&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">resx&lt;/span> &lt;span class="c1">// Update&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Icons&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Icons16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">General_test16&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack1_Button16&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack116&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack2_Button16&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack216&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack3_Button16&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack316&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Icons32&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">General_test32&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack1_Button32&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack132&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack2_Button32&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack232&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack3_Button32&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Stack332&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">png&lt;/span> &lt;span class="c1">// add a .png&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Utilities&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Ribbon_Utils&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">Application&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cs&lt;/span> &lt;span class="c1">// Update&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|-&amp;gt;&lt;/span> &lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">addin&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="cmds_stack1cs">&lt;code>Cmds_Stack1.cs&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Autodesk&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Autodesk.Revit.Attributes&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Autodesk.Revit.UI&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Associate with stack commands&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">namespace&lt;/span> &lt;span class="nn">guRoo.Cmds_Stack1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// Example command&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;/summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [Transaction(TransactionMode.Manual)]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">Cmd_Button&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">IExternalCommand&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="n">Result&lt;/span> &lt;span class="n">Execute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ExternalCommandData&lt;/span> &lt;span class="n">commandData&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">ref&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="n">message&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ElementSet&lt;/span> &lt;span class="n">elements&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Collect the document&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">uiApp&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">commandData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Application&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">uiDoc&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">uiApp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ActiveUIDocument&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">doc&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">uiDoc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Document&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Testing if the command worked&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">TaskDialog&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Show&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;It&amp;#39;s working!&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">doc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Title&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Final return&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Succeeded&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="cmds_stack2cs">&lt;code>Cmds_Stack2.cs&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Autodesk&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Autodesk.Revit.Attributes&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Autodesk.Revit.UI&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Associate with stack commands&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">namespace&lt;/span> &lt;span class="nn">guRoo.Cmds_Stack2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// Example command&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;/summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [Transaction(TransactionMode.Manual)]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">Cmd_Button&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">IExternalCommand&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="n">Result&lt;/span> &lt;span class="n">Execute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ExternalCommandData&lt;/span> &lt;span class="n">commandData&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">ref&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="n">message&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ElementSet&lt;/span> &lt;span class="n">elements&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Collect the document&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">uiApp&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">commandData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Application&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">uiDoc&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">uiApp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ActiveUIDocument&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">doc&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">uiDoc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Document&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Testing if the command worked&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">TaskDialog&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Show&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;It&amp;#39;s working!&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">doc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Title&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Final return&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Succeeded&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="cmds_stack3cs">&lt;code>Cmds_Stack3.cs&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Autodesk&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Autodesk.Revit.Attributes&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Autodesk.Revit.UI&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Associate with stack commands&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">namespace&lt;/span> &lt;span class="nn">guRoo.Cmds_Stack3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// Example command&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;/summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [Transaction(TransactionMode.Manual)]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">Cmd_Button&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">IExternalCommand&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="n">Result&lt;/span> &lt;span class="n">Execute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ExternalCommandData&lt;/span> &lt;span class="n">commandData&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">ref&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="n">message&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ElementSet&lt;/span> &lt;span class="n">elements&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Collect the document&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">uiApp&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">commandData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Application&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">uiDoc&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">uiApp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ActiveUIDocument&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">doc&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">uiDoc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Document&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Testing if the command worked&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">TaskDialog&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Show&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;It&amp;#39;s working!&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">doc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Title&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Final return&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Succeeded&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="tooltipsresx">&lt;code>Tooltips.resx&lt;/code>&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;strong>Name&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Value&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Button&lt;/td>
+&lt;td>The user will generally not see this - it just holds the PushButton example.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Button_Button&lt;/td>
+&lt;td>This is an example of adding a PushButton to a RibbonPanel.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PullDown&lt;/td>
+&lt;td>This is an example of adding a PulldownButton to a RibbonPanel.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PullDown_1Button&lt;/td>
+&lt;td>This is button 1 of the PulldownButton.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PullDown_2Button&lt;/td>
+&lt;td>This is button 2 of the PulldownButton.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PullDown_3Button&lt;/td>
+&lt;td>This is button 3 of the PulldownButton.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Stack1&lt;/td>
+&lt;td>This is an example of stacking buttons.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Stack1_Button&lt;/td>
+&lt;td>This is an example of stacking buttons.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Stack2&lt;/td>
+&lt;td>This is an example of stacking buttons.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Stack2_Button&lt;/td>
+&lt;td>This is an example of stacking buttons.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Stack3&lt;/td>
+&lt;td>This is an example of stacking buttons.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Stack3_Button&lt;/td>
+&lt;td>This is an example of stacking buttons.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="applicationcs">&lt;code>Application.cs&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;span class="lnt">105
+&lt;/span>&lt;span class="lnt">106
+&lt;/span>&lt;span class="lnt">107
+&lt;/span>&lt;span class="lnt">108
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C#" data-lang="C#">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Autodesk&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Autodesk.Revit.UI&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Autodesk.Revit.UI.Events&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// guRoo&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">gRib&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">guRoo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Utilities&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Ribbon_Utils&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">guRoo.Extensions&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// This application belongs to the root namespace&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">namespace&lt;/span> &lt;span class="nn">guRoo&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Implementing the interface for application.cs class&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">Application&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">IExternalApplication&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// IExternalApplication for the interface&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Make a private uiCtlApp method:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">private&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="n">UIControlledApplication&lt;/span> &lt;span class="n">_uiCtlApp&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//This will return a result on Startup method - requires uiCtlApp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="n">Result&lt;/span> &lt;span class="n">OnStartup&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UIControlledApplication&lt;/span> &lt;span class="n">uiCtlApp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#region&lt;/span> &lt;span class="n">Globals&lt;/span> &lt;span class="n">registration&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Store _uiCtlApp, register on idling&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_uiCtlApp&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">uiCtlApp&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_uiCtlApp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Idling&lt;/span> &lt;span class="p">+=&lt;/span> &lt;span class="n">RegisterUiApp&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">catch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Globals&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">UiApp&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Globals&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">UsernameRevit&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Register Globals&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Globals&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">RegisterProperties&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">uiCtlApp&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Register Tooltips&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Globals&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">RegisterTooltips&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;guRoo.Resources.Files.Tooltips&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#endregion&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#region&lt;/span> &lt;span class="n">Ribbon&lt;/span> &lt;span class="n">setup&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Add RibbonTab&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uiCtlApp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Ext_AddRibbonTab&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Globals&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">AddinName&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Create RibbonPanel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">panelGeneral&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">uiCtlApp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Ext_AddRibbonPanel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Globals&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">AddinName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;General&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Add PushButton to RibbonPanel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">buttonTest&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">panelGeneral&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Ext_AddPushButton&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Testing&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;guRoo.Cmds_General.Cmd_Test&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Add PulldownButton to RibbonPanel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">pulldownTest&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">panelGeneral&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Ext_AddPulldownButton&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;PullDown&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;guRoo.Cmds_PullDown&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Add Buttons to Pulldown&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pulldownTest&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Ext_AddPushButton&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Button 1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;guRoo.Cmds_PullDown.Cmd_1Button&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pulldownTest&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Ext_AddPushButton&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Button 2&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;guRoo.Cmds_PullDown.Cmd_2Button&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pulldownTest&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Ext_AddPushButton&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Button 3&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;guRoo.Cmds_PullDown.Cmd_3Button&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Create data objects for the stack&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">stack1Data&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">gRib&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">NewPulldownButtonData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Stack1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;guRoo.Cmds_Stack1&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">stack2Data&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">gRib&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">NewPulldownButtonData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Stack2&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;guRoo.Cmds_Stack2&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">stack3Data&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">gRib&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">NewPulldownButtonData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Stack3&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;guRoo.Cmds_Stack3&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Create the Stack&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">stack&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">panelGeneral&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">AddStackedItems&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">stack1Data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">stack2Data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">stack3Data&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">pulldownStack1&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">stack&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">PulldownButton&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">pulldownStack2&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">stack&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">PulldownButton&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">pulldownStack3&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">stack&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="m">2&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">PulldownButton&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Add buttons to stacked pulldowns&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pulldownStack1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Ext_AddPushButton&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Button&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;guRoo.Cmds_Stack1.Cmd_Button&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pulldownStack2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Ext_AddPushButton&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Button&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;guRoo.Cmds_Stack2.Cmd_Button&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pulldownStack3&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Ext_AddPushButton&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Button&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;guRoo.Cmds_Stack3.Cmd_Button&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#endregion&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Final return:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Succeeded&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// or Cancelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#region&lt;/span> &lt;span class="n">On&lt;/span> &lt;span class="n">shutdown&lt;/span> &lt;span class="n">method&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// This will urn on shutdown&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="n">Result&lt;/span> &lt;span class="n">OnShutdown&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UIControlledApplication&lt;/span> &lt;span class="n">uiCtlApp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Succeeded&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#endregion&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#region&lt;/span> &lt;span class="n">Use&lt;/span> &lt;span class="n">idling&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="n">register&lt;/span> &lt;span class="n">UiApp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// On idling, register UiApp/username&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">private&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">RegisterUiApp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">object&lt;/span> &lt;span class="n">sender&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">IdlingEventArgs&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_uiCtlApp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Idling&lt;/span> &lt;span class="p">-=&lt;/span> &lt;span class="n">RegisterUiApp&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">sender&lt;/span> &lt;span class="k">is&lt;/span> &lt;span class="n">UIApplication&lt;/span> &lt;span class="n">uiApp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Globals&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">UiApp&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">uiApp&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Globals&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">UsernameRevit&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">uiApp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Application&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Username&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#endregion&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;blockquote>
+&lt;p>These tutorials were inspired by the work of &lt;a href="https://www.youtube.com/@AussieBIMGuru">Aussie BIM Guru&lt;/a>. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.&lt;/p></description></item><item><title>C# + Revit API: Lesson 10 - Create a Pulldown Button</title><link>https://blog.aydrafting.com/posts/post-10/</link><pubDate>Thu, 14 Aug 2025 12:02:26 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-10/</guid><description>&lt;h1 id="the-goal">The Goal&lt;/h1>
 &lt;p>&lt;img alt="Pasted image 20250814142840.png" loading="lazy" src="https://blog.aydrafting.com/images/Pasted%20image%2020250814142840.png">&lt;/p>
 &lt;p>We will create a &lt;code>PulldownButton&lt;/code> and add a few &lt;code>PushButtons&lt;/code> to it.&lt;/p>
 &lt;p>We will also create some helper methods to generate &lt;code>ButtonData&lt;/code> objects given we are beginning to use these in lots of places.&lt;/p>
