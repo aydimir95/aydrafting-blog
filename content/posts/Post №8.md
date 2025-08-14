@@ -119,13 +119,13 @@ We will store our icons as embedded resources also in a `PNG` format. We will us
 | `Text`                  | The user-visible text of the button.                                                                     |
 | `ToolTip`               | The description that appears as a ToolTip for the item.                                                  |
 | `ToolTipImage`          | The image to show as a part of the button extended tooltip.                                              |
-## Tips:
+> Tips:
 - `Image` - requires an [ImageSource](https://learn.microsoft.com/en-us/dotnet/api/system.windows.media.imagesource?view=windowsdesktop-9.0) which is a Windows C# .NET - API.
 - [icons8.com](https://icons8.com) - great resource to find icons for your buttons. 
 - [photopea.com](https://www.photopea.com) - to adjust the resolution of the icons downloaded from `icons8` website.
 
-## Code:
-### `Overview`
+## Code
+### `Project Solution`
 ```C#
 Solution
 |-> guRoo
@@ -149,7 +149,7 @@ Solution
 	|-> Application.cs //---------->  Update
 	|-> guRoo.addin
 ```
-#### `Ribbon_Utils.cs`
+### `Ribbon_Utils.cs`
 ```C#
 using Autodesk.Revit.UI;
 using System.Diagnostics;
@@ -323,7 +323,7 @@ namespace guRoo.Utilities
 <br>
 
 ---
-#### `Properties:`
+#### `Properties`
 1. Then make sure the properties of the Tooltips.resx are set as follows:
 
 |      **Advanced:**       |       **Value**       |

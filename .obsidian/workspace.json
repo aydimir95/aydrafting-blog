@@ -35,8 +35,7 @@
               "title": "Post №9"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -185,11 +184,11 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "4f48dab4fbbd5f86",
+  "active": "5c6571501ea046c2",
   "lastOpenFiles": [
+    "content/posts/Post №7.md",
     "content/posts/Post №8.md",
     "content/posts/Post №9.md",
-    "content/posts/Post №7.md",
     "public/images/Pasted image 20250813140525.png",
     "static/images/Pasted image 20250813140525.png",
     "content/posts/Post №6.md",

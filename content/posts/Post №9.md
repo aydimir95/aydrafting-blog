@@ -307,7 +307,7 @@ Solution
 		|-> Globals.cs 
 	|-> Extensions // Add a New Folder
 		|-> UIControlledApplicaiton_Ext.cs // Create a New Class
-		|-> 
+		|-> RibbonPanel_Ext.cs // Create another New Class
 	|-> Resources
 		|-> Files 
 			|-> Tooltips.resx 
@@ -332,6 +332,11 @@ namespace guRoo.Extensions
 {
 	public static class UIControlledApplication_Ext
 	{
+
+// ----------------------------------------------------------------------------
+// 1. Add "this"
+// 2. AddRibbonTabToPanel -> AddRibbonTab
+// ----------------------------------------------------------------------------
 		public static Result AddRibbonTab(this UIControlledApplication uiCtlApp, string tabName)
         {
             try
@@ -347,6 +352,43 @@ namespace guRoo.Extensions
                 return Result.Failed;
             }
         }
+
+// ----------------------------------------------------------------------------
+// 1. Add "this"
+// 2. AddRibbonPanelByName -> AddRibbonPanel
+// ----------------------------------------------------------------------------
+
+		        // Method to create a "Panel"
+        public static RibbonPanel AddRibbonPanel(this UIControlledApplication uiCtlApp, string tabName, string panelName)
+        {
+            try
+            {
+                uiCtlApp.CreateRibbonPanel(tabName, panelName);
+            }
+            catch
+            {
+                Debug.WriteLine($"Error: Could not add {panelName} to {tabName}");
+                return null;
+            }
+            return uiCtlApp.GetRibbonPanel(tabName, panelName);
+        }
+
+        // Method to get that "Panel"
+        public static RibbonPanel GetRibbonPanel(this UIControlledApplication uiCtlApp, string tabName, string panelName)
+        {
+            var panels = uiCtlApp.GetRibbonPanels(tabName);
+            foreach (var panel in panels)
+            {
+                if (panel.Name == panelName)
+                    return panel;
+            }
+
+            // If Not found
+            return null;
+        }
+
+// ----------------------------------------------------------------------------
+
 	}
 }
 ```
@@ -357,7 +399,7 @@ namespace guRoo.Extensions
 // Autodesk
 using Autodesk.Revit.UI;
 
-// guRoo
+// guRoo =======IMPORTANT=======
 using gRib = guRoo.Utilities.Ribbon_Utils;
 using guRoo.Extensions;
 
@@ -368,6 +410,8 @@ namespace guRoo
         private static UIControlledApplication _uiCtlApp;
         public Result OnStartup(UIControlledApplication uiCtlApp)
         {
+
+
             #region Globals registration
             _uiCtlApp = uiCtlApp;
             try
@@ -383,25 +427,21 @@ namespace guRoo
             Globals.RegisterTooltips("guRoo.Resources.Files.Tooltips");
             #endregion
 
-
-// =====Updated Part 1 Start=====
             #region Ribbon setup
             
             //Add Ribbon Tab
             uiCtlApp.AddRibbonTab(Globals.AddinName); 
             
             // Create a Panel
-            var panelGeneral = gRib.AddRibbonPanelToTab(uiCtlApp, Globals.AddinName, "General");
+            var panelGeneral = uiCtlApp.AddRibbonPanel(uiCtlApp, Globals.AddinName, "General");
             
             // Add Button to Panel
-            var buttonTest = gRib.AddPushButtonToPanel(panelGeneral, "Testing", "guRoo.Cmds_General.Cmd_Test");
+            var buttonTest = panelGeneral.AddPushButton("Testing", "guRoo.Cmds_General.Cmd_Test");
             #endregion
             
             // Final Return
             return Result.Succeeded;
         }
-// =====Updated Part 1 End=====
-
 
         #region On shutdown method
         public Result OnShutdown(UIControlledApplication uiCtlApp)
@@ -436,8 +476,7 @@ namespace guRoo.Utilities
 	public static class Ribbon_Utils
 	{
 
-
-// =====REMOVE THIS PART 1=====
+// =====REMOVED to UIControlledApplicaiton_Ext.cs=====
         // Method to create a "Tab"
 //        public static Result AddRibbonTab(UIControlledApplication uiCtlApp,string tabName)
 //        {
@@ -453,42 +492,40 @@ namespace guRoo.Utilities
 //                return Result.Failed;
 //            }
 //        }
-// =====REMOVE THIS PART 1=====
+
+        //// Method to create a "Panel"
+        //public static RibbonPanel AddRibbonPanelToTab(UIControlledApplication uiCtlApp, string tabName, string panelName)
+        //{
+        //    try
+        //    {
+        //        uiCtlApp.CreateRibbonPanel(tabName, panelName);
+        //    }
+        //    catch
+        //    {
+        //        Debug.WriteLine($"Error: Could not add {panelName} to {tabName}");
+        //        return null;
+        //    }
+        //    return GetRibbonPanelByName(uiCtlApp, tabName, panelName);
+        //}
+
+        //// Method to get that "Panel"
+        //public static RibbonPanel GetRibbonPanelByName(UIControlledApplication uiCtlApp, string tabName, string panelName)
+        //{
+        //    var panels = uiCtlApp.GetRibbonPanels(tabName);
+        //    foreach (var panel in panels)
+        //    {
+        //        if (panel.Name == panelName)
+        //            return panel;
+        //    }
+
+        //    // Not found
+        //    return null;
+        //}
+// =====REMOVED to UIControlledApplicaiton_Ext.cs=====
 
 
-// =====REMOVE THIS PART 2=====
-        // Method to create a "Panel"
-        public static RibbonPanel AddRibbonPanelToTab(UIControlledApplication uiCtlApp, string tabName, string panelName)
-        {
-            try
-            {
-                uiCtlApp.CreateRibbonPanel(tabName, panelName);
-            }
-            catch
-            {
-                Debug.WriteLine($"Error: Could not add {panelName} to {tabName}");
-                return null;
-            }
-            return GetRibbonPanelByName(uiCtlApp, tabName, panelName);
-        }
 
-        // Method to get that "Panel"
-        public static RibbonPanel GetRibbonPanelByName(UIControlledApplication uiCtlApp, string tabName, string panelName)
-        {
-            var panels = uiCtlApp.GetRibbonPanels(tabName);
-            foreach (var panel in panels)
-            {
-                if (panel.Name == panelName)
-                    return panel;
-            }
-
-            // If Not found
-            return null;
-        }
-// =====REMOVE THIS PART 2=====
-
-
-        
+// =====REMOVED to RibbonPanel_Ext.cs=====
         // Method to create a "Button" to "Panel"
         
         /// <summary>
@@ -500,38 +537,41 @@ namespace guRoo.Utilities
         /// <param name="internalName">Test</param>
         /// <param name="assemblyPath">Test</param>
         /// <returns></returns>
-        public static PushButton AddPushButtonToPanel(RibbonPanel panel, string buttonName, string className)
-        // string internalName, -> NOT NEEDED ANYMORE
-        // string assemblyPath)-> NOT NEEDED ANYMORE
-        {
-            if (panel is null)
-            {
-                Debug.WriteLine($"Error: Could not create {buttonName}.");
-				return null;
-            }
-            // Open PushButtonData Constructor and check what's needed
+//    public static PushButton AddPushButtonToPanel(RibbonPanel panel, string buttonName, string className)
+//    // string internalName, -> NOT NEEDED ANYMORE
+//    // string assemblyPath)-> NOT NEEDED ANYMORE
+//    {
+//        if (panel is null)
+//        {
+//            Debug.WriteLine($"Error: Could not create {buttonName}.");
+			//return null;
+//        }
+//        // Open PushButtonData Constructor and check what's needed
 
-            // Get the base name from below
-            var baseName = CommandToBaseName(className);
+//        // Get the base name from below
+//        var baseName = CommandToBaseName(className);
+//        #endregion 
 
-            // Create a PushButtonData object:
-            var pushButtonData = new PushButtonData(baseName, buttonName, Globals.AssemblyPath, className);
+//        // Create a PushButtonData object:
+//        var pushButtonData = new PushButtonData(baseName, buttonName, Globals.AssemblyPath, className);
 
-            // if the button was made - return it:
-            if (panel.AddItem(pushButtonData) is PushButton pushButton)
-            {
-                pushButton.ToolTip = LookupTooltip(baseName);
-                // We will come back to this:
-                pushButton.Image = GetIcon(baseName, resolution: 16);
-                pushButton.LargeImage = GetIcon(baseName, resolution: 32);
-                return pushButton;
-            }
-            else
-            {
-                Debug.WriteLine($"Error: Could not create {buttonName}.");
-				return null;
-            }
-        }
+//        // if the button was made - return it:
+//        if (panel.AddItem(pushButtonData) is PushButton pushButton)
+//        {
+//            pushButton.ToolTip = LookupTooltip(baseName);
+//            #region ====The Updated Part 4 Start====
+//            // We will come back to this:
+//            pushButton.Image = GetIcon(baseName, resolution: 16);
+//            pushButton.LargeImage = GetIcon(baseName, resolution: 32); return pushButton;
+//        }
+//        else
+//        {
+//            Debug.WriteLine($"Error: Could not create {buttonName}.");
+			//return null;
+//        }
+//    }
+// =====REMOVED to RibbonPanel_Ext.cs=====
+
 
         // Method to get the base name of a command:
         public static string CommandToBaseName(string commandName)
@@ -579,3 +619,55 @@ namespace guRoo.Utilities
     }
 }
 ```
+
+
+### `RibbonPanel_Ext.cs`
+```C#
+using Autodesk.Revit.UI;
+using System.Diagnostics;
+using gRib = guRoo.Utilities.Ribbon_Utils;
+
+namespace guRoo.Extensions
+{
+    public static class RibbonPanel_Ext
+    {
+
+    // Adds a new push button to a specified RibbonPanel in Revit.
+        /// <summary>
+        /// Creates and adds a <see cref="PushButton"/> to the given <see cref="RibbonPanel"/>.
+        /// Configures the button’s tooltip and icon images based on the associated command name.
+        /// </summary>
+        /// <param name="panel">The target RibbonPanel where the button will be added.</param>
+        /// <param name="buttonName">The display name of the button as it appears in the UI.</param>
+        /// <param name="className">The full class name (namespace + class) of the command to execute when the button is clicked.</param>
+        /// <returns>
+        /// The created <see cref="PushButton"/> instance if successful; otherwise, <c>null</c>.
+        /// </returns>
+
+        public static PushButton AddPushButton(this RibbonPanel panel, string buttonName, string className)
+        {
+            if (panel is null)
+            {
+                Debug.WriteLine($"Error: Could not create {buttonName}.");
+                return null;
+            }
+            // Open PushButtonData Constructor and check what's needed
+            var baseName = gRib.CommandToBaseName(className);
+            var pushButtonData = new PushButtonData(baseName, buttonName, Globals.AssemblyPath, className);
+
+            if (panel.AddItem(pushButtonData) is PushButton pushButton)
+            {
+                pushButton.ToolTip = gRib.LookupTooltip(baseName);
+                pushButton.Image = gRib.GetIcon(baseName, resolution: 16);
+                pushButton.LargeImage = gRib.GetIcon(baseName, resolution: 32); return pushButton;
+            }
+            else
+            {
+                Debug.WriteLine($"Error: Could not create {buttonName}.");
+                return null;
+            }
+        }
+    }
+}
+```
+

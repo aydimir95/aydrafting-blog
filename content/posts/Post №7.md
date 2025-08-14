@@ -551,7 +551,7 @@ namespace guRoo.Forms
 }
 ```
 
-### Homework
+## Homework
 - Create a `class`
 - Add some `properties` 
 - Give it a `constructor`
@@ -560,9 +560,9 @@ namespace guRoo.Forms
 - Reference  our `class` in another part of your code base
 
 
-### Solution
+## Solution
 
-#### `Custom.cs`
+### `Custom.cs`
 ```C#
 using System.Collections.Generic;
 using Autodesk.Revit.DB;
@@ -651,7 +651,7 @@ namespace guRoo.Forms
 }
 ```
 
-#### `StartupCommand.cs`
+### `StartupCommand.cs`
 ```C#
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -713,7 +713,7 @@ This is useful for making sure different classes follow the same pattern, even i
 > 💡 _Think of it as a checklist: the interface says “you must have these items,” and your class fills in the details._
 
 ---
-### `ASCII diagram` showing the real world application of interfaces:
+## `ASCII diagram` showing the real world application of interfaces:
 
 ```C#
         +-------------------+
@@ -801,7 +801,7 @@ Once a class implements an interface:
 This is why interfaces are considered abstract — they don’t tell you how to do something, only that you must have it.
 
 They’re a way to guide multiple classes to share the same “template” of members while letting each class have its own unique implementation.
-### **Using an Interface Example**
+### **Using an Interface Example.cs**
 ```C#
 // Class that implements the IAnimal interface
 public class Dog : IAnimal
@@ -854,13 +854,13 @@ Document doc = uiDoc.Document;            // The main Revit document API
 
 > 💡 _Tip:_ At `startup`/`shutdown` you’ll usually have `UIControlledApplication`.   
 > 💡 _Tip:_ During a `command` / `event`, you’ll start with `UIApplication`. 
-### Homework
+## Homework
 - Implement *`IExternalApplication`*
 - Implement *`IExternalCommand`*
 - Collect the *`ControlledApplication`* in your application entry point
 - Collect the *`Document`* inside your command
-### **Solution**
-#### **Step 1 — Learn the interface requirements**
+## **Solution**
+### **Step 1 — Learn the interface requirements**
 
 Go to [revitapidocs.com](https://www.revitapidocs.com/2024/d893b9a7-6f3e-bf1f-f4d6-5fbc269544bb.htm).
 
@@ -873,7 +873,7 @@ Both methods must return a **Result** `enum`:
 - `Result.Cancelled` — you want to cancel the process.
 - `Result.Failed` — something went wrong.
 ---
-#### **Step 2 — Understand the `parameters`**
+### **Step 2 — Understand the `parameters`**
 
 When `OnStartup()` or `OnShutdown()` runs, Revit passes you a `UIControlledApplication` object.
 
@@ -882,9 +882,9 @@ From this you can get:
     - Gives access to application-level `settings`, documents `list`, Revit `version` info, `language`, etc.
 - `Ribbon` and `UI` setup methods (you can add `panels` and `buttons` here).
 ---
-#### **Step 3 — Implementation in Application.cs**
+### **Step 3 — Implementation in `Application.cs`**
 
-#### `Application.cs`
+### `Application.cs`
 ```C#
 // Autodesk
 using Autodesk.Revit.UI;
@@ -912,7 +912,7 @@ namespace guRoo
 }
 ```
 
-#### Re-organizing the project solution:
+### Project Solution
 ```C#
 Solution
 |-> guRoo
@@ -925,8 +925,7 @@ Solution
 	|-> Application.cs
 	|-> guRoo.addin
 ```
-##### Example after re-organizing:
-##### `Cmds_General.cs`
+### `Cmds_General.cs`
 ```C#
 // Autodesk
 using Autodesk.Revit.Attributes;
@@ -1022,7 +1021,7 @@ We’ve done something similar before, but this time we’ll follow the **standa
     - `ToggleButton` – Acts like an on/off switch. It maintains its state after being clicked, making it useful for settings that need to stay enabled or disabled until changed again.
     
 4. `Command` – The underlying logic that executes when a button is pressed. In Revit API development, a Command is typically implemented as a class that implements IExternalCommand, containing the Execute() method where your code runs.
-### Properties of a `PushButton`
+## Properties of a `PushButton`
 
 | **Property**            | **Description**                                                                                                                                                                             |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1040,21 +1039,21 @@ We’ve done something similar before, but this time we’ll follow the **standa
 | `ToolTip`               | The description that appears as a tooltip for the item.                                                                                                                                     |
 | `ToolTipImage`          | The image to show as part of the button’s extended tooltip.                                                                                                                                 |
 | `Visible`               | Gets or sets a value indicating whether the item is visible.                                                                                                                                |
-### Step-by-step:
+## Step-by-step:
 1. Create a `Tab`
 2. Add a `RibbonPanel` to the `Tab`
 3. Add a `PushButton` to the `RibbonPanel`
-#### *Related API Classes:*
+### *Related API Classes:*
 1. `UIControlledApplication` > `GetRibbonPannels` Method > `Tab`
 2. `Tab` > `RibbonPannel` > `AddItem` Method
 3. `RibbonPanel` > `PushButtonData` Constructor > `PushButton` Object > Icon / Tooltip
-#### **One Important Method -> `GetRibbonPanels` :**
+### **One Important Method -> `GetRibbonPanels` :**
 
 1. `GetRibbonPannels` - Get all the custom Panels on Add-Ins Tab of Revit.
 2. `GetRibbonPannels`(String) - Get all the custom Panels on a designated Revit Tab.
 3. `GetRibbonPannel`(Tab) - Get all the custom Panels on a designated standard Revit Tab.
 
-#### Executing Assembly 
+### Executing Assembly 
 - When our add-in is running, all the classes, resources and code we have produced are executed as an Assembly. We will access this to connect commands to buttons.
 ```C#
 using System.Reflection
@@ -1062,14 +1061,14 @@ Assembly.GetExecutingAssembly()
 ```
 
 ---
-### Homework
+## Homework
 1. Create a `static` utility class 
 2. Add `methods` to `static` utility class that we need
 3. Run these `methods` in `OnStartup` method
 
-### Solution
+## Solution
 
-#### `Overview`
+### `Project Solution`
 ```C#
 Solution
 |-> guRoo
@@ -1086,7 +1085,7 @@ Solution
 ```
 
 
-#### `Ribbon_Utils.cs`
+### `Ribbon_Utils.cs`
 ```C#
 using System;
 using System.Collections.Generic;
@@ -1191,7 +1190,7 @@ namespace guRoo.Utilities
 }
 ```
 
-#### `Application.cs`
+### `Application.cs`
 ```C#
 // System
 using System.Reflection;
@@ -1248,7 +1247,7 @@ namespace guRoo
 	}
 }
 ```
-#### `Cmds_General.cs`
+### `Cmds_General.cs`
 ```C#
 // Autodesk
 using Autodesk.Revit.Attributes;
@@ -1313,11 +1312,11 @@ To my knowledge, C# does not have a dedicated system for this. We can still achi
 ## Why can't we get the `UiApp`?
 We will collect most variables on startup, but the `UiApplication` is not available during this time in Revit. In order to collect it we will take advantage of the `Idling Event`.
 
-## `Events` 101
+### `Events` 101
 1. Events provide us the ability to have code that executes when various events occur in an application. For example, run a code whenever the view is changed.
 2. When Revit is available, it is said to be **`Idling`** (not doing anything). The `Idling event` is commonly used to run some code as soon as Revit is available for code to be run.
 
-## Basic `Sub`/`Unsub` syntax 
+### Basic `Sub`/`Unsub` syntax 
 Subscribe to `Idling` event 
 	`UICtlApp.Idling += MethodName`
 
@@ -1333,7 +1332,7 @@ Unsubscribe from `idling` event
 
 ## Solution
 
-### `Overview`
+### `Project Solution`
 ```C#
 Solution
 |-> guRoo
