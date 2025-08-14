@@ -11,7 +11,7 @@ tags = ["C#", "Revit", "Tutorial"]
 3. Base 2 numbering system
 
 
-```
+```C#
 1 0 1
 x x x
 4 2 1 = 5 
@@ -26,7 +26,7 @@ x x x
 ```
 
 
-```
+```C#
 We call these bits 
 Eight bits = 1 byte
 Memory is addressed into bytes
@@ -34,7 +34,7 @@ Memory is addressed into bytes
 
 ## ASCII Tables bring meaning to what various bytes represent:
 
-```
+```C#
 ASCII 48 = 0
 (00) 110000
 1 * 2^4 = 16
@@ -44,15 +44,11 @@ ASCII 48 = 0
 ```
 # Pointers = Structs (in C)
 
-Pointers are hexadecimal based values that identify an address in computer memory.
-
-If you write in C, you need to manage pointers and check memory in and out as you work.
-
-C# bypasses this using a `garbage collector (GC)`.
-
-Pointers and structs allow us to connect bytes into lists. We can also array objects adjacently.
-
-In C#, this is all managed for you.
+- Pointers are hexadecimal based values that identify an address in computer memory.
+- If you write in C, you need to manage pointers and check memory in and out as you work.
+- C# bypasses this using a `garbage collector (GC)`.
+- Pointers and structs allow us to connect bytes into lists. We can also array objects adjacently.
+- In C#, this is all managed for you.
 
 ### 📊 Breakdown
 

@@ -18,7 +18,9 @@ This post explains **one concrete command**—line by line—so a beginner can f
 3. Displays the result in a **WPF dialog** via a ViewModel.
   
 
-> ✅ This article focuses only on the command. It assumes you’ve already wired a ribbon button (and .addin) that triggers StartupCommand.
+> ✅ This article focuses only on the command. It assumes you’ve already wired a ribbon button (and .addin) that triggers `StartupCommand`. 
+> 
+> If you have no knowledge of how to set this up, I would suggest just skimming through - just for reference and going to the next post, where I will start from scratch.
 
 ---
 

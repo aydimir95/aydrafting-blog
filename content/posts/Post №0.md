@@ -5,10 +5,10 @@ draft = false
 tags = ["C#", "Revit", "Tutorial"]
 +++
 
-### Why C#?
-1. Scalability
+# Why C#?
+`Scalability`
 
-# Start with:
+# Start with
 1. [Install Visual Studio 2022 Community](https://visualstudio.microsoft.com/downloads/)
 2. [Install .NET SDKs (.NET4.8 & .NET8)](https://dotnet.microsoft.com/en-us/download/visual-studio-sdks)
 3. [Install Nice3Point Templates](https://github.com/Nice3point/RevitTemplates)
