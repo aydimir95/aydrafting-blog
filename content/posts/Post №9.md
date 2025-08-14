@@ -211,7 +211,7 @@ Your code:                 Desugared by compiler:
 
 ---
 
-## **Gotchas (memorize these)**
+## **Memorize these**
 
 - Extensions **don’t modify** the type; they’re just syntax `sugar`.
 - If the type later adds a real instance method with the same signature, the **real one wins**.
