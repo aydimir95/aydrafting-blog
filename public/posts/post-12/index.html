@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>C# &#43; Revit API: Lesson 12 - FilteredElementCollector | Blog</title>
+<meta name="keywords" content="C#, Revit, Tutorial">
+<meta name="description" content="Goal
+
+In most Revit add-ins, your first step will be to collect elements from the model.
+The go-to tool for this is the FilteredElementCollector, which lets you gather elements and then refine your selection using a variety of filtering techniques in C#.
+
+
+Next, we’ll explore another approach that’s specific to C#: using the System.Linq methods to filter and query elements.
+
+FilteredElementCollector
+
+The FilteredElementCollector is a special Revit API class that works much like running a database query, with your Revit document acting as the database.
+It allows you to start with a broad set of elements and then refine your results using various filtering methods to target exactly what you need.
+
+Declaring a Collector
+
+To create a collector for the entire document:
+
+
+
+1
+
+
+var collector = new FilteredElementCollector(doc);
+
+
+
+If you only want elements visible in a specific view, pass the view’s Id:
+
+
+
+1
+
+
+var collector = new FilteredElementCollector(doc, view.Id);
+
+
+Revit API
+FilteredElementCollector Constructors
+The FilteredElementCollector provides multiple constructor overloads, allowing you to start your collection from different scopes depending on your needs.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/post-12/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.6d585472a409a8f504e6bf969a2864fd1288e629997cd2926dd96376ae22831b.css" integrity="sha256-bVhUcqQJqPUE5r&#43;Wmihk/RKI5imZfNKSbdljdq4igxs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/post-12/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="http://localhost:1313/posts/post-12/">
+  <meta property="og:site_name" content="Blog">
+  <meta property="og:title" content="C# &#43; Revit API: Lesson 12 - FilteredElementCollector">
+  <meta property="og:description" content="Goal In most Revit add-ins, your first step will be to collect elements from the model. The go-to tool for this is the FilteredElementCollector, which lets you gather elements and then refine your selection using a variety of filtering techniques in C#. Next, we’ll explore another approach that’s specific to C#: using the System.Linq methods to filter and query elements.
+FilteredElementCollector The FilteredElementCollector is a special Revit API class that works much like running a database query, with your Revit document acting as the database. It allows you to start with a broad set of elements and then refine your results using various filtering methods to target exactly what you need. Declaring a Collector To create a collector for the entire document: 1 var collector = new FilteredElementCollector(doc); If you only want elements visible in a specific view, pass the view’s Id: 1 var collector = new FilteredElementCollector(doc, view.Id); Revit API FilteredElementCollector Constructors The FilteredElementCollector provides multiple constructor overloads, allowing you to start your collection from different scopes depending on your needs.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-15T10:37:24+03:00">
+    <meta property="article:modified_time" content="2025-08-15T10:37:24+03:00">
+    <meta property="article:tag" content="C#">
+    <meta property="article:tag" content="Revit">
+    <meta property="article:tag" content="Tutorial">
+      <meta property="og:image" content="http://localhost:1313/LogoAYD.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://localhost:1313/LogoAYD.png">
+<meta name="twitter:title" content="C# &#43; Revit API: Lesson 12 - FilteredElementCollector">
+<meta name="twitter:description" content="Goal
+
+In most Revit add-ins, your first step will be to collect elements from the model.
+The go-to tool for this is the FilteredElementCollector, which lets you gather elements and then refine your selection using a variety of filtering techniques in C#.
+
+
+Next, we’ll explore another approach that’s specific to C#: using the System.Linq methods to filter and query elements.
+
+FilteredElementCollector
+
+The FilteredElementCollector is a special Revit API class that works much like running a database query, with your Revit document acting as the database.
+It allows you to start with a broad set of elements and then refine your results using various filtering methods to target exactly what you need.
+
+Declaring a Collector
+
+To create a collector for the entire document:
+
+
+
+1
+
+
+var collector = new FilteredElementCollector(doc);
+
+
+
+If you only want elements visible in a specific view, pass the view’s Id:
+
+
+
+1
+
+
+var collector = new FilteredElementCollector(doc, view.Id);
+
+
+Revit API
+FilteredElementCollector Constructors
+The FilteredElementCollector provides multiple constructor overloads, allowing you to start your collection from different scopes depending on your needs.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "C# + Revit API: Lesson 12 - FilteredElementCollector",
+      "item": "http://localhost:1313/posts/post-12/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C# + Revit API: Lesson 12 - FilteredElementCollector",
+  "name": "C# \u002b Revit API: Lesson 12 - FilteredElementCollector",
+  "description": "Goal In most Revit add-ins, your first step will be to collect elements from the model. The go-to tool for this is the FilteredElementCollector, which lets you gather elements and then refine your selection using a variety of filtering techniques in C#. Next, we’ll explore another approach that’s specific to C#: using the System.Linq methods to filter and query elements.\nFilteredElementCollector The FilteredElementCollector is a special Revit API class that works much like running a database query, with your Revit document acting as the database. It allows you to start with a broad set of elements and then refine your results using various filtering methods to target exactly what you need. Declaring a Collector To create a collector for the entire document: 1 var collector = new FilteredElementCollector(doc); If you only want elements visible in a specific view, pass the view’s Id: 1 var collector = new FilteredElementCollector(doc, view.Id); Revit API FilteredElementCollector Constructors The FilteredElementCollector provides multiple constructor overloads, allowing you to start your collection from different scopes depending on your needs.\n",
+  "keywords": [
+    "C#", "Revit", "Tutorial"
+  ],
+  "articleBody": "Goal In most Revit add-ins, your first step will be to collect elements from the model. The go-to tool for this is the FilteredElementCollector, which lets you gather elements and then refine your selection using a variety of filtering techniques in C#. Next, we’ll explore another approach that’s specific to C#: using the System.Linq methods to filter and query elements.\nFilteredElementCollector The FilteredElementCollector is a special Revit API class that works much like running a database query, with your Revit document acting as the database. It allows you to start with a broad set of elements and then refine your results using various filtering methods to target exactly what you need. Declaring a Collector To create a collector for the entire document: 1 var collector = new FilteredElementCollector(doc); If you only want elements visible in a specific view, pass the view’s Id: 1 var collector = new FilteredElementCollector(doc, view.Id); Revit API FilteredElementCollector Constructors The FilteredElementCollector provides multiple constructor overloads, allowing you to start your collection from different scopes depending on your needs.\n1. Constructor with Document\nThe most common constructor — collects elements from the entire document.\nFilteredElementCollector Constructor (Document): 1 2 3 public FilteredElementCollector( Document document // The document to search in. ) Example:\n1 var collector = new FilteredElementCollector(doc); 2. Constructor with Document and ElementId (View)\nCollects only elements visible in a specific view, identified by its ElementId.\nFilteredElementCollector Constructor (Document, ElementId) 1 2 3 4 public FilteredElementCollector( Document document, ElementId viewId // The view’s ID. ) Example:\n1 var collector = new FilteredElementCollector(doc, view.Id); 3. Constructor with Document and ICollection\nFilters a predefined set of elements. Useful when you’ve already gathered certain elements and want to further refine that list.\nFilteredElementCollector Constructor (Document, ICollection(ElementId)) 1 2 3 4 public FilteredElementCollector( Document document, ICollection\u003cElementId\u003e elementIds // A set of element IDs to filter. ) Example:\n1 var collector = new FilteredElementCollector(doc, myElementIds); 4. Constructor with Document, ElementId (View), and ElementId (Link)\nFilters elements within a linked Revit model, scoped to a specific view.\nFilteredElementCollector Constructor (Document, ElementId, ElementId) 1 2 3 4 5 public FilteredElementCollector( Document document, ElementId viewId, // The view ID in the host document. ElementId linkId // The Revit link instance ID in the host document. ) Example:\n1 var collector = new FilteredElementCollector(doc, view.Id, linkInstance.Id); FilteredElementCollector Methods Name Description ContainedInDesignOption Applies an ElementDesignOptionFilter to the collector. Dispose Equals Determines whether the specified object is equal to the current object. (Inherited from Object ) Excluding Applies an ExclusionFilter to the collector. FirstElement Returns the first element to pass the filter(s). FirstElementId Returns the id of the first element to pass the filter(s). GetBasicIEnumerator Returns an enumerator that iterates through a collection. GetElementCount Gets the number of elements in your current filter. GetElementIdIterator Returns an element id iterator to the elements passing the filters. GetElementIterator Returns an element iterator to the elements passing the filters. GetEnumerator Returns an enumerator that iterates through a collection. GetHashCode Serves as the default hash function. (Inherited from Object ) GetType Gets the Type of the current instance. (Inherited from Object ) IntersectWith Intersects the set of elements passing the filter in this collector with the set of elements passing the filter in another collector. IsViewValidForElementIteration Identifies if the particular element is valid for iteration of drawn elements. OfCategory Applies an ElementCategoryFilter to the collector. OfCategoryId Applies an ElementCategoryFilter to the collector. OfClass Applies an ElementClassFilter to the collector. OwnedByView Applies an ElementOwnerViewFilter to the collector. ToElementIds Returns the complete set of element ids that pass the filter(s). ToElements Returns the complete set of elements that pass the filter(s). ToString Returns a string that represents the current object. (Inherited from Object ) UnionWith Unites the set of elements passing the filter in this collector with the set of elements passing the filter in another collector. WhereElementIsCurveDriven Applies an ElementIsCurveDrivenFilter to the collector. WhereElementIsElementType Applies an ElementIsElementTypeFilter to the collector. WhereElementIsNotElementType Applies an inverted ElementIsElementTypeFilter to the collector. WhereElementIsViewIndependent Applies an ElementOwnerViewFilter to the collector. WherePasses Applies an element filter to the collector. Method Chaining Like Python – C# also supports chaining of multiple methods in succession. The ; symbol is the key to closing a line of code, line beaks do not matter, generally. 1 object.Method().Method().Method(); ",
+  "wordCount" : "705",
+  "inLanguage": "en",
+  "image": "http://localhost:1313/LogoAYD.png","datePublished": "2025-08-15T10:37:24+03:00",
+  "dateModified": "2025-08-15T10:37:24+03:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/post-12/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Blog (Alt + H)">Blog</a>
+        </div>
+
+        
+        <div class="logo main-logo">
+            <a href="https://aydrafting.com" target="_blank">
+                <img src="/LogoAYD.png" alt="Blog" height="40">
+            </a>
+        </div>
+
+        
+        <div class="logo-switches">
+            <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      C# &#43; Revit API: Lesson 12 - FilteredElementCollector
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta"><span title='2025-08-15 10:37:24 +0300 MSK'>August 15, 2025</span>&nbsp;·&nbsp;4 min&nbsp;|&nbsp;<a href="mailto:%20aydimir@aydrafting.com" rel="noopener noreferrer edit" target="_blank">Suggest Changes</a>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#goal" aria-label="Goal">Goal</a><ul>
+                        
+                <li>
+                    <a href="#filteredelementcollector" aria-label="FilteredElementCollector">FilteredElementCollector</a><ul>
+                        
+                <li>
+                    <a href="#declaring-a-collector" aria-label="Declaring a Collector">Declaring a Collector</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#revit-api" aria-label="Revit API">Revit API</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#filteredelementcollector-constructors" aria-label="FilteredElementCollector Constructors">FilteredElementCollector Constructors</a></li>
+                <li>
+                    <a href="#filteredelementcollector-methods" aria-label="FilteredElementCollector Methods">FilteredElementCollector Methods</a></li></ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#method-chaining" aria-label="Method Chaining">Method Chaining</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="goal">Goal<a hidden class="anchor" aria-hidden="true" href="#goal">#</a></h1>
+<ul>
+<li>In most Revit add-ins, your first step will be to <strong>collect elements from the model</strong>.</li>
+<li>The go-to tool for this is the <code>FilteredElementCollector</code>, which lets you gather elements and then refine your selection using a variety of filtering techniques in C#.</li>
+</ul>
+<blockquote>
+<p>Next, we’ll explore another approach that’s specific to C#: using the <code>System.Linq</code> methods to filter and query elements.</p></blockquote>
+<hr>
+<h2 id="filteredelementcollector"><code>FilteredElementCollector</code><a hidden class="anchor" aria-hidden="true" href="#filteredelementcollector">#</a></h2>
+<ul>
+<li>The <code>FilteredElementCollector</code> is a special Revit API class that works much like running a <strong>database query</strong>, with your Revit document acting as the database.</li>
+<li>It allows you to start with a broad set of elements and then refine your results using various filtering methods to target exactly what you need.</li>
+</ul>
+<h3 id="declaring-a-collector"><strong>Declaring a Collector</strong><a hidden class="anchor" aria-hidden="true" href="#declaring-a-collector">#</a></h3>
+<ul>
+<li>To create a collector for the entire document:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">collector</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>If you only want elements visible in a specific view, pass the view’s Id:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">collector</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">view</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="revit-api">Revit API<a hidden class="anchor" aria-hidden="true" href="#revit-api">#</a></h1>
+<h3 id="filteredelementcollector-constructors"><code>FilteredElementCollector</code> Constructors<a hidden class="anchor" aria-hidden="true" href="#filteredelementcollector-constructors">#</a></h3>
+<p>The <code>FilteredElementCollector</code> provides multiple constructor overloads, allowing you to start your collection from different scopes depending on your needs.</p>
+<br>
+<p><strong>1. Constructor with Document</strong></p>
+<p>The most common constructor — collects elements from the entire document.</p>
+<ul>
+<li><code>FilteredElementCollector</code> Constructor (<code>Document</code>):</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">FilteredElementCollector</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">Document</span> <span class="n">document</span> <span class="c1">// The document to search in.</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Example:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">collector</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<p><strong>2. Constructor with Document and ElementId (View)</strong></p>
+<p>Collects only elements <strong>visible in a specific view</strong>, identified by its ElementId.</p>
+<ul>
+<li><code>FilteredElementCollector</code> Constructor (<code>Document</code>, <code>ElementId</code>)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">FilteredElementCollector</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">Document</span> <span class="n">document</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">ElementId</span> <span class="n">viewId</span> <span class="c1">// The view’s ID.</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Example:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">collector</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">view</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<p><strong>3. Constructor with <code>Document</code> and <code>ICollection&lt;ElementId&gt;</code></strong></p>
+<p>Filters a <strong>predefined set of elements</strong>. Useful when you’ve already gathered certain elements and want to further refine that list.</p>
+<ul>
+<li><code>FilteredElementCollector</code> Constructor (<code>Document</code>, <code>ICollection(ElementId)</code>)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">FilteredElementCollector</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">Document</span> <span class="n">document</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">ICollection</span><span class="p">&lt;</span><span class="n">ElementId</span><span class="p">&gt;</span> <span class="n">elementIds</span> <span class="c1">// A set of element IDs to filter.</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Example:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">collector</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">myElementIds</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<p><strong>4. Constructor with <code>Document</code>, <code>ElementId (View)</code>, and <code>ElementId (Link)</code></strong></p>
+<p>Filters elements within a <strong>linked Revit model</strong>, scoped to a specific view.</p>
+<ul>
+<li><code>FilteredElementCollector</code> Constructor (<code>Document</code>, <code>ElementId</code>, <code>ElementId</code>)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">FilteredElementCollector</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">Document</span> <span class="n">document</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">ElementId</span> <span class="n">viewId</span><span class="p">,</span>  <span class="c1">// The view ID in the host document.</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">ElementId</span> <span class="n">linkId</span>   <span class="c1">// The Revit link instance ID in the host document.</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Example:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">collector</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">view</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">linkInstance</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="filteredelementcollector-methods"><code>FilteredElementCollector</code> Methods<a hidden class="anchor" aria-hidden="true" href="#filteredelementcollector-methods">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/92a2be0f-f632-2337-5bdd-ae3e832f3c33.htm">ContainedInDesignOption</a></td>
+          <td>Applies an ElementDesignOptionFilter to the collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/c23c8781-f645-c059-7db5-d0cfd732dda1.htm">Dispose</a></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Equals</a></td>
+          <td>Determines whether the specified object is equal to the current object.   <br>(Inherited from <a href="https://learn.microsoft.com/dotnet/api/system.object">Object</a> )</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/80e23fdc-c005-163b-5643-38d84411a73d.htm">Excluding</a></td>
+          <td>Applies an ExclusionFilter to the collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/c8c1cae0-4ac8-a309-e915-6d491137d47e.htm">FirstElement</a></td>
+          <td>Returns the first element to pass the filter(s).</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/b1b42ac5-e816-983a-f44d-5cf441ca1ad9.htm">FirstElementId</a></td>
+          <td>Returns the id of the first element to pass the filter(s).</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/07236f22-1721-1f6e-0fb6-f03709923430.htm">GetBasicIEnumerator</a></td>
+          <td>Returns an enumerator that iterates through a collection.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/886aabfd-ea87-e54c-d108-37d09a44d612.htm">GetElementCount</a></td>
+          <td>Gets the number of elements in your current filter.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/0b1cdbeb-21ce-a4c5-6cae-253595818085.htm">GetElementIdIterator</a></td>
+          <td>Returns an element id iterator to the elements passing the filters.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/7113e21c-90f8-8f58-3b00-407fc1cd56e0.htm">GetElementIterator</a></td>
+          <td>Returns an element iterator to the elements passing the filters.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/746ac65b-35c2-d0db-53d7-4fe0fd61ab1f.htm">GetEnumerator</a></td>
+          <td>Returns an enumerator that iterates through a collection.</td>
+      </tr>
+      <tr>
+          <td><a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">GetHashCode</a></td>
+          <td>Serves as the default hash function.   <br>(Inherited from <a href="https://learn.microsoft.com/dotnet/api/system.object">Object</a> )</td>
+      </tr>
+      <tr>
+          <td><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">GetType</a></td>
+          <td>Gets the <a href="https://learn.microsoft.com/dotnet/api/system.type">Type</a> of the current instance.   <br>(Inherited from <a href="https://learn.microsoft.com/dotnet/api/system.object">Object</a> )</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/5b204fc8-7702-cf7e-346a-3a4c1767924b.htm">IntersectWith</a></td>
+          <td>Intersects the set of elements passing the filter in this collector with the set of elements passing the filter in another collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/9c7f3f9c-aa8a-8077-9235-ff1058c8b20b.htm">IsViewValidForElementIteration</a></td>
+          <td>Identifies if the particular element is valid for iteration of drawn elements.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/c3523c35-4a07-9723-3c28-de3cc47b2ad0.htm">OfCategory</a></td>
+          <td>Applies an ElementCategoryFilter to the collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/63304108-73f8-844e-82fc-5b8fad9839b0.htm">OfCategoryId</a></td>
+          <td>Applies an ElementCategoryFilter to the collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/b0a5f22c-6951-c3af-cd29-1f28f574035d.htm">OfClass</a></td>
+          <td>Applies an ElementClassFilter to the collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/54f2107a-bd87-41fe-dd00-385253ba5915.htm">OwnedByView</a></td>
+          <td>Applies an ElementOwnerViewFilter to the collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/bfb8c8a2-aa2f-b1bc-7d57-7e3f7d39fcae.htm">ToElementIds</a></td>
+          <td>Returns the complete set of element ids that pass the filter(s).</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/732b4a0d-62d8-b86d-120b-8ea3d9713b34.htm">ToElements</a></td>
+          <td>Returns the complete set of elements that pass the filter(s).</td>
+      </tr>
+      <tr>
+          <td><a href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">ToString</a></td>
+          <td>Returns a string that represents the current object.   <br>(Inherited from <a href="https://learn.microsoft.com/dotnet/api/system.object">Object</a> )</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/957cc5cb-5c7f-cac9-ec86-35afe824c432.htm">UnionWith</a></td>
+          <td>Unites the set of elements passing the filter in this collector with the set of elements passing the filter in another collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/3f3269fc-367c-1fec-9ddb-d0b54ecc4f0e.htm">WhereElementIsCurveDriven</a></td>
+          <td>Applies an ElementIsCurveDrivenFilter to the collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/77793daa-5a26-b4d6-9019-4d998a55099e.htm">WhereElementIsElementType</a></td>
+          <td>Applies an ElementIsElementTypeFilter to the collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/061cbbb9-26f1-a8f8-a4b2-3d7ff0105199.htm">WhereElementIsNotElementType</a></td>
+          <td>Applies an inverted ElementIsElementTypeFilter to the collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/38b15459-9ffe-204a-0193-47c3a1b5e6e2.htm">WhereElementIsViewIndependent</a></td>
+          <td>Applies an ElementOwnerViewFilter to the collector.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.revitapidocs.com/2025/42d4eef3-55a1-2739-0ef8-6bc1d9fc2755.htm">WherePasses</a></td>
+          <td>Applies an element filter to the collector.</td>
+      </tr>
+  </tbody>
+</table>
+<h1 id="method-chaining">Method Chaining<a hidden class="anchor" aria-hidden="true" href="#method-chaining">#</a></h1>
+<ul>
+<li>Like <code>Python</code> &ndash; C# also supports chaining of multiple methods in succession.</li>
+<li>The <code>;</code> symbol is the key to closing a line of code, line beaks do not matter, generally.</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="kt">object</span><span class="p">.</span><span class="n">Method</span><span class="p">().</span><span class="n">Method</span><span class="p">().</span><span class="n">Method</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/c%23/">C#</a></li>
+      <li><a href="http://localhost:1313/tags/revit/">Revit</a></li>
+      <li><a href="http://localhost:1313/tags/tutorial/">Tutorial</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/posts/post-11/">
+    <span class="title">Next »</span>
+    <br>
+    <span>C# &#43; Revit API: Lesson 11 - Stacking Buttons</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>© 2025 AYDrafting. All rights reserved.</span> · 
+
+    <span>
+        Powered by
+        <a href="https://aydrafting.com/" rel="noopener noreferrer" target="_blank">AYDrafting</a> &
+        <a href="https://github.com/aydimir95/" rel="noopener" target="_blank">GitHub</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

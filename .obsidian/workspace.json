@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/Post №11.md",
+                "file": "content/posts/Post №12.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Post №11"
+              "title": "Post №12"
             }
           }
         ],
@@ -201,8 +201,12 @@
   },
   "active": "3911c6bfb3771f3b",
   "lastOpenFiles": [
-    "content/posts/Post №10.md",
     "content/posts/Post №11.md",
+    "content/posts/Post №12.md",
+    "template/_template.md",
+    "public/posts/post-12/index.html",
+    "public/posts/post-12",
+    "content/posts/Post №10.md",
     "public/images/Pasted image 20250814192206.png",
     "static/images/Pasted image 20250814192206.png",
     "content/posts/Post №9.md",
@@ -228,8 +232,6 @@
     "static/images/Pasted image 20250814142840.png",
     "public/images/Pasted image 20250814122745.png",
     "static/images/Pasted image 20250814122745.png",
-    "public/posts/post-10/index.html",
-    "public/posts/post-10",
     "public/images/Pasted image 20250813140525.png",
     "static/images/Pasted image 20250813140525.png",
     "content/posts/Post №3.md",
@@ -237,7 +239,6 @@
     "content/posts/2025-08-08.md",
     "content/posts/double.md",
     "content/posts/Boolean.md",
-    "template/_template.md",
     "content/posts/2025-08-07.md",
     "content/posts/Untitled 1.md"
   ]
