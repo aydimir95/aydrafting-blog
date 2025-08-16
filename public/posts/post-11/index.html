@@ -1247,48 +1247,48 @@ These tutorials were inspired by the work of Aussie BIM Guru. If you’re lookin
 </span><span class=lnt>40
 </span><span class=lnt>41
 </span><span class=lnt>42
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C# data-lang=C#><span class=line><span class=cl><span class=n>Solution</span>
-</span></span><span class=line><span class=cl><span class=p>|-&gt;</span> <span class=n>guRoo</span>
-</span></span><span class=line><span class=cl>	<span class=p>|-&gt;</span> <span class=n>Dependencies</span>
-</span></span><span class=line><span class=cl>	<span class=p>|-&gt;</span> <span class=n>Commands</span>
-</span></span><span class=line><span class=cl>		<span class=p>|-&gt;</span> <span class=n>General</span> 
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Cmds_General</span><span class=p>.</span><span class=n>cs</span> 
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Cmds_Button</span><span class=p>.</span><span class=n>cs</span> <span class=c1>// Add a New Class</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Cmds_PullDown</span><span class=p>.</span><span class=n>cs</span>  
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Cmds_Stack1</span><span class=p>.</span><span class=n>cs</span> <span class=c1>// Add a New Class</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Cmds_Stack2</span><span class=p>.</span><span class=n>cs</span> <span class=c1>// Add a New Class</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Cmds_Stack3</span><span class=p>.</span><span class=n>cs</span> <span class=c1>// Add a New Class</span>
-</span></span><span class=line><span class=cl>	<span class=p>|-&gt;</span> <span class=n>Forms</span>
-</span></span><span class=line><span class=cl>	<span class=p>|-&gt;</span> <span class=n>General</span> 
-</span></span><span class=line><span class=cl>		<span class=p>|-&gt;</span> <span class=n>Globals</span><span class=p>.</span><span class=n>cs</span> 
-</span></span><span class=line><span class=cl>	<span class=p>|-&gt;</span> <span class=n>Extensions</span> 
-</span></span><span class=line><span class=cl>		<span class=p>|-&gt;</span> <span class=n>UIControlledApplicaiton_Ext</span><span class=p>.</span><span class=n>cs</span> 
-</span></span><span class=line><span class=cl>		<span class=p>|-&gt;</span> <span class=n>RibbonPanel_Ext</span><span class=p>.</span><span class=n>cs</span>
-</span></span><span class=line><span class=cl>		<span class=p>|-&gt;</span> <span class=n>PulldownButton_Ext</span><span class=p>.</span><span class=n>cs</span> 
-</span></span><span class=line><span class=cl>	<span class=p>|-&gt;</span> <span class=n>Resources</span>
-</span></span><span class=line><span class=cl>		<span class=p>|-&gt;</span> <span class=n>Files</span> 
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Tooltips</span><span class=p>.</span><span class=n>resx</span>       <span class=c1>// Update</span>
-</span></span><span class=line><span class=cl>		<span class=p>|-&gt;</span> <span class=n>Icons</span> 
-</span></span><span class=line><span class=cl>		<span class=p>|-&gt;</span> <span class=n>Icons16</span> 
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>General_test16</span><span class=p>.</span><span class=n>png</span> 
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack1_Button16</span><span class=p>.</span><span class=n>png</span> <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack116</span><span class=p>.</span><span class=n>png</span>        <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack2_Button16</span><span class=p>.</span><span class=n>png</span> <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack216</span><span class=p>.</span><span class=n>png</span>        <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack3_Button16</span><span class=p>.</span><span class=n>png</span> <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack316</span><span class=p>.</span><span class=n>png</span>        <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>		<span class=p>|-&gt;</span> <span class=n>Icons32</span>      
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>General_test32</span><span class=p>.</span><span class=n>png</span>  <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack1_Button32</span><span class=p>.</span><span class=n>png</span> <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack132</span><span class=p>.</span><span class=n>png</span>        <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack2_Button32</span><span class=p>.</span><span class=n>png</span> <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack232</span><span class=p>.</span><span class=n>png</span>        <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack3_Button32</span><span class=p>.</span><span class=n>png</span> <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>			<span class=p>|-&gt;</span> <span class=n>Stack332</span><span class=p>.</span><span class=n>png</span>        <span class=c1>// add a .png</span>
-</span></span><span class=line><span class=cl>	<span class=p>|-&gt;</span> <span class=n>Utilities</span>
-</span></span><span class=line><span class=cl>		<span class=p>|-&gt;</span> <span class=n>Ribbon_Utils</span><span class=p>.</span><span class=n>cs</span>
-</span></span><span class=line><span class=cl>	<span class=p>|-&gt;</span> <span class=n>Application</span><span class=p>.</span><span class=n>cs</span>              <span class=c1>// Update</span>
-</span></span><span class=line><span class=cl>	<span class=p>|-&gt;</span> <span class=n>guRoo</span><span class=p>.</span><span class=n>addin</span>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Solution
+</span></span><span class=line><span class=cl><span class=p>|</span>-&gt; guRoo
+</span></span><span class=line><span class=cl>	<span class=p>|</span>-&gt; Dependencies
+</span></span><span class=line><span class=cl>	<span class=p>|</span>-&gt; Commands
+</span></span><span class=line><span class=cl>		<span class=p>|</span>-&gt; General 
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Cmds_General.cs 
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Cmds_Button.cs // Add a New Class
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Cmds_PullDown.cs  
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Cmds_Stack1.cs // Add a New Class
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Cmds_Stack2.cs // Add a New Class
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Cmds_Stack3.cs // Add a New Class
+</span></span><span class=line><span class=cl>	<span class=p>|</span>-&gt; Forms
+</span></span><span class=line><span class=cl>	<span class=p>|</span>-&gt; General 
+</span></span><span class=line><span class=cl>		<span class=p>|</span>-&gt; Globals.cs 
+</span></span><span class=line><span class=cl>	<span class=p>|</span>-&gt; Extensions 
+</span></span><span class=line><span class=cl>		<span class=p>|</span>-&gt; UIControlledApplicaiton_Ext.cs 
+</span></span><span class=line><span class=cl>		<span class=p>|</span>-&gt; RibbonPanel_Ext.cs
+</span></span><span class=line><span class=cl>		<span class=p>|</span>-&gt; PulldownButton_Ext.cs 
+</span></span><span class=line><span class=cl>	<span class=p>|</span>-&gt; Resources
+</span></span><span class=line><span class=cl>		<span class=p>|</span>-&gt; Files 
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Tooltips.resx       // Update
+</span></span><span class=line><span class=cl>		<span class=p>|</span>-&gt; Icons 
+</span></span><span class=line><span class=cl>		<span class=p>|</span>-&gt; Icons16 
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; General_test16.png 
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack1_Button16.png // add a .png
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack116.png        // add a .png
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack2_Button16.png // add a .png
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack216.png        // add a .png
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack3_Button16.png // add a .png
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack316.png        // add a .png
+</span></span><span class=line><span class=cl>		<span class=p>|</span>-&gt; Icons32      
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; General_test32.png  // add a .png
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack1_Button32.png // add a .png
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack132.png        // add a .png
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack2_Button32.png // add a .png
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack232.png        // add a .png
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack3_Button32.png // add a .png
+</span></span><span class=line><span class=cl>			<span class=p>|</span>-&gt; Stack332.png        // add a .png
+</span></span><span class=line><span class=cl>	<span class=p>|</span>-&gt; Utilities
+</span></span><span class=line><span class=cl>		<span class=p>|</span>-&gt; Ribbon_Utils.cs
+</span></span><span class=line><span class=cl>	<span class=p>|</span>-&gt; Application.cs              // Update
+</span></span><span class=line><span class=cl>	<span class=p>|</span>-&gt; guRoo.addin
 </span></span></code></pre></td></tr></table></div></div><h3 id=cmds_stack1cs><code>Cmds_Stack1.cs</code><a hidden class=anchor aria-hidden=true href=#cmds_stack1cs>#</a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
@@ -1673,7 +1673,8 @@ These tutorials were inspired by the work of Aussie BIM Guru. If you’re lookin
 </span></span><span class=line><span class=cl>        <span class=cp>#endregion</span>
 </span></span><span class=line><span class=cl>    <span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></td></tr></table></div></div><br><blockquote><p>These tutorials were inspired by the work of <a href=https://www.youtube.com/@AussieBIMGuru>Aussie BIM Guru</a>. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.</p></blockquote></div><footer class=post-footer><ul class=post-tags><li><a href=https://blog.aydrafting.com/tags/c%23/>C#</a></li><li><a href=https://blog.aydrafting.com/tags/revit/>Revit</a></li><li><a href=https://blog.aydrafting.com/tags/tutorial/>Tutorial</a></li></ul><nav class=paginav><a class=next href=https://blog.aydrafting.com/posts/post-10/><span class=title>Next »</span><br><span>C# + Revit API: Lesson 10 - Create a Pulldown Button</span></a></nav></footer></article></main><footer class=footer><span>© 2025 AYDrafting. All rights reserved.</span> ·
+</span></span></code></pre></td></tr></table></div></div><br><blockquote><p>These tutorials were inspired by the work of <a href=https://www.youtube.com/@AussieBIMGuru>Aussie BIM Guru</a>. If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.</p></blockquote></div><footer class=post-footer><ul class=post-tags><li><a href=https://blog.aydrafting.com/tags/c%23/>C#</a></li><li><a href=https://blog.aydrafting.com/tags/revit/>Revit</a></li><li><a href=https://blog.aydrafting.com/tags/tutorial/>Tutorial</a></li></ul><nav class=paginav><a class=prev href=https://blog.aydrafting.com/posts/post-12/><span class=title>« Prev</span><br><span>C# + Revit API: Lesson 12 - FilteredElementCollector</span>
+</a><a class=next href=https://blog.aydrafting.com/posts/post-10/><span class=title>Next »</span><br><span>C# + Revit API: Lesson 10 - Create a Pulldown Button</span></a></nav></footer></article></main><footer class=footer><span>© 2025 AYDrafting. All rights reserved.</span> ·
 <span>Powered by
 <a href=https://aydrafting.com/ rel="noopener noreferrer" target=_blank>AYDrafting</a> &
 <a href=https://github.com/aydimir95/ rel=noopener target=_blank>GitHub</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>

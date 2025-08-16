@@ -1,5 +1,5 @@
 +++
-title = "C# + Revit API: Lesson 7 - Creating a PushButton"
+title = "C# + Revit API: Lesson 7 - Object Oriented Programming"
 date = 2025-08-08T13:06:57+03:00
 draft = false
 tags = ["C#", "Revit", "Tutorial"]
@@ -22,7 +22,7 @@ We will explore this pattern below, let's just play the game first, what `Catego
 
 # 1. Introduction
 ### Project Folder Structure
-```C#
+```bash
 Solution
 |-> guRoo
 	|-> Dependencies
@@ -715,7 +715,7 @@ This is useful for making sure different classes follow the same pattern, even i
 ---
 ## `ASCII diagram` showing the real world application of interfaces:
 
-```C#
+```bash
         +-------------------+
         |     IAnimal       |   <- Interface (the contract)
         |-------------------|

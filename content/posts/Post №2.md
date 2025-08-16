@@ -11,7 +11,7 @@ tags = ["C#", "Revit", "Tutorial"]
 3. Base 2 numbering system
 
 
-```C#
+```bash
 1 0 1
 x x x
 4 2 1 = 5 
@@ -34,7 +34,7 @@ Memory is addressed into bytes
 
 ## ASCII Tables bring meaning to what various bytes represent:
 
-```C#
+```bash
 ASCII 48 = 0
 (00) 110000
 1 * 2^4 = 16

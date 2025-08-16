@@ -185,7 +185,7 @@ var y = "hello".Reverse();
 
 ## **What the Compiler Actually Does**
 
-```C#
+```bash
 Your code:                 Desugared by compiler:
 ---------                  ----------------------------------
 "hello".Reverse()   ==>    StringExtensions.Reverse("hello");
@@ -295,7 +295,7 @@ Ext_MethodName
 # Solution
 ## Code:
 ### `Project Solution`
-```C#
+```bash
 Solution
 |-> guRoo
 	|-> Dependencies

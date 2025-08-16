@@ -126,7 +126,7 @@ We will store our icons as embedded resources also in a `PNG` format. We will us
 
 ## Code
 ### `Project Solution`
-```C#
+```bash
 Solution
 |-> guRoo
 	|-> Dependencies
