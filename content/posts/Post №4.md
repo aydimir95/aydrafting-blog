@@ -1,7 +1,7 @@
 +++
 title = "C# + Revit API: Lesson 4 - Logical Operators"
 date = 2025-08-06T15:50:00+03:00
-draft = false
+draft = true
 tags = ["C#", "Revit", "Tutorial"]
 +++
 

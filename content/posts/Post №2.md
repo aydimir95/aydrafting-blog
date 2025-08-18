@@ -1,7 +1,7 @@
 +++
 title = "C# + Revit API: Lesson 2 - Bits & Bytes, ASCII Table, Pointers & Structs - Programming 101"
 date = 2025-08-06T14:23:14+03:00
-draft = false
+draft = true
 tags = ["C#", "Revit", "Tutorial"]
 +++
 

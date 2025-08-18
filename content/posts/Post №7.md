@@ -1,7 +1,7 @@
 +++
 title = "C# + Revit API: Lesson 7 - Object Oriented Programming"
 date = 2025-08-08T13:06:57+03:00
-draft = false
+draft = true
 tags = ["C#", "Revit", "Tutorial"]
 +++
 # Game: Introduction to Classes

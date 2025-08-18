@@ -1,7 +1,7 @@
 +++
 title = "C# + Revit API: Lesson 9 - Static vs. Extension Methods"
 date = 2025-08-08T13:53:29+03:00
-draft = false
+draft = true
 tags = ["C#", "Revit", "Tutorial"]
 +++
 

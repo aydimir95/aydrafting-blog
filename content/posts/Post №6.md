@@ -1,7 +1,7 @@
 +++
 title = "C# + Revit API: Lesson 6 - try & catch Statements"
 date = 2025-08-08T11:47:12+03:00
-draft = false
+draft = true
 tags = ["C#", "Revit", "Tutorial"]
 +++
 
