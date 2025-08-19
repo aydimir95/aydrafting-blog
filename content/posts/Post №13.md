@@ -10,14 +10,10 @@ tags = ["C#", "Revit", "Tutorial"]
 This is the automation I made for my client and I would like to share the insights.
 
 ## Plan:
-1. Refactor the automation to properly organize the project.
-2. Start with understanding how to organize the WPF forms better.
-3. Seems like I have lots of functions just jumbled together in each file.
-4. Basically, separate and refactor the code.
-
 
 ```C#
-Based on analyzing the current "Cmds_AutoDim.cs" implementation and comparing it with the established codebase patterns, here are my refactoring suggestions:  
+Based on analyzing the current "Cmds_AutoDim.cs" implementation and comparing it
+with the established codebase patterns, here are my refactoring suggestions:  
   
 Key Refactoring Recommendations  
 
@@ -1474,3 +1470,15 @@ namespace CreateLevelMarkers
 }
 
 ```
+
+
+Failed to initialize the add-in "Testing"
+because the class
+"UKON.Cmds_General.Cmd_Test" cannot be
+found in the add-in assembly.
+The FullClassName provides the entry point
+for Revit to call the add-in application. For
+Revit to run the add-in, you must ensure this
+class implements the
+"Autodesk.Revit.Ul.IExternalCommand"
+interface.
