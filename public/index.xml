@@ -1,1 +1,139 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate/><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Wed, 06 Aug 2025 00:00:00 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 0</title><link>https://blog.aydrafting.com/posts/post-0/</link><pubDate>Wed, 06 Aug 2025 00:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-0/</guid><description>&lt;h1 id="why-c">Why C#?&lt;/h1>
+&lt;p>&lt;code>Scalability&lt;/code>&lt;/p>
+&lt;h1 id="start-with">Start with&lt;/h1>
+&lt;ol>
+&lt;li>&lt;a href="https://visualstudio.microsoft.com/downloads/">Install Visual Studio 2022 Community&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dotnet.microsoft.com/en-us/download/visual-studio-sdks">Install .NET SDKs (.NET4.8 &amp;amp; .NET8)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/Nice3point/RevitTemplates">Install Nice3Point Templates&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h1 id="project-solution">Project Solution&lt;/h1>
+&lt;ol>
+&lt;li>Start a solution / project
+&lt;ol>
+&lt;li>Create a &lt;code>new project&lt;/code>&lt;/li>
+&lt;li>Choose the Revit Addin (&lt;code>Nice3Point&lt;/code>) Template&lt;/li>
+&lt;li>Configure your new project
+&lt;ol>
+&lt;li>&lt;code>Name&lt;/code> of the project&lt;/li>
+&lt;li>&lt;code>Location&lt;/code>&lt;/li>
+&lt;li>&lt;code>Solution Name&lt;/code> - same as project name (it&amp;rsquo;s a folder name that holds many projects)&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Additional Information
+&lt;ol>
+&lt;li>Add-in type -&amp;gt; &lt;code>Application&lt;/code>&lt;/li>
+&lt;li>User Interface -&amp;gt; &lt;code>None&lt;/code>&lt;/li>
+&lt;li>IoC -&amp;gt; &lt;code>Disabled&lt;/code>&lt;/li>
+&lt;li>Serilog support -&amp;gt; &lt;code>unchecked&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Explore &lt;code>Visual Studio&lt;/code>
+&lt;ol>
+&lt;li>Properties &amp;amp; Solution Explorer (Project Browser in Revit)&lt;/li>
+&lt;li>Error &amp;amp; Output&lt;/li>
+&lt;li>&lt;code>CSProj&lt;/code> -&amp;gt; Preconfigured up to Revit v.2025&lt;/li>
+&lt;li>&lt;code>.addin&lt;/code> -&amp;gt; Change GUID (The rest we will change later)&lt;/li>
+&lt;li>Application Class:
+&lt;ol>
+&lt;li>Tells your &lt;code>.addin&lt;/code> how to begin and how to finish when Revit opens and closes.&lt;/li>
+&lt;li>&lt;code>Class&lt;/code>: External Application&lt;/li>
+&lt;li>Method: &lt;code>OnStartup()&lt;/code>
+&lt;ol>
+&lt;li>Will run &lt;code>Create Ribbon()&lt;/code>&lt;/li>
+&lt;li>Creates a &lt;strong>&lt;code>Panel&lt;/code>&lt;/strong>&lt;/li>
+&lt;li>Adds a &lt;strong>&lt;code>PushButton&lt;/code>&lt;/strong> to that &lt;strong>Panel&lt;/strong>&lt;/li>
+&lt;li>With 2 &lt;strong>&lt;code>Icons&lt;/code>&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Our Application
+&lt;ol>
+&lt;li>&lt;code>OnStartup&lt;/code>&lt;/li>
+&lt;li>When it begins, it calls a Function &amp;ldquo;&lt;code>CreateRibbon()&lt;/code>&amp;rdquo;&lt;/li>
+&lt;li>And CreateRibbon is a defined function below that:
+&lt;ol>
+&lt;li>Creates a panel
+&lt;ol>
+&lt;li>This is possible due to pre-configured Revit API that we are using&lt;/li>
+&lt;li>&lt;code>CreatePanel&lt;/code> - is a pre-defined method under Revit API that, you guessed it, Creates a Panel in Revit.&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Creates a button
+&lt;ol>
+&lt;li>Same for the Button&lt;/li>
+&lt;li>&lt;code>AddPushButton&lt;/code> Method in Revit API - Creates a button&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Commands Folder
+&lt;ol>
+&lt;li>Core Code&lt;/li>
+&lt;li>Currently: Task Dialog - Shows the name of the &lt;code>.addin&lt;/code>
+&lt;ol>
+&lt;li>&lt;code>ExternalCommand&lt;/code>, but we should use &lt;code>IExternalCommand&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>This is the part that writes the logic for your button&lt;/li>
+&lt;li>Once you click the button, whatever is under Commands Folder connected to the button will be executed.&lt;/li>
+&lt;li>If you change the TaskDialog.Show(Document.Title, &amp;ldquo;Hello World&amp;rdquo;);
+&lt;ol>
+&lt;li>Once you press the button in Revit it would show &amp;ldquo;Hello World&amp;rdquo;&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Resources:
+&lt;ol>
+&lt;li>Icons&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Everything is saved in windows explorer&lt;/li>
+&lt;li>Configurations:
+&lt;ol>
+&lt;li>Debug and Release&lt;/li>
+&lt;li>Per Revit Version from R20 to R25&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>References:
+&lt;ol>
+&lt;li>Under: This PC &amp;gt; Windows (C:) &amp;gt; Program Files &amp;gt; Autodesk &amp;gt; Revit [2025].&lt;/li>
+&lt;li>DLL Files that you can reference to your project to build something.&lt;/li>
+&lt;li>You could even add an excel package to work with Excel, will do that later.&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Build and test the first plugin
+&lt;ol>
+&lt;li>Build the solution by clicking on &lt;code>Run&lt;/code> (Play Button) next to &lt;code>Any CPU&lt;/code>.&lt;/li>
+&lt;li>Launches Revit (Version that you pre-configured)&lt;/li>
+&lt;li>&lt;code>Always Load&lt;/code> your &lt;code>.addin&lt;/code>&lt;/li>
+&lt;li>What happened behind the scenes:
+&lt;ol>
+&lt;li>VS2022 Added the DLL file and the &lt;code>.addin&lt;/code> file into the right folder and launched Revit version that you specified with the Plugin loaded into Revit.&lt;/li>
+&lt;li>That became possible due to preconfigured Visual Studio &lt;code>Nice3Point&lt;/code> Template that you ran earlier.&lt;/li>
+&lt;li>Everything is already set and pathed for you for the ease of starting and launching plugins.&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Go to &lt;code>New Project&lt;/code>
+&lt;ol>
+&lt;li>Find your new panel in the &lt;code>panel&lt;/code> tabs on the top of Revit UI.&lt;/li>
+&lt;li>Find your Plugin / add-in&lt;/li>
+&lt;li>Click on it&lt;/li>
+&lt;li>And you will get a message with the &lt;code>name&lt;/code> of your Tool.&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Stop &lt;code>Debug&lt;/code>
+&lt;ol>
+&lt;li>Closes Revit &amp;amp; Debug Mode&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>
