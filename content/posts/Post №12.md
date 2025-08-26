@@ -1327,7 +1327,7 @@ Solution
 	|-> Dependencies
 	|-> Commands
 		|-> General 
-			|-> Cmds_PushButton.cs  // Rename from "Cmds_General.cs" & Update
+			|-> Cmds_PushButton.cs  # Rename from "Cmds_General.cs" & Update
 			|-> Cmds_PullDown.cs  
 			|-> Cmds_Stack1.cs 
 			|-> Cmds_Stack2.cs 
@@ -1407,11 +1407,195 @@ namespace guRoo.Cmds_PushButton
 - Create a `sheet` collector
 - Cerate a `revision` collector
 
-
 # Solution
 
 
+## `Project Solution`
+```bash
+Solution
+|-> guRoo
+	|-> Dependencies
+	|-> Commands
+		|-> General 
+			|-> Cmds_PushButton.cs  # Update to implement new ext .cs 
+	|-> Forms
+	|-> General 
+	|-> Extensions 
+		|-> Document_Ext.cs # Create a new extension class 
+	|-> Resources
+	|-> Utilities
+	|-> Application.cs           
+	|-> guRoo.addin
+```
 
+
+## `Document_Ext.cs`
+```C#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace guRoo.Extensions
+{
+	public static class Document_Ext
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <return></return>
+		public static FilteredElementCollector Ext_Collector(this Document doc)
+		{
+			return new FilteredElementCollector(doc);
+		}
+		/// <summary>
+		/// Construct a new FilteredElementCollector
+		/// </summary>
+		/// <param name="doc">The document (extended)</param>
+		/// <param name="view">The view to collect elements from</param>
+		/// <return></return>
+		public static FilteredElementCollector Ext_Collector(this Document doc, View view)
+		{
+			return new FilteredElementCollector(doc, view.Id);
+		}
+
+		/// <summary>
+		/// Collecting sheets
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="sorted"></param>
+		/// <param name="includePlaceholders"></param>
+		/// <return></return>
+		public static List<ViewSheet> Ext_GetSheets(this Document doc, bool sorted true, bool includePlaceholder = false)
+		{
+			// Collect our sheets
+			var sheets = doc.Ext_Collector()
+				.OfClass(typeof(ViewSheet))
+				.Cast<ViewSheet>()
+				.ToList();
+			
+			// Fileter out placeholders if desired
+			if (!includePlaceholders)
+			{
+				sheets = sheets
+					.Where(s => !s.IsPlaceholder) // is the sheet is placeholder, reverse it (if the sheet is not a placeholder, the lambda would return "true". and non-placeholder sheets would "continue" forward)
+					.ToList();
+			}
+			
+			// Return elements, optional sorting
+			if (sorted)
+			{
+				return sheets
+					.OrderBy(s => s.SheetNumber)
+					.ToList();
+			}
+			else
+			{
+				return sheets;
+			}
+		}
+
+		
+		/// <summary>
+		/// Collecting revisions
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="sorted"></param>
+		/// <param name="includePlaceholders"></param>
+		/// <return></return>
+		public static List<Revisions> Ext_GetRevisions(this Document doc, bool sorted true)
+		{
+			// Collect our revisions
+			var revisions = doc.Ext_Collector()
+				.OfClass(typeof(Revision))
+				.Cast<Revision>()
+				.ToList();
+			
+			// Return elements, optional sorting
+			if (sorted)
+			{
+				return revisions
+					.OrderBy(r => r.SequenceNumber) // this is an element property that's accessible through Casting only, if we didn't Cast<Revision> earlier we wouldn't have access to Revision propeties.
+					.ToList();
+			}
+			else
+			{
+				return revisions;
+			}
+		}
+		
+	}
+}
+```
+
+## `Cmds_Button.cs`
+```C#
+// Autodesk
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+
+// Associate with PushButton Commands
+namespace guRoo.Commands.General
+{
+    /// <summary>
+    ///		Example Command
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
+    public class Cmd_Test : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData CommandData, ref string message, ElementSet elements)
+        {
+            // Collect the Document and Application objects from the CommandData
+            var uiApp = CommandData.Application;
+            var uiDoc = uiApp.ActiveUIDocument;
+            var doc = uiDoc.Document;
+
+            // Collect all walls
+            var walls = new FilteredElementCollector(doc)
+                .OfClass(typeof(Wall))
+                .WhereElementIsNotElementType()
+                .ToElements();
+
+            // Show the message dialog with the document title
+            TaskDialog.Show( doc.Title, $"We have {walls.Count} walls in the model");
+
+            // Collect all walls lower than 12 feet
+            // First: Construct a filter for .WherePasses() Method
+            var parameterId = new ElementId(BuiltInParameter.WALL_USER_HEIGHT_PARAM);
+            var provider = new ParameterValueProvider(parameterId);
+            var rule = new FilterNumericLess();
+            var passesRule = new FilterDoubleRule(provider, rule, 12, 0.1);
+            var paramFilter = new ElementParameterFilter(passesRule);
+
+            // Then: Apply the filter to the FilteredElementCollector
+            var wallsFiltered = new FilteredElementCollector(doc)
+                .OfCategory(BuiltInCategory.OST_Walls)
+                .WhereElementIsNotElementType()
+                .WherePasses(paramFilter)
+                .ToElements();
+
+            // Show the message dialog with the document title
+            TaskDialog.Show(doc.Title, $"We have {wallsFiltered.Count} walls less than 12 ft in the model");
+
+			// Collect all sheets
+			var sheets = doc.Ext_GetSheets(); 
+			// declare an argument if you need "(includePlaceholders: true)"
+			var revisions = doc.Ext_GetRevisions(); 
+			
+			TaskDialog,Show(doc.Title, $"We have {sheets.Count} sheets in the model");)
+			
+			TaskDialog,Show(doc.Title, $"We have {revisions.Count} revisions in the model");)
+
+
+
+            // Final return here:
+            return Result.Succeeded;
+        }
+    }
+}
+```
 
 
 
