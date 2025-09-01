@@ -1,7 +1,7 @@
 +++
 title = "C# + Revit API: Lesson 1 - A Simple Walkthrough of the Command"
 date = 2025-08-06T01:00:00+03:00
-draft = true
+draft = false
 tags = ["C#", "Revit", "Tutorial"]
 +++
 

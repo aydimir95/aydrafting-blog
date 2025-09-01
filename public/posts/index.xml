@@ -1,4 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Blog</title><link>https://blog.aydrafting.com/posts/</link><description>Recent content in Posts on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Wed, 06 Aug 2025 00:00:00 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 0</title><link>https://blog.aydrafting.com/posts/post-0/</link><pubDate>Wed, 06 Aug 2025 00:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-0/</guid><description>&lt;h1 id="why-c">Why C#?&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Blog</title><link>https://blog.aydrafting.com/posts/</link><description>Recent content in Posts on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Wed, 06 Aug 2025 01:00:00 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 1 - A Simple Walkthrough of the Command</title><link>https://blog.aydrafting.com/posts/post-1/</link><pubDate>Wed, 06 Aug 2025 01:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-1/</guid><description>&lt;p>This post explains &lt;strong>one concrete command&lt;/strong>—line by line—so a beginner can follow without extra abstractions.&lt;/p>
+&lt;p>&lt;strong>What this command does when you click your add-in button:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Tries to create a &lt;strong>sheet&lt;/strong> (using an &lt;strong>invalid&lt;/strong> title block on purpose → shows how error handling works).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Collects up to &lt;strong>10 existing sheets&lt;/strong> and formats their numbers/names.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Displays the result in a &lt;strong>WPF dialog&lt;/strong> via a ViewModel.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>✅ This article focuses only on the command. It assumes you’ve already wired a ribbon button (and .addin) that triggers &lt;code>StartupCommand&lt;/code>.&lt;/p></description></item><item><title>C# + Revit API: Lesson 0</title><link>https://blog.aydrafting.com/posts/post-0/</link><pubDate>Wed, 06 Aug 2025 00:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-0/</guid><description>&lt;h1 id="why-c">Why C#?&lt;/h1>
 &lt;p>&lt;code>Scalability&lt;/code>&lt;/p>
 &lt;h1 id="start-with">Start with&lt;/h1>
 &lt;ol>
