@@ -3,6 +3,8 @@ title = "C# + Revit API: Lesson 13 - MessageBox Forms"
 date = 2025-09-01T15:50:07+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
+cover.image = "/images/Pasted image 20250901160911.png"
+cover.alt = "MessageBox Forms in C# and Revit API"
 +++
 
  > `MessageBox Forms` - needed to send alerts to the user from our add-in.

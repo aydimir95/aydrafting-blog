@@ -3,6 +3,8 @@ title = "C# + Revit API: Lesson 7 - Object Oriented Programming"
 date = 2025-08-08T13:06:57+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
+cover.image = "/images/Pasted image 20250902205414.png"
+cover.alt = "Object Oriented Programming"
 +++
 # Game: Introduction to Classes
 > Let's play a little game that would help you quickly visualize a `Class`, `Properties`, `Methods`, and `Interface`. And select the `interface` that matches the `class`.

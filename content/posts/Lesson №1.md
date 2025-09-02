@@ -3,6 +3,8 @@ title = "C# + Revit API: Lesson 1 - A Simple Walkthrough of the Command"
 date = 2025-08-06T01:00:00+03:00
 draft = false
 tags = ["C#", "Revit", "Tutorial"]
+cover.image = "/images/Pasted image 20250902204444.png"
+cover.alt = "What Each Part Does (Beginner-Friendly)"
 +++
 
 This post explains **one concrete command**—line by line—so a beginner can follow without extra abstractions.
@@ -23,7 +25,6 @@ This post explains **one concrete command**—line by line—so a beginner can f
 > If you have no knowledge of how to set this up, I would suggest just skimming through - just for reference and going to the next post, where I will start from scratch.
 
 ---
-
 ## **The Command (Full Code)**
 
 ```C#

@@ -3,8 +3,9 @@ title = "C# + Revit API: Lesson 4 - Logical Operators"
 date = 2025-08-06T15:50:00+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
+cover.image = "/images/Pasted image 20250902204927.png"
+cover.alt = "Operators"
 +++
-
 
  > They control logic and flow in our tools.
  > We will have a good understanding of core statements we can use to build Revit Add-ins.

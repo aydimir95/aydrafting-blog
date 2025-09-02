@@ -3,8 +3,9 @@ title = "C# + Revit API: Lesson 2 - Bits & Bytes, ASCII Table, Pointers & Struct
 date = 2025-08-06T14:23:14+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
+cover.image = "/images/Pasted image 20250902204629.png"
+cover.alt = "Bits & Bytes & ASCII Table"
 +++
-
 #### I suggest taking [CS50 Course](https://pll.harvard.edu/course/cs50-introduction-computer-science) to understand the basics of Programming
 1. True & False
 2. 0 and 1

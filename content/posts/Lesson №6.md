@@ -3,8 +3,9 @@ title = "C# + Revit API: Lesson 6 - try & catch Statements"
 date = 2025-08-08T11:47:12+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
+cover.image = "/images/Pasted image 20250902205255.png"
+cover.alt = "try & catch Statements"
 +++
-
 # Pseudocode
 
 ```C#

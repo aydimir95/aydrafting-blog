@@ -3,6 +3,8 @@ title = "C# + Revit API: Lesson 8 - Tooltips & Icons"
 date = 2025-08-08T13:13:50+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
+cover.image = "/images/Pasted image 20250813140525.png"
+cover.alt = "Tooltips & Icons"
 +++
 
 In the previous lesson, we built a `PushButton` using classes, constructors, properties, methods, interfaces, and a few global variables. In this lesson, we’ll put that button in its proper place on the ribbon and make sure everything—panel, icon, and tooltip—works end to end:
@@ -13,7 +15,6 @@ In the previous lesson, we built a `PushButton` using classes, constructors, pro
 3. `PushButton`
 4. `Icon`
 5. `Tooltip`
-![Pasted image 20250813140525.png](</images/Pasted image 20250813140525.png>)
 
 - We will cover how to manage `resource`/`command` naming,
 - And, how to easily manage `tooltips` for our tools,

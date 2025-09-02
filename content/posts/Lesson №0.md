@@ -3,8 +3,9 @@ title = "C# + Revit API: Lesson 0"
 date = 2025-08-06T00:00:00+03:00
 draft = false
 tags = ["C#", "Revit", "Tutorial"]
+cover.image = "/images/Pasted image 20250902205018.png"
+cover.alt = "Lesson 0"
 +++
-
 # Why C#?
 `Scalability`
 

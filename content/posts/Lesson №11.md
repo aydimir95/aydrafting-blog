@@ -3,14 +3,13 @@ title = "C# + Revit API: Lesson 11 - Stacking Buttons"
 date = 2025-08-14T18:30:33+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
+cover.image = "/images/Pasted image 20250814192206.png"
+cover.alt = "Create a Pulldown Button"
 +++
 
+[Aussie BIM Guru](https://www.youtube.com/watch?v=zaouXDa1dTc)
 
 # The Goal
-
-![Pasted image 20250814192206.png](</images/Pasted image 20250814192206.png>)
-
-[Aussie BIM Guru](https://www.youtube.com/watch?v=zaouXDa1dTc)
 
 - Stacks can vertically contain 2 or 3 items.
 

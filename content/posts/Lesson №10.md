@@ -3,11 +3,11 @@ title = "C# + Revit API: Lesson 10 - Create a Pulldown Button"
 date = 2025-08-14T12:02:26+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
+cover.image = "/images/Pasted image 20250814142840.png"
+cover.alt = "Create a Pulldown Button"
 +++
 
 # The Goal
-
-![Pasted image 20250814142840.png](</images/Pasted image 20250814142840.png>)
 
 We will create a `PulldownButton` and add a few `PushButtons` to it.
 

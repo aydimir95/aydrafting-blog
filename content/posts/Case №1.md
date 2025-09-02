@@ -1,11 +1,16 @@
 +++
 title = "C# + Revit API: Case Study №1 [Section Automation]"
 date = 2025-01-03T19:10:51+03:00
-draft = true
+draft = false
 tags = ["C#", "Revit", "Tutorial"]
+cover.image = ""
+cover.alt = ""
 +++
 
 # Introduction
+
+
+![[Pasted image 20250829161635.png]]
 
 ## `Project Solution`
 ```bash
@@ -142,7 +147,7 @@ namespace UKON.Commands.AutoSection
 
 ```
 
-![[Pasted image 20250829161635.png]]
+
 
 
 
