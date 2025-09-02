@@ -3,12 +3,11 @@ title = "C# + Revit API: Lesson 0"
 date = 2025-09-01T00:00:00+03:00
 draft = false
 tags = ["C#", "Revit", "Tutorial"]
-cover.image = "/images/Pasted image 20250902205018.png"
+cover.image = "/images/Pasted image 20250903011611.png"
 cover.alt = "Lesson 0"
 +++
 # Why C#?
 `Scalability`
-
 # Start with
 1. [Install Visual Studio 2022 Community](https://visualstudio.microsoft.com/downloads/)
 2. [Install .NET SDKs (.NET4.8 & .NET8)](https://dotnet.microsoft.com/en-us/download/visual-studio-sdks)
