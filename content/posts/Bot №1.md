@@ -1,7 +1,6 @@
 +++
 title = "Bot №1: Flowise + Local DB + Telegram Bot"
-date = 2025-01-01T00:32:18+03:00
-created = 2025-01-01T00:32:18+03:00
+date = 2026-01-01T00:32:18+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = ""
