@@ -3,9 +3,6 @@ views:
     name: Table
     order:
       - file.name
-      - file.ctime
-    sort:
-      - property: file.ctime
-        direction: DESC
+    sort: []
     columnSize:
       file.name: 313

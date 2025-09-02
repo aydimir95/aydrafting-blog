@@ -1,4 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Wed, 06 Aug 2025 01:00:00 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 1 - A Simple Walkthrough of the Command</title><link>https://blog.aydrafting.com/posts/post-1/</link><pubDate>Wed, 06 Aug 2025 01:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-1/</guid><description>&lt;p>This post explains &lt;strong>one concrete command&lt;/strong>—line by line—so a beginner can follow without extra abstractions.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Blog</title><link>https://blog.aydrafting.com/</link><description>Recent content on Blog</description><image><title>Blog</title><url>https://blog.aydrafting.com/LogoAYD.png</url><link>https://blog.aydrafting.com/LogoAYD.png</link></image><generator>Hugo -- 0.148.2</generator><language>en-us</language><copyright>2025 AYDrafting. All rights reserved.</copyright><lastBuildDate>Mon, 01 Sep 2025 15:50:07 +0300</lastBuildDate><atom:link href="https://blog.aydrafting.com/index.xml" rel="self" type="application/rss+xml"/><item><title>C# + Revit API: Lesson 13 - MessageBox Forms</title><link>https://blog.aydrafting.com/posts/lesson-13/</link><pubDate>Mon, 01 Sep 2025 15:50:07 +0300</pubDate><guid>https://blog.aydrafting.com/posts/lesson-13/</guid><description>&lt;blockquote>
+&lt;p>&lt;code>MessageBox Forms&lt;/code> - needed to send alerts to the user from our add-in.&lt;/p>&lt;/blockquote>
+&lt;ul>
+&lt;li>Before, we were using &lt;code>TaskDialog&lt;/code> to convey outcomes to the user when they run our tools. It&amp;rsquo;s ok for the basic processes but lacks the level of interaction we need.&lt;/li>
+&lt;li>We will use a &lt;code>MessageBox&lt;/code> form to address this and contain it within a custom method we can easily call on and customize further.&lt;/li>
+&lt;/ul>
+&lt;h1 id="messagebox-anatomy">&lt;code>MessageBox&lt;/code> Anatomy&lt;/h1>
+&lt;p>&lt;img alt="Pasted image 20250901160911.png" loading="lazy" src="https://blog.aydrafting.com/images/Pasted%20image%2020250901160911.png">&lt;/p></description></item><item><title>C# + Revit API: Lesson 1 - A Simple Walkthrough of the Command</title><link>https://blog.aydrafting.com/posts/lesson-1/</link><pubDate>Wed, 06 Aug 2025 01:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/lesson-1/</guid><description>&lt;p>This post explains &lt;strong>one concrete command&lt;/strong>—line by line—so a beginner can follow without extra abstractions.&lt;/p>
 &lt;p>&lt;strong>What this command does when you click your add-in button:&lt;/strong>&lt;/p>
 &lt;ol>
 &lt;li>
@@ -12,7 +19,7 @@
 &lt;/li>
 &lt;/ol>
 &lt;blockquote>
-&lt;p>✅ This article focuses only on the command. It assumes you’ve already wired a ribbon button (and .addin) that triggers &lt;code>StartupCommand&lt;/code>.&lt;/p></description></item><item><title>C# + Revit API: Lesson 0</title><link>https://blog.aydrafting.com/posts/post-0/</link><pubDate>Wed, 06 Aug 2025 00:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/post-0/</guid><description>&lt;h1 id="why-c">Why C#?&lt;/h1>
+&lt;p>✅ This article focuses only on the command. It assumes you’ve already wired a ribbon button (and .addin) that triggers &lt;code>StartupCommand&lt;/code>.&lt;/p></description></item><item><title>C# + Revit API: Lesson 0</title><link>https://blog.aydrafting.com/posts/lesson-0/</link><pubDate>Wed, 06 Aug 2025 00:00:00 +0300</pubDate><guid>https://blog.aydrafting.com/posts/lesson-0/</guid><description>&lt;h1 id="why-c">Why C#?&lt;/h1>
 &lt;p>&lt;code>Scalability&lt;/code>&lt;/p>
 &lt;h1 id="start-with">Start with&lt;/h1>
 &lt;ol>

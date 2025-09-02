@@ -152,6 +152,48 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">C# &#43; Revit API: Lesson 8 - Tooltips &amp; Icons
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>In the previous lesson, we built a PushButton using classes, constructors, properties, methods, interfaces, and a few global variables. In this lesson, we’ll put that button in its proper place on the ribbon and make sure everything—panel, icon, and tooltip—works end to end:
+This is what we are trying to create:
+Ribbon Panel PushButton Icon Tooltip We will cover how to manage resource/command naming, And, how to easily manage tooltips for our tools, As well as, the standard/large image icons, Finally, we will test the tool in action. Base Command Naming 1 2 3 4 5 // Command namespace guRoo.Cmds_GroupName //Command Class guRoo.Cmds_GroupName.Cmd_CommandName Preferred Method: 1 2 3 4 5 6 7 8 9 // Before: guRoo.Cmds_GroupName // After: GroupName //Before: guRoo.Cmds_GroupName.Cmd_CommandName //After GroupName._CommandName The Approach we will use: 1 2 3 4 5 guRoo.Cmds_GroupName.Cmd_CommandName // Remove guRoo.Cmds_ GroupName.Cmd_CommandName // Remove .Cmd GrouName_CommandName Or you can make things even more resilient by using: 1 typeof(CommandName).FullName Tooltipkey is base name: 1 2 GrouName GroupName_CommandName Icons: 1 2 3 4 GroupName## GroupName_CommandName## ## = Reolusion in pixels (16 or 32) How we will manage Tooltips We will create a Resources (resx) file in C# and embed this into our project. It will be available in memory for our project whilst it runs to access. We will store the tooltip and description as a dictionary of keys and values.
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-08-08 13:13:50 +0300 MSK'>August 8, 2025</span>&nbsp;·&nbsp;12 min</footer>
+  <a class="entry-link" aria-label="post link to C# &#43; Revit API: Lesson 8 - Tooltips & Icons" href="http://localhost:1313/posts/post-8/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">C# &#43; Revit API: Lesson 7 - Object Oriented Programming
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Game: Introduction to Classes Let’s play a little game that would help you quickly visualize a Class, Properties, Methods, and Interface. And select the interface that matches the class.
+Think of the interface as a Template the Class should follow or in other words the Category the Class belongs to.
+Simply, the Interface is a Category of the Class, the Class is a Template of an Object, and the Object, for example, is an actual Dog.
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-08-08 13:06:57 +0300 MSK'>August 8, 2025</span>&nbsp;·&nbsp;33 min</footer>
+  <a class="entry-link" aria-label="post link to C# &#43; Revit API: Lesson 7 - Object Oriented Programming" href="http://localhost:1313/posts/post-7/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">C# &#43; Revit API: Lesson 6 - try &amp; catch Statements
       <span class="entry-hint" title="Draft">
         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
@@ -260,12 +302,6 @@ Characters char ‘a’, ‘b’, ‘c’, etc.
 <article class="post-entry"> 
   <header class="entry-header">
     <h2 class="entry-hint-parent">C# &#43; Revit API: Lesson 1 - A Simple Walkthrough of the Command
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
     </h2>
   </header>
   <div class="entry-content">
