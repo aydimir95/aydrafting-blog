@@ -1,6 +1,6 @@
 +++
 title = "C# + Revit API: Lesson 3 - Fundamental Types of Data in C#"
-date = 2025-08-06T14:29:29+03:00
+date = 2025-09-15T14:29:29+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = "/images/Pasted image 20250902204817.png"

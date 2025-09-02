@@ -1,6 +1,6 @@
 +++
 title = "C# + Revit API: Lesson 11 - Stacking Buttons"
-date = 2025-08-14T18:30:33+03:00
+date = 2025-11-10T18:30:33+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = "/images/Pasted image 20250814192206.png"

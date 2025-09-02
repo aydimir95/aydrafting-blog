@@ -1,6 +1,7 @@
 +++
 title = "C# + Revit API: Case Study №1 [Section Automation]"
 date = 2025-01-03T19:10:51+03:00
+created = 2025-01-03T19:10:51+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = ""

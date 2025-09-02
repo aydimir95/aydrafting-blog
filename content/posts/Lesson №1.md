@@ -1,6 +1,6 @@
 +++
 title = "C# + Revit API: Lesson 1 - A Simple Walkthrough of the Command"
-date = 2025-08-06T01:00:00+03:00
+date = 2025-09-07T01:00:00+03:00
 draft = false
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = "/images/Pasted image 20250902204444.png"

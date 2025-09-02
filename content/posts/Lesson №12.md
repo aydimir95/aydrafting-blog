@@ -1,6 +1,6 @@
 +++
 title = "C# + Revit API: Lesson 12 - FilteredElementCollector"
-date = 2025-08-15T10:37:24+03:00
+date = 2025-11-17T10:37:24+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = "/images/Pasted image 20250902210047.png"

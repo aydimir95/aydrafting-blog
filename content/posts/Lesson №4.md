@@ -1,6 +1,6 @@
 +++
 title = "C# + Revit API: Lesson 4 - Logical Operators"
-date = 2025-08-06T15:50:00+03:00
+date = 2025-09-22T15:50:00+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = "/images/Pasted image 20250902204927.png"

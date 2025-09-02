@@ -1,6 +1,6 @@
 +++
 title = "C# + Revit API: Lesson 9 - Static vs. Extension Methods"
-date = 2025-08-08T13:53:29+03:00
+date = 2025-10-27T13:53:29+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = "/images/Pasted image 20250902205904.png"

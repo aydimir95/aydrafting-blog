@@ -1,6 +1,6 @@
 +++
 title = "C# + Revit API: Lesson 7 - Object Oriented Programming"
-date = 2025-08-08T13:06:57+03:00
+date = 2025-10-13T13:06:57+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = "/images/Pasted image 20250902205414.png"
