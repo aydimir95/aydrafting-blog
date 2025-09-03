@@ -1,0 +1,28 @@
+{{- if (.Param "ShowBreadCrumbs") -}}
+<div class="breadcrumbs">
+    {{- /* Start at language home */ -}}
+    <a href="{{ "" | absLangURL }}">{{ i18n "home" | default "Home" }}</a>
+
+    {{- /* Derive path relative to current language root */ -}}
+    {{- $root := site.Home.Permalink -}}
+    {{- $rel := replace .Parent.Permalink (printf "%s" $root) "" -}}
+    {{- $rel = strings.TrimPrefix (printf "%s/" $.Lang) $rel -}}
+
+    {{- $scratch := newScratch -}}
+    {{- range $index, $segment := split $rel "/" -}}
+      {{- if gt (len $segment) 0 -}}
+        {{- /* Skip language code segments like "en" or "ru" if they leak in */ -}}
+        {{- if and (ne $segment $.Lang) (ne (lower $segment) "en") (ne (lower $segment) "ru") -}}
+          {{- $scratch.Add "path" (printf "%s/" $segment) -}}
+          {{- $pg := site.GetPage ($scratch.Get "path") -}}
+          {{- if $pg -}}
+            {{- /* Avoid linking to language root again */ -}}
+            {{- if ne $pg.RelPermalink ("" | absLangURL) -}}
+              {{- print "&nbsp;»&nbsp;" | safeHTML -}}<a href="{{ $pg.Permalink }}">{{ $pg.Name }}</a>
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+</div>
+{{- end -}}

@@ -6,7 +6,7 @@ languageCode = "en-us"
 description = "Civil Engineering and Automation insights from AYDrafting's founder"
 copyright = "© 2025 AYDrafting. All rights reserved."
 defaultContentLanguage = "en"
-defaultContentLanguageInSubdir = false
+defaultContentLanguageInSubdir = true
 
 # Enable RSS and Search
 [outputs]
@@ -36,11 +36,13 @@ enableEmoji = true
     languageName = "English"
     weight = 1
     title = "Blog"
+    contentDir = "content/en"
 
   [languages.ru]
     languageName = "Русский"
     weight = 2
     title = "Блог"
+    contentDir = "content/ru"
 
     [languages.ru.params]
       # Optional localized params; fallback to defaults where not specified
@@ -59,14 +61,14 @@ enableEmoji = true
       appendFilePath = false
 
       [languages.ru.params.homeInfoParams]
-      Title = "Добро пожаловать в блог Айдимира"
+      Title = "Меня зовут Айдимир. Добро пожаловать на мой блог."
       Content = '''
 
 Инженер и основатель [AYDrafting](https://www.aydrafting.com).
 
-Увлечён автоматизацией Revit и AutoCAD Civil 3D.
+Увлекаюсь автоматизацией Revit и AutoCAD Civil 3D.
 
-Подписывайтесь и пишите, если хотите обсудить идею или сотрудничество.
+Подписывайтесь, если хотите следить за новостями или поговорить со мной:
 '''
 
 [markup]
