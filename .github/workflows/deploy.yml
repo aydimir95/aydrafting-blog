@@ -20,9 +20,14 @@ jobs:
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.148.2'  
+          extended: true
 
       - name: Build with Hugo
-        run: hugo --minify
+        env:
+          HUGO_ENV: production
+        run: |
+          hugo --minify --gc --cleanDestinationDir \
+               --baseURL="https://blog.aydrafting.com/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
