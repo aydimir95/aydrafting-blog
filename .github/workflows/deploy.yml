@@ -3,7 +3,9 @@ name: Deploy Hugo site to GitHub Pages
 on:
   push:
     branches:
-      - master  
+      - master
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -34,6 +36,16 @@ jobs:
         run: |
           hugo --minify --gc --cleanDestinationDir \
                --baseURL="https://blog.aydrafting.com/"
+
+      - name: Debug build outputs
+        run: |
+          echo 'Hugo version:' && hugo version
+          echo 'Tree of public/ (top):' && find public -maxdepth 2 -type d | sort
+          echo 'Root index.html:' && sed -n '1,50p' public/index.html || true
+          echo '/en/ index.html (head):' && sed -n '1,120p' public/en/index.html || true
+          echo '/en/ index.html (body snippet):' && rg -n "<body|<main|<article|post-entry" -n public/en/index.html || true
+          echo '/ru/ index.html (head):' && sed -n '1,120p' public/ru/index.html || true
+          echo '/ru/ index.html (body snippet):' && rg -n "<body|<main|<article|post-entry" -n public/ru/index.html || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
