@@ -61,7 +61,7 @@ enableEmoji = true
       appendFilePath = false
 
       [languages.ru.params.homeInfoParams]
-      Title = "Меня зовут Айдимир. Добро пожаловать на мой блог."
+      Title = "Добро пожаловать в блог Айдимира."
       Content = '''
 
 Инженер и основатель [AYDrafting](https://www.aydrafting.com).
