@@ -46,11 +46,14 @@ jobs:
         run: |
           echo 'Hugo version:' && hugo version
           echo 'Tree of public/ (top):' && find public -maxdepth 2 -type d | sort
+          echo 'CSS assets:' && ls -l public/assets/css || true
           echo 'Root index.html:' && sed -n '1,50p' public/index.html || true
           echo '/en/ index.html (head):' && sed -n '1,120p' public/en/index.html || true
           echo '/en/ index.html (body snippet):' && rg -n "<body|<main|<article|post-entry" -n public/en/index.html || true
+          echo '/en/ health.html:' && sed -n '1,30p' public/en/health.html || true
           echo '/ru/ index.html (head):' && sed -n '1,120p' public/ru/index.html || true
           echo '/ru/ index.html (body snippet):' && rg -n "<body|<main|<article|post-entry" -n public/ru/index.html || true
+          echo '/ru/ health.html:' && sed -n '1,30p' public/ru/health.html || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
