@@ -1,0 +1,11 @@
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" | default "Image" -}}
+{{- $class := .Get "class" | default "" -}}
+{{- $loading := .Get "loading" | default "lazy" -}}
+
+{{- $webp_src := replace $src ".png" ".webp" | replace ".jpg" ".webp" | replace ".jpeg" ".webp" -}}
+
+<picture{{ with $class }} class="{{ . }}"{{ end }}>
+  <source srcset="{{ $webp_src }}" type="image/webp">
+  <img src="{{ $src }}" alt="{{ $alt }}" loading="{{ $loading }}"{{ with $class }} class="{{ . }}"{{ end }}>
+</picture>

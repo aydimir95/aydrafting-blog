@@ -83,6 +83,20 @@ enableEmoji = true
     lineNos = true
     noHl = false
 
+# Image processing configuration
+[imaging]
+  # Default image processing quality (0-100)
+  quality = 85
+  # Resample filter used for resizing (Box, NearestNeighbor, Linear, MitchellNetravali, CatmullRom, BSpline, Gaussian, Lanczos, Hann, Hamming, Blackman, Bartlett, Welch, Cosine)
+  resampleFilter = "CatmullRom"
+  # Default JPEG or WebP quality setting (0-100)
+  [imaging.exif]
+    # Include EXIF data when processing images
+    includeFields = ""
+    excludeFields = ""
+    disableDate = false
+    disableLatLong = true
+
 [markup.goldmark.parser.attribute]
 block = true
 
