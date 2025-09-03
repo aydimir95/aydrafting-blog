@@ -79,6 +79,24 @@
   outline: 0;
 }
 
+/* Header: keep center logo fixed and avoid shifts across language widths */
+.header .nav {
+  position: relative;
+}
+.header .nav .main-logo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0; /* override theme margin */
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+}
+.header .nav .main-logo img {
+  height: 40px;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .class-card-embed {
@@ -89,6 +107,14 @@
     border-width: 1px;
     border-radius: 4px;
   }
+}
+
+/* Mobile: tighten header controls to avoid wrapping */
+@media (max-width: 768px) {
+  button#theme-toggle,
+  .logo-switches button#lang-toggle { font-size: 22px; }
+  .header .nav .main-logo img { height: 32px; }
+  .logo-switches { flex-wrap: nowrap; }
 }
 
 /* --- Code blocks: make tabs look like VSCode and improve readability --- */
