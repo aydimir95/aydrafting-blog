@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "d3491164a67ec247",
@@ -172,6 +173,18 @@
   },
   "active": "87f4e273ee0198d1",
   "lastOpenFiles": [
+    "public/assets/css/stylesheet.01eba49398323d0ce8ef43bd565309a7787af7d059cf6aa5718929a74b9d9c11.css",
+    "content/ru/_index.md",
+    "content/ru",
+    "public/ru/page/1/index.html",
+    "public/ru/tags/index.xml",
+    "public/ru/tags/index.html",
+    "public/ru/page/1",
+    "public/ru/categories/index.xml",
+    "public/ru/categories/index.html",
+    "public/ru/tags",
+    "public/ru/sitemap.xml",
+    "public/ru/page",
     "public/images/Pasted image 20250903011611.png",
     "static/images/Pasted image 20250903011611.png",
     "content/posts/Case №4.md",
@@ -195,7 +208,6 @@
     "content/posts/Lesson №3.md",
     "content/posts/Lesson №2.md",
     "content/posts/Lesson №0.md",
-    "layouts/partials/post_meta.html",
     "public/images/Pasted image 20250902210047.png",
     "static/images/Pasted image 20250902210047.png",
     "public/images/Pasted image 20250902210038.png",
@@ -204,19 +216,8 @@
     "static/images/Pasted image 20250902205904.png",
     "public/images/Pasted image 20250902205414.png",
     "static/images/Pasted image 20250902205414.png",
-    "public/images/Pasted image 20250902205255.png",
-    "public/posts/page/3/index.html",
-    "public/posts/page/3",
-    "public/tags/tutorial/page/3/index.html",
-    "public/tags/tutorial/page/3",
-    "public/tags/revit/page/3/index.html",
-    "public/tags/revit/page/3",
-    "public/tags/c#/page/3/index.html",
-    "public/tags/c#/page/3",
-    "public/posts/lesson-14/index.html",
     "template/_template.md",
     "content/posts/2025-08-09.md",
-    "content/posts/2025-08-08.md",
-    "content/posts/double.md"
+    "content/posts/2025-08-08.md"
   ]
 }

@@ -1,0 +1,27 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Python/venv
+.venv/
+__pycache__/
+*.pyc
+
+# Hugo build outputs
+public/
+resources/
+.hugo_build.lock
+
+# Local tools and notes
+.obsidian/
+
+# Node/npm (if used later)
+node_modules/
+
+# Env and logs
+.env
+.env.*
+*.log
+

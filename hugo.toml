@@ -5,6 +5,8 @@ theme = "PaperMod"
 languageCode = "en-us"
 description = "Civil Engineering and Automation insights from AYDrafting's founder"
 copyright = "© 2025 AYDrafting. All rights reserved."
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
 
 # Enable RSS and Search
 [outputs]
@@ -28,6 +30,44 @@ enableRobotsTXT = true
 canonifyURLs = true
 relativeURLs = false
 enableEmoji = true
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+    title = "Blog"
+
+  [languages.ru]
+    languageName = "Русский"
+    weight = 2
+    title = "Блог"
+
+    [languages.ru.params]
+      # Optional localized params; fallback to defaults where not specified
+      ShowReadingTime = true
+      ShowPostNavLinks = true
+      ShowBreadCrumbs = true
+      mainSections = ["posts"]
+      ShowCodeCopyButtons = true
+      defaultTheme = "auto"
+      ShowRssButtonInSectionTermList = true
+      ShowToc = true
+
+      [languages.ru.params.editPost]
+      URL = "mailto: aydimir@aydrafting.com"
+      Text = "Предложить исправления"
+      appendFilePath = false
+
+      [languages.ru.params.homeInfoParams]
+      Title = "Добро пожаловать в блог Айдимира"
+      Content = '''
+
+Инженер и основатель [AYDrafting](https://www.aydrafting.com).
+
+Увлечён автоматизацией Revit и AutoCAD Civil 3D.
+
+Подписывайтесь и пишите, если хотите обсудить идею или сотрудничество.
+'''
 
 [markup]
   [markup.goldmark]

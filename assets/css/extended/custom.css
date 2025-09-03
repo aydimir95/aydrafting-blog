@@ -59,6 +59,26 @@
   outline: none;
 }
 
+/* Header: make language toggle match theme toggle */
+.logo-switches button#lang-toggle {
+  font-size: 26px;
+  margin: auto 4px;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  padding: 0; /* match theme toggle */
+}
+
+#lang-toggle svg {
+  vertical-align: middle;
+}
+
+#lang-toggle:focus {
+  outline: 0;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .class-card-embed {
