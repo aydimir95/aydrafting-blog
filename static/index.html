@@ -6,12 +6,15 @@
     <meta http-equiv="refresh" content="0; url=/en/" />
     <title>Redirecting…</title>
     <script>
-      // JS fallback to ensure redirect if meta refresh is blocked
-      try { window.location.replace('/en/'); } catch(e) { window.location.href = '/en/'; }
+      // Robust redirect to the English homepage in both dev and prod
+      (function () {
+        var target = (window.location.origin || '') + '/en/';
+        try { window.location.replace(target); } catch (e) { window.location.href = target; }
+      })();
     </script>
   </head>
   <body>
+    <p>If you are not redirected, go to <a href="/en/">/en/</a>.</p>
     <noscript>Redirecting to <a href="/en/">/en/</a>…</noscript>
   </body>
   </html>
-

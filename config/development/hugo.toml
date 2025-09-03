@@ -1,0 +1,10 @@
+baseURL = "http://localhost:1313/"
+canonifyURLs = false
+relativeURLs = true
+defaultContentLanguageInSubdir = false
+
+# Build drafts so you see content locally
+buildDrafts = true
+
+[params]
+env = "development"

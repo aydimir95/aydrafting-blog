@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {{ $target := "/" }}
+    {{ with site.Home }}{{ $target = .RelPermalink }}{{ end }}
+    <title>{{ printf "%s%s" (strings.TrimSuffix (site.BaseURL) "/") $target }}</title>
+    <link rel="canonical" href="{{ printf "%s%s" (strings.TrimSuffix (site.BaseURL) "/" ) $target }}">
+    <meta name="robots" content="noindex">
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0; url={{ (printf "%s%s" (strings.TrimSuffix (site.BaseURL) "/" ) $target) }}">
+    <script>
+      (function(){
+        var base = document.querySelector('link[rel="canonical"]').getAttribute('href') || '/';
+        try { window.location.replace(base); } catch (e) { window.location.href = base; }
+      })();
+    </script>
+  </head>
+  <body>
+    <p>If you are not redirected, go to <a href="{{ $target }}">{{ $target }}</a>.</p>
+  </body>
+</html>
+
