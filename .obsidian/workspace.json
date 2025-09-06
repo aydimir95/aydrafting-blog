@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/ru/posts/Lesson №0.md",
+                "file": "content/en/posts/Lesson №0.md",
                 "mode": "source",
                 "source": false
               },
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/ru/posts/Lesson №0.md",
+                "file": "content/en/posts/Lesson №0.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -172,8 +172,8 @@
   },
   "active": "87f4e273ee0198d1",
   "lastOpenFiles": [
-    "content/en/posts/Lesson №0.md",
     "content/ru/posts/Lesson №0.md",
+    "content/en/posts/Lesson №0.md",
     "public/images/Pasted image 20250906190059.png",
     "static/images/Pasted image 20250906190059.png",
     "content/en/posts/Lesson №1.md",
