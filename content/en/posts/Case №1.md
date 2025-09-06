@@ -1,6 +1,6 @@
 +++
 title = "C# + Revit API: Case Study №1 [Section Automation]"
-date = 2026-01-03T19:10:51+03:00
+date = 2025-01-03T19:10:51+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = ""
@@ -10,7 +10,7 @@ cover.alt = ""
 # Introduction
 
 
-![[Pasted image 20250829161635.png]]
+
 
 ## `Project Solution`
 ```bash
@@ -111,6 +111,7 @@ namespace UKON.Commands
     }
 }
 ```
+
 # `Cmd_AutoSectByPlane.cs`
 ```C#
 using Autodesk.Revit.Attributes;
@@ -146,8 +147,5 @@ namespace UKON.Commands.AutoSection
 }
 
 ```
-
-
-
 
 
