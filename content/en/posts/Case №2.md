@@ -1697,3 +1697,6 @@ public class DimensionLineInfo
 4. https://thebuildingcoder.typepad.com/blog/2013/12/parallel-walls-and-rooms.html
 
 
+
+
+
