@@ -1,4 +1,5 @@
 {
   "template": "template/_template",
-  "autorun": false
+  "autorun": false,
+  "folder": "content/en/posts"
 }

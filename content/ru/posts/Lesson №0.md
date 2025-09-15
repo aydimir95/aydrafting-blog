@@ -5,8 +5,6 @@ draft = false
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = "/images/Pasted image 20250903011611.png"
 cover.alt = "Урок 0"
-translationKey = "lesson-0"
-type = "posts"
 +++
 
 # Почему C#?

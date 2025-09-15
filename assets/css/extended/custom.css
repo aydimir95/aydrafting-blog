@@ -95,6 +95,43 @@
 
 /* mobile header tweaks can be added cautiously if needed */
 
+/* Hide/show header on scroll */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--theme);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hidden state */
+.header.hidden {
+    transform: translateY(-100%);
+}
+
+/* Visible state with shadow */
+.header.visible {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode shadow */
+.dark .header.visible {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure proper spacing for fixed header */
+body {
+    padding-top: var(--header-height);
+    scroll-padding-top: var(--header-height);
+}
+
 /* --- Code blocks: make tabs look like VSCode and improve readability --- */
 /* Set tab width to 4 spaces across common highlighter wrappers */
 pre,
@@ -113,10 +150,10 @@ pre {
 
 /* Keep code font consistent and tidy (does not change theme colors) */
 pre code,
-code {
+code,
+.collapse-content pre code,
+.collapse-content code {
   font-family: Consolas, Menlo, Monaco, "Courier New", monospace;
-  line-height: 1.5;
-  font-size: 14px;
 }
 
 /* --- Code block language labels (VSCode-like) --- */

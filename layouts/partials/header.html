@@ -148,3 +148,36 @@
         </div>
     </nav>
 </header>
+
+<script>
+(function(){
+    let lastScrollTop = 0;
+    let scrollThreshold = 5;
+    let header = document.querySelector('.header');
+    
+    if (!header) return;
+    
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Only trigger if we've scrolled more than threshold
+        if (Math.abs(scrollTop - lastScrollTop) < scrollThreshold) return;
+        
+        if (scrollTop > lastScrollTop && scrollTop > 80) {
+            // Scrolling down & past threshold - hide header
+            header.classList.add('hidden');
+            header.classList.remove('visible');
+        } else {
+            // Scrolling up or at top - show header
+            header.classList.remove('hidden');
+            if (scrollTop > 0) {
+                header.classList.add('visible');
+            } else {
+                header.classList.remove('visible');
+            }
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+})();
+</script>

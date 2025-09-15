@@ -1,0 +1,6 @@
+<details class="collapse-section">
+<summary>{{ .Get "title" | default "Show/Hide" | markdownify }}</summary>
+<div class="collapse-content">
+{{ .Inner | markdownify }}
+</div>
+</details>

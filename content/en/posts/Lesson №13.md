@@ -4,7 +4,7 @@ date = 2025-11-24T15:50:07+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
 cover.image = "/images/Pasted image 20250901160911.png"
-cover.alt = "MessageBox Forms in C# and Revit API"
+cover.alt = "MessageBox Forms in C# + Revit API"
 +++
 
  > `MessageBox Forms` - needed to send alerts to the user from our add-in.
@@ -101,7 +101,7 @@ private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 ### `Project Solution`
 ```bash
 Solution
-|-> ViewOnSheets2025
+|-> guRoo
 	|-> Dependencies
 	|-> Properties
 	|-> Commands

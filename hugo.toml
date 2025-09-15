@@ -61,14 +61,18 @@ enableEmoji = true
       appendFilePath = false
 
       [languages.ru.params.homeInfoParams]
-      Title = "Добро пожаловать в блог Айдимира."
+      Title = "Добро пожаловать"
       Content = '''
+Меня зовут Айдимир
 
-Инженер и основатель [AYDrafting](https://www.aydrafting.com).
+Инженер и основатель [AYDrafting](https://www.aydrafting.com) в Канаде
+
+Генеральный директор ООО "Координатор" в России
 
 Увлекаюсь автоматизацией Revit и AutoCAD Civil 3D.
 
-Подписывайтесь, если хотите следить за новостями или поговорить со мной:
+Подписывайтесь, если хотите быть в курсе новостей или обсудить сотрудничество:
+
 '''
 
 [markup]
@@ -126,6 +130,9 @@ Revit & AutoCAD Civil 3D Automation Enthusiast.
 
 Subscribe to my channels to follow the journey or to reach out:
 '''
+[[params.socialIcons]]
+name = "youtube"
+url = "https://www.youtube.com/@aydrafting"
 
 [[params.socialIcons]]
 name = "github"
@@ -136,21 +143,12 @@ name = "linkedin"
 url = "https://www.linkedin.com/in/aydimir/"
 
 [[params.socialIcons]]
-name = "youtube"
-url = "https://www.youtube.com/@aydrafting"
-
-[[params.socialIcons]]
-name = "Twitter"
-url = "https://www.twitter.com/aydrafting/"
+name = "telegram"
+url = "https://t.me/bim_koordinator"
 
 [[params.socialIcons]]
 name = "instagram"
 url = "https://www.instagram.com/aydrafting/"
-
-[[params.socialIcons]]
-name = "telegram"
-url = "https://t.me/bim_koordinator"
-
 
 [[params.socialIcons]]
 name = "rss"
