@@ -126,4 +126,4 @@ cover.alt = "Урок 0"
 
 > На этом вы создали своё первое приложение или кнопку в Revit!  
 > Поздравляю! Теперь вы готовы писать реальную функциональность.  
-> **В [Уроке 1](https://blog.aydrafting.com/ru/) мы пошагово разберём пример `IExternalCommand`.**
+> **В [Уроке 1](https://blog.aydrafting.com/ru/posts/lesson-1/) мы пошагово разберём пример `IExternalCommand`.**

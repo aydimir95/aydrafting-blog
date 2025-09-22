@@ -192,15 +192,15 @@ namespace Test.Commands
                     resultMessage = $"❌ Error creating sheet: {ex.Message}";
                 }
             }
-
+			
             // 3) Count existing sheets
             var allSheets = new FilteredElementCollector(doc)
                 .OfClass(typeof(ViewSheet))
                 .Cast<ViewSheet>()
                 .ToList();
-
+			
             resultMessage += $"\n\n📊 Total sheets in document: {allSheets.Count}";
-
+			
             if (allSheets.Count > 0)
             {
                 resultMessage += "\n\nFirst 5 sheets:";
@@ -209,7 +209,7 @@ namespace Test.Commands
                     resultMessage += $"\n• {sheet.SheetNumber} - {sheet.Name}";
                 }
             }
-
+			
             // 4) Show a result dialog
             TaskDialog.Show("Sheet Creation Result", resultMessage);
             return Result.Succeeded;

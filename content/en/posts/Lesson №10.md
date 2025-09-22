@@ -1,46 +1,40 @@
 +++
-title = "C# + Revit API: Lesson 10 - Create a Pulldown Button"
-date = 2025-11-03T12:02:26+03:00
+title = "C# + Revit API: Lesson 10 - Stacking Buttons"
+date = 2025-11-10T18:00:00+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
-cover.image = "/images/Pasted image 20250814142840.png"
+cover.image = "/images/Pasted image 20250814192206.png"
 cover.alt = "Create a Pulldown Button"
 +++
 
+[Aussie BIM Guru](https://www.youtube.com/watch?v=zaouXDa1dTc)
+
 # The Goal
 
-We will create a `PulldownButton` and add a few `PushButtons` to it.
-
-We will also create some helper methods to generate `ButtonData` objects given we are beginning to use these in lots of places.
-
-In the next post we will stack `PulldownButtons`.
-
-![Pasted image 20250814122745.png](</images/Pasted image 20250814122745.png>)
-[Aussie BIM Guru](https://www.youtube.com/watch?v=Zx5Aadrq7RY)
-
-## What we need
-1. Create a data creation methods,
-2. Add a `PulldownButton` to our panel,
-3. Add `PushButtons` to it,
-4. Add `Icons`
-
-## Related API Classes
-1. `RibbonPanel`
-	1. `PulldownButtonData`
-		1. `PulldownButton`
-	2. `PushButtonData`
-		1. `PushButton`
+- Stacks can vertically contain 2 or 3 items.
 
 # Homework
-1. Create a `static utility` methods on the `Ribbon_Util.cs`
-2. Modify a `PushButton` method to use `static utility` methods
-3. Create a `PulldownButton` method
-4. Create a `PulldownButton` method `Extension` class to add `PushButton` to `PulldownButton` 
-5. Update the `Strartup` method
+1. Create a stack
+2. Access stacked items
+
+# Solution
+
+## Revit API
+- `AddStackedItems` Method
+	- 2 overloads available, you can either add 2 items or 3 items.
+- `RibbonItemData` Class - is the object that we are going to be adding:
+	- `ComboBoxData` Class
+	- `RadioButton`Class
+	- `ButtonData` Class
+		- `PulldownButton`
+		- `PushButton`
 
 
-# Solution 
-## Code
+## Tips
+- We will be adding it to `RibbonPanel`
+- But we will not create an `Extension` for this, since the the Method itself is sufficient to run this process.
+- But we are going to have to access the projects once we create them as well.
+
 
 ### `Project Solution`
 ```bash
@@ -50,359 +44,157 @@ Solution
 	|-> Commands
 		|-> General 
 			|-> Cmds_General.cs 
-			|-> Cmds_PullDown.cs  // Create a New Class
+			|-> Cmds_Button.cs // Add a New Class
+			|-> Cmds_PullDown.cs  
+			|-> Cmds_Stack1.cs // Add a New Class
+			|-> Cmds_Stack2.cs // Add a New Class
+			|-> Cmds_Stack3.cs // Add a New Class
 	|-> Forms
 	|-> General 
 		|-> Globals.cs 
 	|-> Extensions 
 		|-> UIControlledApplicaiton_Ext.cs 
-		|-> RibbonPanel_Ext.cs    // Update
-		|-> PulldownButton_Ext.cs // Create New Extension Class
+		|-> RibbonPanel_Ext.cs
+		|-> PulldownButton_Ext.cs 
 	|-> Resources
 		|-> Files 
-			|-> Tooltips.resx     // Update
+			|-> Tooltips.resx       // Update
 		|-> Icons 
 		|-> Icons16 
 			|-> General_test16.png 
-		|-> Icons32 
-			|-> General_test32.png 
+			|-> Stack1_Button16.png // add a .png
+			|-> Stack116.png        // add a .png
+			|-> Stack2_Button16.png // add a .png
+			|-> Stack216.png        // add a .png
+			|-> Stack3_Button16.png // add a .png
+			|-> Stack316.png        // add a .png
+		|-> Icons32      
+			|-> General_test32.png  // add a .png
+			|-> Stack1_Button32.png // add a .png
+			|-> Stack132.png        // add a .png
+			|-> Stack2_Button32.png // add a .png
+			|-> Stack232.png        // add a .png
+			|-> Stack3_Button32.png // add a .png
+			|-> Stack332.png        // add a .png
 	|-> Utilities
-		|-> Ribbon_Utils.cs       // Update
-	|-> Application.cs            // Update
+		|-> Ribbon_Utils.cs
+	|-> Application.cs              // Update
 	|-> guRoo.addin
 ```
 
-
-### `Cmd_PullDown.cs`
+### `Cmds_Stack1.cs`
 ```C#
+// Autodesk
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace guRoo.Cmds_PullDown
+// Associate with stack commands
+namespace guRoo.Cmds_Stack1
 {
     /// <summary>
-    ///		Example Command
+    /// Example command
     /// </summary>
     [Transaction(TransactionMode.Manual)]
-    public class Cmd_1Button : IExternalCommand
+    public class Cmd_Button : IExternalCommand
     {
-        public Result Execute(ExternalCommandData CommandData, ref string message, ElementSet elements)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            var uiApp = CommandData.Application;
+            // Collect the document
+            var uiApp = commandData.Application;
             var uiDoc = uiApp.ActiveUIDocument;
             var doc = uiDoc.Document;
 
-            // Code logic here:
-            TaskDialog.Show("Button 1 is Working!", doc.Title);
+            // Testing if the command worked
+            TaskDialog.Show("It's working!", doc.Title);
 
-            // Final return here:
-            return Result.Succeeded;
-        }
-    }
-
-    /// <summary>
-    ///		Example Command
-    /// </summary>
-    [Transaction(TransactionMode.Manual)]
-    public class Cmd_2Button : IExternalCommand
-    {
-        public Result Execute(ExternalCommandData CommandData, ref string message, ElementSet elements)
-        {
-            var uiApp = CommandData.Application;
-            var uiDoc = uiApp.ActiveUIDocument;
-            var doc = uiDoc.Document;
-
-            // Code logic here:
-            TaskDialog.Show("Button 2 is Working!", doc.Title);
-
-            // Final return here:
-            return Result.Succeeded;
-        }
-    }
-
-    /// <summary>
-    ///		Example Command
-    /// </summary>
-    [Transaction(TransactionMode.Manual)]
-    public class Cmd_3Button : IExternalCommand
-    {
-        public Result Execute(ExternalCommandData CommandData, ref string message, ElementSet elements)
-        {
-            var uiApp = CommandData.Application;
-            var uiDoc = uiApp.ActiveUIDocument;
-            var doc = uiDoc.Document;
-
-            // Code logic here:
-            TaskDialog.Show("Button 3 is Working!", doc.Title);
-
-            // Final return here:
+            // Final return
             return Result.Succeeded;
         }
     }
 }
-
 ```
 
 
-### `RibbonPanel_Ext.cs`
+### `Cmds_Stack2.cs`
 ```C#
+// Autodesk
+using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
-using System.Diagnostics;
-using gRib = guRoo.Utilities.Ribbon_Utils;
 
-namespace guRoo.Extensions
+// Associate with stack commands
+namespace guRoo.Cmds_Stack2
 {
-    public static class RibbonPanel_Ext
+    /// <summary>
+    /// Example command
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
+    public class Cmd_Button : IExternalCommand
     {
-        # region Add Button Creation
-        /// <summary>
-        /// Adds a Pushbutton to the panel.
-        /// </summary>
-        /// <typeparam name="CommandClass">The related Command class.</typeparam>
-        /// <param name="ribbonPanel">The RibbonPanel (extended).</param>
-        /// <param name="buttonName">The name for the button.</param>
-        /// <param name="availability">The availability name.</param>
-        /// <param name="suffix">The icon suffix (none by default).</param>
-        /// <returns>A Pushbutton object.</returns>
-
-        public static PushButton Ext_AddPushButton(this RibbonPanel panel, string buttonName, string className)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            if (panel is null)
-            {
-                Debug.WriteLine($"Error: Could not create {buttonName}.");
-                return null;
-            }
+            // Collect the document
+            var uiApp = commandData.Application;
+            var uiDoc = uiApp.ActiveUIDocument;
+            var doc = uiDoc.Document;
 
-            // Create a Data Object
-            var pushButtonData = gRib.NewPushButtonData(buttonName, className);
-            
-            if (panel.AddItem(pushButtonData) is PushButton pushButton)
-            {
-                // If the button was made, return it.
-                return pushButton;
-            }
-            else
-            {
-                Debug.WriteLine($"Error: Could not create {buttonName}.");
-                return null;
-            }
+            // Testing if the command worked
+            TaskDialog.Show("It's working!", doc.Title);
+
+            // Final return
+            return Result.Succeeded;
         }
-
-
-        /// <summary>
-        /// Adds a PulldownButton to the panel.
-        /// </summary>
-        /// <typeparam name="CommandClass">The related Command class.</typeparam>
-        /// <param name="ribbonPanel">The RibbonPanel (extended).</param>
-        /// <param name="buttonName">The name for the button.</param>
-        /// <param name="availability">The availability name.</param>
-        /// <param name="suffix">The icon suffix (none by default).</param>
-        /// <returns>A PulldownButton object.</returns>
-
-        public static PulldownButton Ext_AddPulldownButton(this RibbonPanel panel, string buttonName, string className)
-        {
-            if (panel is null)
-            {
-                Debug.WriteLine($"Error: Could not create {buttonName}.");
-                return null;
-            }
-
-            // Create a Data Object
-            var pulldownButtonData = gRib.NewPulldownButtonData(buttonName, className);
-
-            if (panel.AddItem(pulldownButtonData) is PulldownButton pulldownButton)
-            {
-                // If the button was made, return it.
-                return pulldownButton;
-            }
-            else
-            {
-                Debug.WriteLine($"Error: Could not create {buttonName}.");
-                return null;
-            }
-        }
-
-        #endregion
     }
 }
 ```
 
-
-### `PulldownButton_Ext.cs`
+### `Cmds_Stack3.cs`
 ```C#
+// Autodesk
+using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
-using System.Diagnostics;
-using gRib = guRoo.Utilities.Ribbon_Utils;
 
-namespace guRoo.Extensions
+// Associate with stack commands
+namespace guRoo.Cmds_Stack3
 {
-    public static class PulldownButton_Ext
+    /// <summary>
+    /// Example command
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
+    public class Cmd_Button : IExternalCommand
     {
-        # region Add Button Creation
-        /// <summary>
-        /// Adds a PulldownButton to the panel.
-        /// </summary>
-        /// <typeparam name="CommandClass">The related Command class.</typeparam>
-        /// <param name="pulldownButton">The RibbonPanel to add the button to (Extended).</param>
-        /// <param name="buttonName">The name for the button.</param>
-        /// <param name="className">The full class name the button runs.</param>
-        /// <returns>A PulldownButton object.</returns>
-
-        public static PushButton Ext_AddPushButton(this PulldownButton pulldownButton, string buttonName, string className)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            if (pulldownButton is null)
-            {
-                Debug.WriteLine($"Error: Could not add {buttonName} to pulldown.");
-                return null;
-            }
+            // Collect the document
+            var uiApp = commandData.Application;
+            var uiDoc = uiApp.ActiveUIDocument;
+            var doc = uiDoc.Document;
 
-            // Create a Data Object
-            var pushButtonData = gRib.NewPushButtonData(buttonName, className);
+            // Testing if the command worked
+            TaskDialog.Show("It's working!", doc.Title);
 
-            if (pulldownButton.AddPushButton(pushButtonData) is PushButton pushButton)
-            {
-                // If the button was made, return it.
-                return pushButton;
-            }
-            else
-            {
-                Debug.WriteLine($"Error: Could not add {buttonName} to pulldown.");
-                return null;
-            }
+            // Final return
+            return Result.Succeeded;
         }
-        #endregion
     }
 }
 ```
-
 
 ### `Tooltips.resx`
 
-|       Name       | Value                                                    | Comment |
-| :--------------: | -------------------------------------------------------- | ------- |
-|   General_Test   | This is a working tooltip.<br><br>We can do extra lines. |         |
-|  General_Test2   | This is a working tooltip.<br><br>We can do extra lines. |         |
-|     PullDown     | This is a PulldownButton                                 |         |
-| PullDown_1Button | This is Button 1 of the Pulldown Button.                 |         |
-| PullDown_2Button | This is Button 2 of the Pulldown Button.                 |         |
-| PullDown_3Button | This is Button 3 of the Pulldown Button.                 |         |
-
-
-### `Ribbon_Utils.cs`
-```C#
-using Autodesk.Revit.UI;
-using System;
-using System.Diagnostics;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-namespace guRoo.Utilities
-{
-    public static class Ribbon_Utils
-    {
-        #region PushButton Data
-        /// <summary>
-        /// Create a PushButtonData object.
-        /// </summary>
-        /// <param name="buttonName">The name for the button.</param>
-        /// <param name="className">The availability name.</param>
-        /// <returns>A PushButtonData object.</returns>
-
-        public static PushButtonData NewPushButtonData(string buttonName, string className)
-        {
-            var baseName = CommandToBaseName(className);
-
-            var pushButtonData = new PushButtonData(baseName, buttonName, Globals.AssemblyPath, className);
-
-            // Set the values
-            pushButtonData.ToolTip = LookupTooltip(baseName);
-            pushButtonData.Image = GetIcon(baseName, resolution: 16);
-            pushButtonData.LargeImage = GetIcon(baseName, resolution: 32);
-
-            return pushButtonData;
-
-        }
-        #endregion
-
-        #region Pulldown Data
-        /// <summary>
-        /// Create a PulldownButtonData object.
-        /// </summary>
-        /// <param name="buttonName">The name for the button.</param>
-        /// <param name="className">The availability name.</param>
-        /// <returns>A PulldownButtonData object.</returns>
-
-        public static PulldownButtonData NewPulldownButtonData(string buttonName, string className)
-        {
-            var baseName = CommandToBaseName(className);
-
-            var pulldownButtonData = new PulldownButtonData(baseName, buttonName);
-
-            // Set the values
-            pulldownButtonData.ToolTip = LookupTooltip(baseName);
-            pulldownButtonData.Image = GetIcon(baseName, resolution: 16);
-            pulldownButtonData.LargeImage = GetIcon(baseName, resolution: 32);
-
-            return pulldownButtonData;
-
-        }
-        #endregion
-
-        #region Method to get the base name of a command
-        public static string CommandToBaseName(string commandName)
-        {
-            return commandName.Replace("guRoo.Cmds_", "").Replace(".Cmd", "");
-        }
-
-        // Method to get a value from a dictionary key
-        public static string LookupTooltip(string key, string failValue = null)
-        {
-            failValue ??= "No tooltip value was found."; // ??= -> if this is null set it to the following
-
-            if (Globals.Tooltips.TryGetValue(key, out string value))
-            {
-                return value;
-            }
-
-            return failValue;
-        }
-        #endregion
-
-        #region Method to get an icon as an image source
-        public static ImageSource GetIcon(string baseName, int resolution = 32)
-        {
-            var resourcePath = $"guRoo.Resources.Icons{resolution}.{baseName}{resolution}.png";
-
-            using (var stream = Globals.Assembly.GetManifestResourceStream(resourcePath))
-            {
-                if (stream is null) { return null; }
-
-                var decoder = new PngBitmapDecoder(
-                    stream,
-                    BitmapCreateOptions.PreservePixelFormat,
-                    BitmapCacheOption.Default);
-
-                if (decoder.Frames.Count > 0)
-                {
-                    return decoder.Frames.First();
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-        #endregion 
-
-
-    }
-}
-```
+| **Name**         | **Value**                                                                    |
+| ---------------- | ---------------------------------------------------------------------------- |
+| Button           | The user will generally not see this - it just holds the PushButton example. |
+| Button_Button    | This is an example of adding a PushButton to a RibbonPanel.                  |
+| PullDown         | This is an example of adding a PulldownButton to a RibbonPanel.              |
+| PullDown_1Button | This is button 1 of the PulldownButton.                                      |
+| PullDown_2Button | This is button 2 of the PulldownButton.                                      |
+| PullDown_3Button | This is button 3 of the PulldownButton.                                      |
+| Stack1           | This is an example of stacking buttons.                                      |
+| Stack1_Button    | This is an example of stacking buttons.                                      |
+| Stack2           | This is an example of stacking buttons.                                      |
+| Stack2_Button    | This is an example of stacking buttons.                                      |
+| Stack3           | This is an example of stacking buttons.                                      |
+| Stack3_Button    | This is an example of stacking buttons.                                      |
 
 ### `Application.cs`
 ```C#
@@ -468,6 +260,22 @@ namespace guRoo
             pulldownTest.Ext_AddPushButton("Button 2", "guRoo.Cmds_PullDown.Cmd_2Button");
             pulldownTest.Ext_AddPushButton("Button 3", "guRoo.Cmds_PullDown.Cmd_3Button");
 
+			// Create data objects for the stack
+            var stack1Data = gRib.NewPulldownButtonData("Stack1", "guRoo.Cmds_Stack1");
+            var stack2Data = gRib.NewPulldownButtonData("Stack2", "guRoo.Cmds_Stack2");
+            var stack3Data = gRib.NewPulldownButtonData("Stack3", "guRoo.Cmds_Stack3");
+
+            // Create the Stack
+            var stack = panelGeneral.AddStackedItems(stack1Data, stack2Data, stack3Data);
+            var pulldownStack1 = stack[0] as PulldownButton;
+            var pulldownStack2 = stack[1] as PulldownButton;
+            var pulldownStack3 = stack[2] as PulldownButton;
+
+            // Add buttons to stacked pulldowns
+            pulldownStack1.Ext_AddPushButton("Button", "guRoo.Cmds_Stack1.Cmd_Button");
+            pulldownStack2.Ext_AddPushButton("Button", "guRoo.Cmds_Stack2.Cmd_Button");
+            pulldownStack3.Ext_AddPushButton("Button", "guRoo.Cmds_Stack3.Cmd_Button");
+
             #endregion
 
 
@@ -501,8 +309,6 @@ namespace guRoo
 ```
 
 
-
 <br>
 
 > These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.
-

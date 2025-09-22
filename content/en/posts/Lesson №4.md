@@ -1,52 +1,100 @@
 +++
-title = "C# + Revit API: Lesson 4 - Logical Operators"
-date = 2025-09-22T15:50:00+03:00
+title = "C# + Revit API: Lesson 4 - `if` Statements"
+date = 2025-09-29T18:00:00+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
-cover.image = "/images/Pasted image 20250902204927.png"
-cover.alt = "Operators"
+cover.image = "/images/Pasted image 20250902205212.png"
+cover.alt = "If Statements"
 +++
+# `if` Statement
+```C#
+if // Condition
+{
+	run if condition is true;
+}
+else // If we have no false outcome -> we can skip 'else' branch altogether
+{
+	run if condition is false;
+}
+```
 
- > They control logic and flow in our tools.
- > We will have a good understanding of core statements we can use to build Revit Add-ins.
+# `else if` Statement
 
----
-# Logical Operators
+```C#
+if // Condition
+{
+	run if condition is true;
+}
+else if // Condition
+{
+	run if there are more conditions;
+}
+else // If we have no false outcome -> we can skip 'else' branch altogether
+{
+	run if condition is false;
+}
+```
 
-`x == y` => *true  if x is equal to y*
+# Shorthand `if` Statements
 
-`x != y` => *true if x is not equal to y*
+```C#
+value = condition?then:else;
+```
 
-`x > y` => *true if x is greater than y*
+ > Nearly always used for quickly setting another variable to one of two possibilities, using a conditional outcome. Only used if it's a simple one liner task.
 
-`x < y` => *true if x is less than y*
+# Example
+```C#
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+using Nice3point.Revit.Toolkit.External;
+using Microsoft.VisualBasic;
 
-`x >= y` => *true if x greater than or equals to y*
+namespace guRoo.Commands
+{
+    /// <summary>
+    ///     External command entry point
+    /// </summary>
+    [UsedImplicitly]
+    [Transaction(TransactionMode.Manual)]
+    public class StartupCommand : ExternalCommand
+    {
+        public override void Execute()
+        {
+            //TaskDialog.Show(Document.Title, "Hot reload!");
 
-`x <= y` => *true if x less than or equals to y*
+            string input = Interaction.InputBox("Enter a number:", "Input Required", "0");
 
----
+            if (!int.TryParse(input, out int i))
+            {
+                TaskDialog.Show(Document.Title, "Invalid number entered.");
+                return;
+            }
 
-`x || y` => *true if x OR y are true*
+            // Shorthand version
+            // string s = i == 3 ? "i is 2" : "i is not 2"; 
 
-`x && y `=> *true if x AND y are true*
+            string outcome;
 
-`!(x)` => *true if not x (can also use 'not' x)*
+            if (i == 2)
+            {
+                outcome = "i is 2";
+            }
+            else if (i == 3)
+            {
+                outcome = "i is 3";
+            }
+            else
+            {
+                outcome = "i is neither 2 nor 3";
+            }
+            
+            TaskDialog.Show(Document.Title, outcome);
+            
+        }
+    }
+}
+```
 
-`x ^ y` => *true if x OR y are true, but not both*  
-
----
-## `Null` Operations / Operands
-
-
-`x?.Method()` => *If x is null, Method() will NOT run*
-
-`x ??= value` => *If x is null, set it to value specified*
-
-`x is null` => *True if x is Null, False if it's not Null*
-
-`if (x)` => *if x is Null, it yields Null or false*
-
----
 
 > These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.

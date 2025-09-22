@@ -1,298 +1,315 @@
 +++
-title = "C# + Revit API: Lesson 14 - Dropdown Window Forms"
-date = 2025-09-08T00:00:00+03:00
+title = "C# + Revit API: Lesson 15 - ListView Window Forms"
+date = 2025-12-08T18:00:00+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
-cover.image = "/images/Pasted image 20250911143814.png"
-cover.alt = "Dropdown (Win)Forms in C# + Revit API"
+cover.image = "/images/Pasted image 20250914124431.png"
+cover.alt = "ListView (Win)Form in C# + Revit API"
 +++
-### YouTube: [Aussie BIM Guru](https://www.youtube.com/watch?v=H-j3wX2o7Jk)
 
-# `Dropdown` Form Anatomy
+# `ListView` Form Anatomy
+![Pasted image 20250914124431.png](</images/Pasted image 20250914124431.png>)
 
-![Pasted image 20250911143814.png](</images/Pasted image 20250911143814.png>)
+ > In the previous lesson, we built a **dropdown form** to pass values between the UI and our code. This time, we’ll take things a step further by building a **ListView-based form**. ListViews are perfect when you need to display and select multiple items, while keeping the logic behind the scenes clean and flexible.
 
-> The form will center around interacting with a `ComboBox` component, which is the proper name for what are abstracting as a `Dropdown`
+## Why a ListView?
 
-# Keys & Values
-- **WinForms rely on “code-behind” logic** — we write code to define how the form behaves and responds to user actions.
-- **WPF leans on data bindings** for this, but for now, we’ll focus on working directly with objects behind the form and passing their results forward.
-- **Keys vs. Values**: We’ll maintain a parallel list of keys and values. The user sees the “key” in the dropdown, while the actual “value” (in this case, an object) is passed and handled in the background.
-  
-## Examples
+The `dropdown` form worked well for simple key-value choices. However, as projects grow, you’ll often need:
+- A larger, scrollable UI element to display more items.
+- Index-based access to objects for quick data manipulation.
+- Room for expansion—like adding text filters and advanced interactions.
 
-### 🔑 Example 1: Keys & Values in Dynamo Terms
+The `ListView` control in `WinForms` gives us this flexibility.
 
-Imagine you have a list of element names `keys` and a list of Revit elements `values`:
-- In Dynamo you’d use nodes like:
-	- `List.Create` → Create a list of names ["Door A", "Door B", "Door C"].
-	- `AllElementsOfCategory` → Get actual Revit door elements (values).
-	- `List.Transpose` → Align these lists side by side.
-	- `List.GetItemAtIndex` → When a user picks “Door B” (`key`), you retrieve its corresponding element (`value`).
+### Key Concepts for This Lesson
+1.	Two Parallel Lists:
+	- We’ll separate what the user sees (keys) from what the code needs (values).
+	- `Keys`: Display names or identifiers for users.
+	- `Values`: Actual objects, IDs, or data tied to those keys.
+	- This way, you can keep your data model clean while still offering a simple interface.
 
-In C#/WinForms, the dropdown would display the names, but behind the scenes, your selected `ComboBox.SelectedItem` maps back to the door element object.
+2.	Indexing:
+	- Because the `ListView` and backend lists share the same order, it’s easy to grab the correct object using the selected `index`.
 
----
+3.	Future Enhancements:
+	- Later, we’ll wrap these `keys` and `values` into a single object pair for cleaner code.
+	- We’ll add a `search box` so users can quickly filter the list by typing in a `string`.
 
-### 🔑 Example 2: Simple Real-World Analogy
-- Think of a dropdown of countries:
-	- User sees: [“Canada,” “USA,” “Japan”] (`keys`).
-	- Behind the scenes: `CA`, `US`, `JP` (`values`) are passed to your system.
-	- When the user selects [“Japan”], the program actually gets `JP`.
+For now, we’ll focus on building the foundation.
 
-> This pattern is everywhere: display something readable, pass something actionable.
+## Example: Building the `ListView` Form
 
+Here’s a simple `ListView` form that displays a list of sheet names:
+### `PseudoCode`
+```C#
+// Conceptual Example: Using a ListView to select a Revit sheet
 
-# Homework
-- Create a method to dynamically set `icons` to the form
-	- Reason: if you connect an `icon` from `resource` folder, it's not going to be connected to all your `forms`.
-	- So the plan is to set up an `icon` outside of the form, so that you could assign one icon to multiple forms.
-	- You need 16x16 `ico` file (icon file)
-- Create the `Windows Form` using the Visual Editor.
-- Create the base form `method` to call it and process the outcomes.
-- `Extend` the revision class - to name our revisions.
-- Customize the base `form` into a customized form to select our revisions.
+// Imagine we have a set of sheets in Revit:
+List<ViewSheet> sheets = GetAllSheetsFromRevit();
+
+// We create two lists:
+// - One for the names we display (keys)
+// - One for the actual objects we use in code (values)
+List<string> sheetNames  = sheets.Select(s => $"{s.SheetNumber} - {s.Name}").ToList();
+List<ViewSheet> sheetObjects = sheets;
+
+// Create the ListView (scrollable list in a form)
+ListView listView = new ListView();
+listView.View = View.List;
+listView.FullRowSelect = true;
+listView.MultiSelect = false;
+
+// Add display names to the ListView
+foreach (string name in sheetNames)
+    listView.Items.Add(name);
+
+// User selects "Sheet B" and Clicks OK
+int index = listView.SelectedIndices[0];
+
+// We use the index to get the real sheet object
+ViewSheet selectedSheet = sheetObjects[index];
+```
+
+### How It Works
+- Two Lists:
+	- `sheetNames`: A list of user-friendly names shown in the ListView.
+	- `sheetIds`: A list of the actual ViewSheet objects stored behind the scenes.
+- **Index Matching:**
+	- When the user selects an item in the `ListView`, the control gives you its `index`.
+    - That `index` corresponds directly to the same position in `sheetObjects`, letting you access the correct Revit element.
+- **Selection Handling (OK Button):**
+    - Clicking OK - retrieves the selected `index`, uses it to find the correct `ViewSheet` object, and makes it available for your add-in logic.
+
+### ASCII Graph for a Visual Explanation
+```text
++----------------------------+
+|   Revit Add-In Code Logic  |
++----------------------------+
+             |
+             v
++------------------------------------+
+| 1. Gather Data                     |
+|    - Collect ViewSheets from doc   |
+|    - Create two lists:             |
+|       keys (sheetNames)            |
+|       values (sheetObjects)        |
++------------------------------------+
+             |
+             v
++----------------------------+
+| 2. Create ListView Control |
+|    - List mode: View.List  |
+|    - FullRowSelect = true  |
+|    - Add each key as row   |
++----------------------------+
+             |
+             v
++--------------------------------+
+| 3. User Interaction            |
+|    - Scroll through items      |
+|    - Click a row               |
+|    - ListView stores index     |
++--------------------------------+
+             |
+             v
++-------------------------------------+
+| 4. Retrieve Selection Index         |
+|    - int i = listView.SelectedIndex |
+|    - Example: user picks row #1     |
++-------------------------------------+
+             |
+             v
++---------------------------------------+
+| 5. Map Index Back to Real Object      |
+|    - ViewSheet selected =             |
+|        sheetObjects[i];               |
+|    - Keys are UI only, values = data  |
++---------------------------------------+
+             |
+             v
++-------------------------------+
+| 6. OK Button or Double-Click  |
+|    - Confirm selection        |
+|    - Close ListView Form      |
++-------------------------------+
+             |
+             v
++--------------------------------------+
+| 7. Code Logic Continues              |
+|    - Work with selected ViewSheet    |
+|    - Modify, open, or analyze sheet  |
++--------------------------------------+
+```
+
+# Homework 
+- Create the `Windows Form`
+- Create the `Base Form` Method to call on the `Windows Form`
+- Extend the `Sheet Class` to create a `key` to show the `Sheet Number - Sheets Name`
+- Customize the `Form` to select `Sheets` from the `List` 
+	- Extend the `Document Class` 
+	- Make sure to let the user have an option to pick Single- or Multi-Select `Form`
+
 
 # Solution
+
 ## `Project Solution`
 ```bash
 Solution
-|-> guRoo.csproj  # Update
+|-> guRoo.csproj  
 	|-> Dependencies
 	|-> Properties
 	|-> Commands
-		|-> Cmds_PushButton.cs  # Update the Class to use the New Form
+		|-> Cmds_PushButton.cs  # Update the Command Button with the New Method
 	|-> Forms
-		|-> Custom.cs  # Update with a new "private method" 
-		|-> Bases  # Create a New Folder
-			|-> Winforms # Create a New Folder
-				|-> BaseDropdown.cs  # Add a Form (Windows Form) & Update the code 
-					|-> BaseDropdown.Designer.cs
-
+		|-> Custom.cs  # Update the Custom Class
+		|-> Bases  
+			|-> Winforms 
+				|-> BaseListView.cs  # Add a New `Form (Windows Forms)`
+					|-> BaseListView.Designer.cs  # Automatically Added with the Form
 	|-> Extensions
-		|-> Document_Ext.cs  # Update the Extension Class
-		|-> Revision_Ext.cs  # Add a New Extension Class
+		|-> ViewSheet_Ext.cs  # Add a New Extension Class + Method
+		|-> Document_Ext.cs   # Add a New Extension Method
+		|-> Revision_Ext.cs 
 	|-> General 
 	|-> Models
 	|-> Resources
 		|-> Icons16
-			|-> IconList16.ico  # Add the icon (Download below)
+			|-> IconList16.ico 
 	|-> Services
 	|-> Utilities
-		|-> File_Utils.cs  # Add a New Class
+		|-> File_Utils.cs 
 	|-> Views
 	|-> Application.cs  
 	|-> Host.cs         
 	|-> guRoo.addin
-``` 
-
-  >  [Download IconList16.ico](/images/IconList16.ico)
-### Here is a quick overview to set an `icon` on the `form`
-```bash
-|-> Resources
-	|-> Icons16
-		|-> IconList16.ico  # Place this icon file in the Resources/Icons16 folder
-
-|-> File_Utils.cs # Add a utility method to set the form icon
-	|-> public static void setFormIcon(Form form, string iconPath = null)
-
-|-> BaseDropdown.cs # Call the utility method to apply the icon to this form
-	|-> gFil.SetFormIcon(this);
 ```
 
-## Create a Dropdown Window Form
+
+## Create the `Window Form`
 
 {{< collapse title="Show/Hide Code" >}}
 
-### `guRoo.csproj`
-```xml
-<Project Sdk="Microsoft.NET.Sdk">
+![Pasted image 20250914201110.png](</images/Pasted image 20250914201110.png>)
 
-    <PropertyGroup>
-        <UseWPF>true</UseWPF>
-		<UseWindowsForms>true</UseWindowsForms>  <!-- Add this -->
-        <LangVersion>latest</LangVersion>
-        <PlatformTarget>x64</PlatformTarget>
-        <ImplicitUsings>false</ImplicitUsings>  <!-- Change this -->
-        <DeployRevitAddin>true</DeployRevitAddin>
-        <EnableDynamicLoading>true</EnableDynamicLoading>
-        <Configurations>Debug R21;Debug R22;Debug R23;Debug R24;Debug R25;Debug R26</Configurations>
-        <Configurations>$(Configurations);Release R21;Release R22;Release R23;Release R24;Release R25;Release R26</Configurations>
-    </PropertyGroup>
-
-
-
-    <!-- Build configuration -->
-    <!-- https://github.com/Nice3point/Revit.Build.Tasks -->
-    <PropertyGroup>
-        <IsRepackable>true</IsRepackable>
-        <DeployRevitAddin>true</DeployRevitAddin>
-    </PropertyGroup>
-    <ItemGroup>
-      <None Remove="Resources\Icons16\*.png" />
-		<None Remove="Resources\Icons16\*.ico" />  <!-- Add this -->
-      <None Remove="Resources\Icons32\*.png" />
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Include="Resources\Icons16\*.png" />
-		<EmbeddedResource Include="Resources\Icons16\*.ico" />  <!-- Add this -->
-      <EmbeddedResource Include="Resources\Icons32\*.png" />
-    </ItemGroup>
-
-```
-
-### What is `guRoo.csproj`:
-- `guRoo.csproj` is your **project file** for a C# project (in this case, your Revit add-in). It tells MSBuild how to compile your code, what frameworks and SDKs you’re using, and what files or resources to include.
-
-### What did we change in our `.csproj`:
-1. **Enabled `WPF` and `Windows Forms` support** – so you can use WinForms and WPF UI in the same project.
-    
-2. **Set `ImplicitUsings` to `false`** – meaning you’ll write all using statements explicitly, avoiding hidden imports.
-    
-3. **Configured multiple build targets** (`Debug R21`, `Release R26`, etc.) – lets you build for multiple Revit versions.
-    
-4. **Marked `.ico` icons as embedded resources** – ensures icons are compiled into your assembly for use in the UI.
-    
-5. **Enabled Revit add-in deployment and packaging** – via the `Revit.Build.Tasks` settings.
-
-So basically, this `.csproj` is now configured to:
-- Build a `multi-version` Revit add-in,
-- Use both `WPF` and `WinForms`,
-- Include your `icons` as embedded `resources`,
-- Give you more control over namespaces (`ImplicitUsings=false`).
-
-
-
-### `File_Utils.cs`
+### `BaseListView.cs`
 ```C#
-using System.Drawing;
-using System.IO;
-using Form = System.Windows.Forms.Form;
-
-// Associated to the utility namespace
-namespace guRoo.Utilities
-{
-	public static class File_Utils
-	{
-		public static void setFormIcon(Form form, string iconPath = null)
-		{
-			iconPath ??= "guRoo.Resources.Icon16.IconList16.ico";
-			
-			using (Stream stream = Globals.Assembly.GetManifestResourceStream(iconPath))
-			{
-				if (stream is not null)
-				{
-					form.Icon = new Icon(stream);
-				}
-			}
-		}
-	}
-}
-```
-
----
-### `BaseDropdown.cs`
-```C#
-// System
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Form = System.Windows.Forms.Form;
-
-// guRoo
 using gFil = guRoo.Utilities.File_Utils;
 
 namespace guRoo.Forms.Base
 {
-    public partial class BaseDropdown : Form
+    public partial class BaseListView : Form
     {
-        // Form properties
+        private bool MultiSelect;
         private List<string> Keys;
         private List<object> Values;
-        private int DefaultIndex;
-		
-        public BaseDropdown(List<string> keys, List<object> values, string title, string message, int defaultIndex = -1)
+        
+        public BaseListView(List<string> keys, List<object> values, string title, bool multiselect = true)
         {
             InitializeComponent();
             gFil.SetFormIcon(this);
-			
+            
+            this.Text = title;
             this.Keys = keys;
             this.Values = values;
-            this.DefaultIndex = defaultIndex;
-            this.Text = title;
-            this.labelMessage.Text = message;
-			
+            
+            this.MultiSelect = multiselect;
+            this.listView.MultiSelect = multiselect;
+            this.listView.CheckBoxes = multiselect;
+            this.buttonCheckAll.Enabled = multiselect;
+            this.buttonUncheckAll.Enabled = multiselect;
+            
             this.DialogResult = DialogResult.Cancel;
             this.Tag = null;
-			
-            PopulateComboBox();
+            
+            PopulateListView();
         }
-		
-        private void PopulateComboBox()
+        
+        private void PopulateListView()
         {
-            this.comboBox.Items.Clear();
-			
+            this.listView.Clear();
+            this.listView.Columns.Add("Key", 380);
+
             foreach (var key in this.Keys)
             {
-                this.comboBox.Items.Add(key);
-            }
-			
-            if (this.DefaultIndex >= 0 && this.DefaultIndex < this.comboBox.Items.Count)
-            {
-                this.comboBox.SelectedIndex = this.DefaultIndex;
-            }
-            else
-            {
-                try
-                {
-                    this.comboBox.SelectedIndex = 0;
-                }
-                catch
-                {
-                    this.comboBox.SelectedIndex = -1;
-                }
+                var listViewItem = new ListViewItem(key);
+                listViewItem.Checked = false;
+                this.listView.Items.Add(listViewItem);
             }
         }
         
+		private void listView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+	        
+        }
         
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (this.comboBox.SelectedIndex >= 0)
+            if (this.MultiSelect && this.listView.CheckedItems.Count > 0)
             {
-                var selectedValue = this.Values[this.comboBox.SelectedIndex];
-				
-                this.Tag = selectedValue;
+                this.Tag = this.listView.CheckedItems
+                    .Cast<ListViewItem>()
+                    .Select(i => this.Values[i.Index])
+                    .ToList();
+
                 this.DialogResult = DialogResult.OK;
             }
+            if (!this.MultiSelect && this.listView.SelectedItems.Count > 0)
+            {
+                int ind = this.listView.SelectedItems[0].Index;
+                this.Tag = this.Values[ind];
+                this.DialogResult = DialogResult.OK;
+            }
+            
+                this.Close();
         }
-        
         
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-		
-        private void labelMessage_Click(object sender, EventArgs e)
+        
+        private void buttonCheckAll_Click(object sender, EventArgs e)
         {
-			
+            if (this.MultiSelect) { return; }
+            
+            foreach (ListViewItem item in this.listView.Items)
+            {
+                item.Checked = true;
+                item.Selected = true;
+            }
+        }
+        
+        private void buttonUncheckAll_Click(object sender, EventArgs e)
+        {
+            if (this.MultiSelect) { return; }
+            foreach (ListViewItem item in this.listView.Items)
+            {
+                item.Checked = false;
+                item.Selected = false;
+            }
         }
     }
 }
 ```
 
-### `BaseDropdown.Designer.cs`
-
-![Pasted image 20250912174447.png](</images/Pasted image 20250912174447.png>)
-
-> You can construct it visually as shown in the screenshot above. Or just paste this code into the Code Editor - right click the `BaseDropdown.cs` and click on `View Code` (or just press `F7`). 
-  
+### `BaseListView.Designer.cs`
 ```C#
 namespace guRoo.Forms.Base
 {
-    partial class BaseDropdown
+    partial class BaseListView
     {
         /// <summary>
-        /// Required designer v ariable.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
@@ -319,10 +336,12 @@ namespace guRoo.Forms.Base
         {
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            buttonOk = new System.Windows.Forms.Button();
             buttonCancel = new System.Windows.Forms.Button();
-            comboBox = new System.Windows.Forms.ComboBox();
-            labelMessage = new System.Windows.Forms.Label();
+            buttonCheckAll = new System.Windows.Forms.Button();
+            buttonUncheckAll = new System.Windows.Forms.Button();
+            textBoxFilter = new System.Windows.Forms.TextBox();
+            listView = new System.Windows.Forms.ListView();
+            buttonOk = new System.Windows.Forms.Button();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
@@ -332,100 +351,128 @@ namespace guRoo.Forms.Base
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 2);
-            tableLayoutPanel1.Controls.Add(comboBox, 0, 1);
-            tableLayoutPanel1.Controls.Add(labelMessage, 0, 0);
+            tableLayoutPanel1.Controls.Add(textBoxFilter, 0, 0);
+            tableLayoutPanel1.Controls.Add(listView, 0, 1);
+            tableLayoutPanel1.Controls.Add(buttonOk, 0, 3);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            tableLayoutPanel1.RowCount = 4;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(434, 186);
+            tableLayoutPanel1.Size = new System.Drawing.Size(484, 561);
             tableLayoutPanel1.TabIndex = 0;
-            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
             // tableLayoutPanel2
             // 
-            tableLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel2.Controls.Add(buttonOk, 0, 0);
-            tableLayoutPanel2.Controls.Add(buttonCancel, 1, 0);
-            tableLayoutPanel2.Location = new System.Drawing.Point(0, 126);
-            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel2.AutoSize = true;
+            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333321F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333321F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333321F));
+            tableLayoutPanel2.Controls.Add(buttonCancel, 0, 0);
+            tableLayoutPanel2.Controls.Add(buttonCheckAll, 1, 0);
+            tableLayoutPanel2.Controls.Add(buttonUncheckAll, 2, 0);
+            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel2.Location = new System.Drawing.Point(16, 457);
+            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(16, 4, 16, 4);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new System.Drawing.Size(434, 60);
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(452, 40);
             tableLayoutPanel2.TabIndex = 0;
-            // 
-            // buttonOk
-            // 
-            buttonOk.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            buttonOk.Font = new System.Drawing.Font("Segoe UI", 12F);
-            buttonOk.Location = new System.Drawing.Point(8, 0);
-            buttonOk.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
-            buttonOk.Name = "buttonOk";
-            buttonOk.Size = new System.Drawing.Size(205, 60);
-            buttonOk.TabIndex = 1;
-            buttonOk.Text = "OK";
-            buttonOk.UseVisualStyleBackColor = true;
-            buttonOk.Click += buttonOk_Click;
             // 
             // buttonCancel
             // 
             buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            buttonCancel.Font = new System.Drawing.Font("Segoe UI", 12F);
-            buttonCancel.Location = new System.Drawing.Point(225, 0);
-            buttonCancel.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
+            buttonCancel.Font = new System.Drawing.Font("Segoe UI", 10F);
+            buttonCancel.Location = new System.Drawing.Point(0, 0);
+            buttonCancel.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new System.Drawing.Size(205, 60);
+            buttonCancel.Size = new System.Drawing.Size(146, 40);
             buttonCancel.TabIndex = 0;
-            buttonCancel.Text = "CANCEL";
+            buttonCancel.Text = "Cancel";
             buttonCancel.UseVisualStyleBackColor = true;
             buttonCancel.Click += buttonCancel_Click;
             // 
-            // comboBox
+            // buttonCheckAll
             // 
-            comboBox.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            comboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            comboBox.FormattingEnabled = true;
-            comboBox.Location = new System.Drawing.Point(16, 64);
-            comboBox.Margin = new System.Windows.Forms.Padding(16, 4, 16, 4);
-            comboBox.Name = "comboBox";
-            comboBox.Size = new System.Drawing.Size(402, 29);
-            comboBox.TabIndex = 2;
+            buttonCheckAll.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            buttonCheckAll.Font = new System.Drawing.Font("Segoe UI", 10F);
+            buttonCheckAll.Location = new System.Drawing.Point(154, 0);
+            buttonCheckAll.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            buttonCheckAll.Name = "buttonCheckAll";
+            buttonCheckAll.Size = new System.Drawing.Size(142, 40);
+            buttonCheckAll.TabIndex = 1;
+            buttonCheckAll.Text = "Check All";
+            buttonCheckAll.UseVisualStyleBackColor = true;
+            buttonCheckAll.Click += buttonCheckAll_Click;
             // 
-            // labelMessage
+            // buttonUncheckAll
             // 
-            labelMessage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            labelMessage.AutoSize = true;
-            labelMessage.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelMessage.Location = new System.Drawing.Point(4, 4);
-            labelMessage.Margin = new System.Windows.Forms.Padding(4);
-            labelMessage.Name = "labelMessage";
-            labelMessage.Size = new System.Drawing.Size(426, 52);
-            labelMessage.TabIndex = 1;
-            labelMessage.Text = "Select an object";
-            labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            labelMessage.Click += labelMessage_Click;
+            buttonUncheckAll.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            buttonUncheckAll.Font = new System.Drawing.Font("Segoe UI", 10F);
+            buttonUncheckAll.Location = new System.Drawing.Point(304, 0);
+            buttonUncheckAll.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            buttonUncheckAll.Name = "buttonUncheckAll";
+            buttonUncheckAll.Size = new System.Drawing.Size(148, 40);
+            buttonUncheckAll.TabIndex = 2;
+            buttonUncheckAll.Text = " Uncheck All";
+            buttonUncheckAll.UseVisualStyleBackColor = true;
+            buttonUncheckAll.Click += buttonUncheckAll_Click;
             // 
-            // BaseDropdown
+            // textBoxFilter
+            // 
+            textBoxFilter.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            textBoxFilter.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            textBoxFilter.Location = new System.Drawing.Point(16, 16);
+            textBoxFilter.Margin = new System.Windows.Forms.Padding(16, 16, 16, 4);
+            textBoxFilter.Name = "textBoxFilter";
+            textBoxFilter.Size = new System.Drawing.Size(452, 25);
+            textBoxFilter.TabIndex = 1;
+            // 
+            // listView
+            // 
+            listView.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            listView.CheckBoxes = true;
+            listView.Font = new System.Drawing.Font("Segoe UI", 10F);
+            listView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            listView.Location = new System.Drawing.Point(16, 49);
+            listView.Margin = new System.Windows.Forms.Padding(16, 4, 16, 4);
+            listView.Name = "listView";
+            listView.Size = new System.Drawing.Size(452, 400);
+            listView.TabIndex = 2;
+            listView.UseCompatibleStateImageBehavior = false;
+            listView.View = System.Windows.Forms.View.Details;
+            listView.SelectedIndexChanged += listView_SelectedIndexChanged;
+            // 
+            // buttonOk
+            // 
+            buttonOk.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            buttonOk.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            buttonOk.Location = new System.Drawing.Point(16, 505);
+            buttonOk.Margin = new System.Windows.Forms.Padding(16, 4, 16, 4);
+            buttonOk.Name = "buttonOk";
+            buttonOk.Size = new System.Drawing.Size(452, 52);
+            buttonOk.TabIndex = 3;
+            buttonOk.Text = "OK";
+            buttonOk.UseVisualStyleBackColor = true;
+            buttonOk.Click += buttonOk_Click;
+            // 
+            // BaseListView
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(434, 186);
+            ClientSize = new System.Drawing.Size(484, 561);
             Controls.Add(tableLayoutPanel1);
-            Margin = new System.Windows.Forms.Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
-            MinimumSize = new System.Drawing.Size(450, 225);
-            Name = "BaseDropdown";
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "Select an object";
+            MinimumSize = new System.Drawing.Size(500, 600);
+            Name = "BaseListView";
+            Text = "Select object from object list";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
@@ -436,19 +483,22 @@ namespace guRoo.Forms.Base
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TextBox textBoxFilter;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonCheckAll;
+        private System.Windows.Forms.Button buttonUncheckAll;
+        private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.ComboBox comboBox;
-        private System.Windows.Forms.Label labelMessage;
     }
 }
 ```
 
----
+
 ### `Custom.cs`
 ```C#
 // System
 using System.Collections.Generic;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 // Autodesk
 using Autodesk.Revit.UI;
@@ -457,72 +507,82 @@ namespace guRoo.Forms
 {
     public static class Custom
     {
-		#region Message and variants // From earlier lessons
+	    #region Message and Variants
 	    
-	    #region Select From Dropdown // New Method
+	    #region Select From Dropdown
 	    
-        public static FormResult SelectFromDropdown(List<string> keys, List<object> values, string title = null, string message = null, int defaultIndex = -1)
+		
+// Updated part
+		
+        #region Create a New form result with single or multi Select options
+        
+        public static FormResult SelectFromList(List<string> keys, List<object> values, string title = null, bool multiSelect = true)
         {
-            // Make a new formResult
+            // Create a new form result
             var formResult = new FormResult(isValid: false);
-            
-            // Set default values
-            title ??= "Select from dropdown";
-            message ??= "Select an object from the dropdown";
-            
-            // Process the from
-            using (var form = new Base.BaseDropdown(keys, values, title, message, defaultIndex))
+			
+            // Default Title
+            title ??= multiSelect ? "Select Object(s) from list:" : "Select an object from the list";
+			
+            // Process the Form
+            using (var form = new Base.BaseListView(keys, values, title, multiSelect))
             {
-                if (form.ShowDialog() == DialogResult.OK)
+                if (form.ShowDialog()== DialogResult.OK)
                 {
-                    formResult.Validate(form.Tag as object);
+                    // Catch multi or single select
+                    if (multiSelect)
+                    {
+                        formResult.Validate(form.Tag as List<object>);
+                    }
+                    else
+                    {
+                        formResult.Validate(form.Tag as object);
+                    }
                 }
             }
-            
+			
             return formResult;
         }
-    }
-    
-	#endregion
-    
-    
-    #region FormResult class // From earlier lessons
+        #endregion
+	}
+	
+	#region FormResult Class
 }
 ```
+
 {{< /collapse >}}
 
----
 
-## Extend Revision Class to Name Revisions
+## Extend the `ViewSheet` Class
+
 {{< collapse title="Show/Hide Code" >}}
-### `Revision_Ext.cs`
+
+- We’ll add a helper (Extension) method that returns a display `key` for each sheet, combining its Sheet Number and Sheet Name.
+- This key will be used anywhere we need to represent sheets in the Select Sheets interface, making it easier for users to identify the correct sheet.
+
+### `ViewSheet_Ext.cs`
 ```C#
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Autodesk.Revit.DB;
 
 namespace guRoo.Extensions
 {
-    public static class Revision_Ext
+    public static class ViewSheet_Ext
     {
-        public static string Ext_ToRevisionKey(this Revision  revision, bool includeId = false)
+        public static string Ext_ToSheetKey(this ViewSheet sheet, bool includeId = false)
         {
-            if (revision == null) { return "Invalid Revision "; }
-
+            if (sheet == null) { return "Invalid Sheet "; }
+			
             if (includeId)
             {
-                return $"{revision.SequenceNumber}: {revision.RevisionDate} - {revision.Description} [{revision.Id.ToString()}]";
+                return $"{sheet.SheetNumber}: {sheet.Name} [{sheet.Id.ToString()}]";
             }
             else
             {
-                return $"{revision.SequenceNumber}: {revision.RevisionDate} - {revision.Description}";
+                return $"{sheet.SheetNumber}: {sheet.Name}";
             }
         }
     }
 }
-
 ```
 
 
@@ -550,44 +610,60 @@ namespace guRoo.Extensions
 
         #region Specific collectors // From earlier lessons
 
-        #region Collector based forms
+        #region Collector based forms // From earlier lessons
+
+        #region Return Sheets in a List
 		
         /// <summary>
-        /// Select a revision from the document.
+        /// Select Sheet(s) from the document.
         /// </summary>
-        /// <param name="doc">A Revit document (extended).</param>
-        /// <param name="title">The form title (optional).</param>
-        /// <param name="message">The form message (optional).</param>
-        /// <param name="sorted">Sort the Revisions by sequence.</param>
-        /// <returns>A FormResult object.</returns>
-        public static gFrm.FormResult Ext_SelectRevision(this Document doc, string title = null, string message = null, bool sorted = true)
+        /// <param name="doc"></param>
+        /// <param name="title"></param>
+        /// <param name="message"></param>
+        /// <param name="multiSelect"></param>
+        /// <param name="sorted"></param>
+        /// <param name="includePlaceholders"></param>
+        /// <returns></returns>
+        public static gFrm.FormResult Ext_SelectSheets(
+            this Document doc, 
+            string title = null, 
+            string message = null, 
+            bool multiSelect = true, 
+            bool sorted = true,
+            bool includePlaceholders = false)
         {
-            // Default values
-            title ??= "Select a revision";
-            message ??= "Select a revision from below:";
+            // Default title
+            title ??= multiSelect ? "Select sheet(s) from the list:" : "Select a sheet from the list";
 			
-            // Get revisions
-            var revisions = doc.Ext_GetRevisions(sorted);
+			
+            // Get sheets
+            var sheets = doc.Ext_GetSheets(sorted, includePlaceholders);
 			
             // Process into keys and values
-            var keys = revisions.Select(r => r.Ext_ToRevisionKey()).ToList();
-            var values = revisions.Cast<object>().ToList();
+            var keys = sheets
+                .Select(s => s.Ext_ToSheetKey())
+                .ToList();
+			
+            var values = sheets
+                .Cast<object>()
+                .ToList();
 			
             // Return the form outcome
-            return gFrm.Custom.SelectFromDropdown(keys, values, title, message);
+            return gFrm.Custom.SelectFromList(keys, values, title, multiSelect);
         }
-		
-        #endregion
         
-    }
+        #endregion
+	}
 }
 
 ```
+
 {{< /collapse >}}
 
----
 
-## Customize the base `form` into a customized form to select our revisions
+
+## Customize the `Form` to select `Sheets` from the `List`
+
 {{< collapse title="Show/Hide Code" >}}
 ### `Cmds_PushButton.cs`
 ```C#
@@ -602,7 +678,7 @@ using gFrm = guRoo.Forms;
 
 
 // Associate with PushButton Commands
-namespace guRoo.Commands.General
+namespace guRoo.Cmds_Button
 {
     /// <summary>
     ///		Example Command
@@ -612,6 +688,8 @@ namespace guRoo.Commands.General
     {
         public Result Execute(ExternalCommandData CommandData, ref string message, ElementSet elements)
         {
+	        #region Select Revisions Extention Method
+	        
             // Collect the Document and Application objects from the CommandData
             var (uiApp, uiDoc, doc) = CommandData.Ext_GetRevitContext();
 			
@@ -622,10 +700,32 @@ namespace guRoo.Commands.General
 			
             gFrm.Custom.Message(message: selectedRevision.Ext_ToRevisionKey());
 			
+			#endregion
+
+
+
+			#region New Select Sheets Extension Method
+			
+            // Select Sheets
+            var sheetResult = doc.Ext_SelectSheets();
+            if (sheetResult.Cancelled) { return Result.Cancelled; }
+            var selectedSheets = sheetResult.Objects.Cast<ViewSheet>().ToList();
+			
+            // Test the outcome
+            gFrm.Custom.Message(message: selectedSheets[0].Ext_ToSheetKey());
+            gFrm.Custom.Message(message: $"{selectedSheets.Count} sheets selected");
+            
+            #endregion
+			
             return Result.Succeeded;
         }
     }
 }
-
 ```
+
 {{< /collapse >}}
+
+
+## Result
+![Pasted image 20250915202932.png](</images/Pasted image 20250915202932.png>)
+

@@ -1,301 +1,47 @@
 +++
-title = "C# + Revit API: Lesson 9 - Static vs. Extension Methods"
-date = 2025-10-27T13:53:29+03:00
+title = "C# + Revit API: Lesson 9 - Create a Pulldown Button"
+date = 2025-11-03T18:00:00+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
-cover.image = "/images/Pasted image 20250902205904.png"
-cover.alt = "Static vs. Extension Methods"
+cover.image = "/images/Pasted image 20250814142840.png"
+cover.alt = "Create a Pulldown Button"
 +++
 
-```C#
-modifiers returnType Method(this extendedType, args)
-{
-	coding logic;
-}
-```
+# The Goal
 
-So far, we have been using `static utility classes` to store common methods to call upon. Alternatively, we can use `Extension Methods` to: 
-1. Make the code readable.
-2. To let you `Add` methods to existing types.
-	- They provide **syntactic sugar** (a nicer way to write code), so calls look like instance methods:
-```C#
-string x = "hello";
-string y = x.Reverse();  // Looks built-in, but it's actually an extension
-```
+We will create a `PulldownButton` and add a few `PushButtons` to it.
 
----
+We will also create some helper methods to generate `ButtonData` objects given we are beginning to use these in lots of places.
 
-if `Reverse` was written as a **static utility method** instead of an **extension**, it might look like this:
+In the next post we will stack `PulldownButtons`.
 
-### **`Utility method version`**
-```C#
-public static class StringUtils
-{
-    public static string Reverse(string s)
-    {
-        char[] arr = s.ToCharArray();
-        Array.Reverse(arr);
-        return new string(arr);
-    }
-}
-```
-**`Usage (static way):`**
-```C#
-string x = "hello";
-string y = StringUtils.Reverse(x); // <-- utility call
-```
+![Pasted image 20250814122745.png](</images/Pasted image 20250814122745.png>)
+[Aussie BIM Guru](https://www.youtube.com/watch?v=Zx5Aadrq7RY)
 
----
+## What we need
+1. Create a data creation methods,
+2. Add a `PulldownButton` to our panel,
+3. Add `PushButtons` to it,
+4. Add `Icons`
 
-### `Extension Method` version
-```C#
-public static class StringExtensions
-{
-    public static string Reverse(this string s) // "this" turns it into an extension
-    {
-        char[] arr = s.ToCharArray();
-        Array.Reverse(arr);
-        return new string(arr);
-    }
-}
-```
-
-**Usage (`extension` way):**
-```C#
-using MyExtensions; // namespace with StringExtensions
-
-string x = "hello";
-string y = x.Reverse(); // looks like built-in, but calls static method under the hood
-```
-
-**Key difference:**
-- **Static** → `StringUtils.Reverse(x)` — always pass the value as an argument.
-- **Extension** → `x.Reverse()` — looks like the method belongs to string, but it’s just compiler sugar for `StringExtensions.Reverse(x)`.
-
-3. Microsoft’s Official Definition
-	- **Extension members** let you add methods to an existing type **without** subclassing, recompiling, or modifying its original code.
-	- These methods must be declared in a **static class**, using the this keyword on the first parameter to indicate the extended type.
-	- Example: LINQ methods like Where, Select, GroupBy are extension methods on `IEnumerable<T>.`
-
----
-## The idea in one picture
-
-- **Utility method** = a tool on the shelf you call by name.
-    `MathUtils.IsEven(4)`
-- **Extension method** = the same tool glued onto the type so it _reads_ like a built-in ability.
-    `4.IsEven()`
-Same logic, different syntax.
-
-**Utility (plain function in a static class)**
-```C#
-public static class MathUtils
-{
-    public static bool IsEven(int n) => n % 2 == 0;
-}
-
-// use
-bool a = MathUtils.IsEven(4);
-```
-
-<br>
-
-**Extension (adds “instance-like” call to a type)**
-```C#
-namespace MyExtensions
-{
-    public static class IntExtensions     // class must be static
-    {
-		// method must be static; first param has `this`
-        public static bool IsEven(this int n)  
-
-            => n % 2 == 0;
-    }
-}
-```
-
-<br>
-
-**Usage**
-```C#
-using MyExtensions;  // import the namespace that contains IntExtensions
-
-bool b = 4.IsEven(); // now it reads like a built-in method
-```
-
----
-# C# Extension Methods vs Static Utilities — Cheat Sheet
-
-_A one‑pager you can print and keep by your keyboard._
-
----
-
-## **The 5‑second summary**
-- **Static utility**: call a function on a helper class. `StringUtils.Reverse(x)`
-- **Extension method**: same function, but _called like an instance_. `x.Reverse()`
-- **Truth**: `x.Reverse()` is compiler sugar for `StringExtensions.Reverse(x)`.
-
----
-
-## **Static Utility Pattern**
-
-```C#
-public static class StringUtils
-{
-    public static string Reverse(string s)
-    {
-        var a = s.ToCharArray();
-        Array.Reverse(a);
-        return new string(a);
-    }
-}
-
-// Usage
-var y = StringUtils.Reverse("hello");
-```
-
----
-
-## Extension Method Pattern
-Rules:
-1. Method **lives in a static class**
-2. Method itself is **static**
-3. **First parameter** has this and is the type you’re extending
-4. The **namespace must be in scope** via using
-
-```C#
-namespace MyExtensions
-{
-    public static class StringExtensions
-    {
-        public static string Reverse(this string s)
-        {
-            var a = s.ToCharArray();
-            Array.Reverse(a);
-            return new string(a);
-        }
-    }
-}
-
-
-// Usage (note the "using")
-using MyExtensions;
-
-var y = "hello".Reverse();
-```
-
----
-
-## **What the Compiler Actually Does**
-
-```bash
-Your code:                 Desugared by compiler:
----------                  ----------------------------------
-"hello".Reverse()   ==>    StringExtensions.Reverse("hello");
-```
-
-**Lookup steps**
-
-1. Check receiver type (string) for an **instance** `Reverse()` → none.
-2. Search imported `namespaces` for **static methods** whose **first param** is this string.
-3. Pick best match (normal overload rules). Instance methods (if any) always **win** over extensions.
-
----
-
-## **When to Use Which**
-
-- **Use static utility** when:
-    - It’s general‑purpose or spans many types (logging, parsing, config).
-    - You don’t want to pollute IntelliSense for common types.
-    
-- **Use extension method** when:
-    - The behavior clearly “belongs” to a single type.
-    - You want fluent, chainable syntax (e.g., LINQ‑style pipelines).
-
----
-
-## **Memorize these**
-
-- Extensions **don’t modify** the type; they’re just syntax `sugar`.
-- If the type later adds a real instance method with the same signature, the **real one wins**.
-- Resolution uses the variable’s **compile‑time type**, not runtime.
-- You must `using` the extension’s **namespace**, or it won’t be found.
-- Keep extensions **focused**; too many can clutter `IntelliSense`.
-
----
-
-## Minimal Working Example (copy/paste)
-
-```C#
-// StringExtensions.cs
-namespace MyExtensions
-{
-    public static class StringExtensions
-    {
-        public static bool IsNullOrBlank(this string? s)
-            => string.IsNullOrWhiteSpace(s);
-    }
-}
-
-// Program.cs
-using System;
-using MyExtensions;
-
-class Program
-{
-    static void Main()
-    {
-        string x = "  ";
-        Console.WriteLine(x.IsNullOrBlank()); // True
-    }
-}
-```
-
----
-
-## **Quick Troubleshooting**
-
-- **CS1061: ‘Type’ does not contain a definition for ‘Foo’** → Missing `using` for the extension’s namespace or wrong this type.
-- **Ambiguous call** → Multiple extensions in scope with same signature; qualify with full class `name` or remove one `using`.
-- **Not being called** → A real instance method with same signature exists and **shadows** your extension.    
-
----
-
-### Mental Model (ASCII)
-
-```C#
-Caller                       Compiler Resolution
-------                       ------------------
-x.Reverse()          ->      1) Check instance on string → none
-                             2) Scan imported namespaces for
-                                static methods with first param: this string
-                             3) Choose best match
-                             4) Rewrite to StringExtensions.Reverse(x)
-```
-
-> `utilities` = toolbox; `extensions` = bolt‑on skills. Same logic, nicer syntax.
-
-# Extension Method Naming
-
-```C#
-// Extension namespace
-guRoo.Extensions
-
-// Class file name
-guRoo\Extentions\ExtendedClass_Ext
-
-// Extension method
-Ext_MethodName
-```
+## Related API Classes
+1. `RibbonPanel`
+	1. `PulldownButtonData`
+		1. `PulldownButton`
+	2. `PushButtonData`
+		1. `PushButton`
 
 # Homework
-### Extend your methods:
-- Set up a new folder and namespace
-- Set up 2 extension classes in your project
-- Set up extension methods
-- Modify some of our code to use the above
+1. Create a `static utility` methods on the `Ribbon_Util.cs`
+2. Modify a `PushButton` method to use `static utility` methods
+3. Create a `PulldownButton` method
+4. Create a `PulldownButton` method `Extension` class to add `PushButton` to `PulldownButton` 
+5. Update the `Strartup` method
 
-# Solution
-## Code:
+
+# Solution 
+## Code
+
 ### `Project Solution`
 ```bash
 Solution
@@ -304,162 +50,229 @@ Solution
 	|-> Commands
 		|-> General 
 			|-> Cmds_General.cs 
+			|-> Cmds_PullDown.cs  // Create a New Class
 	|-> Forms
 	|-> General 
 		|-> Globals.cs 
-	|-> Extensions // Add a New Folder
-		|-> UIControlledApplicaiton_Ext.cs // Create a New Class
-		|-> RibbonPanel_Ext.cs // Create another New Class
+	|-> Extensions 
+		|-> UIControlledApplicaiton_Ext.cs 
+		|-> RibbonPanel_Ext.cs    // Update
+		|-> PulldownButton_Ext.cs // Create New Extension Class
 	|-> Resources
 		|-> Files 
-			|-> Tooltips.resx 
+			|-> Tooltips.resx     // Update
 		|-> Icons 
 		|-> Icons16 
 			|-> General_test16.png 
 		|-> Icons32 
 			|-> General_test32.png 
 	|-> Utilities
-		|-> Ribbon_Utils.cs 
-	|-> Application.cs // Updated
+		|-> Ribbon_Utils.cs       // Update
+	|-> Application.cs            // Update
 	|-> guRoo.addin
 ```
 
-1. Borrow an existing static method from `Ribbon_Utils.cs` and extend it:
-### `UIControlledApplicaiton_Ext.cs`
+
+### `Cmd_PullDown.cs`
+```C#
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace guRoo.Cmds_PullDown
+{
+    /// <summary>
+    ///		Example Command
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
+    public class Cmd_1Button : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData CommandData, ref string message, ElementSet elements)
+        {
+            var uiApp = CommandData.Application;
+            var uiDoc = uiApp.ActiveUIDocument;
+            var doc = uiDoc.Document;
+
+            // Code logic here:
+            TaskDialog.Show("Button 1 is Working!", doc.Title);
+
+            // Final return here:
+            return Result.Succeeded;
+        }
+    }
+
+    /// <summary>
+    ///		Example Command
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
+    public class Cmd_2Button : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData CommandData, ref string message, ElementSet elements)
+        {
+            var uiApp = CommandData.Application;
+            var uiDoc = uiApp.ActiveUIDocument;
+            var doc = uiDoc.Document;
+
+            // Code logic here:
+            TaskDialog.Show("Button 2 is Working!", doc.Title);
+
+            // Final return here:
+            return Result.Succeeded;
+        }
+    }
+
+    /// <summary>
+    ///		Example Command
+    /// </summary>
+    [Transaction(TransactionMode.Manual)]
+    public class Cmd_3Button : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData CommandData, ref string message, ElementSet elements)
+        {
+            var uiApp = CommandData.Application;
+            var uiDoc = uiApp.ActiveUIDocument;
+            var doc = uiDoc.Document;
+
+            // Code logic here:
+            TaskDialog.Show("Button 3 is Working!", doc.Title);
+
+            // Final return here:
+            return Result.Succeeded;
+        }
+    }
+}
+
+```
+
+
+### `RibbonPanel_Ext.cs`
 ```C#
 using Autodesk.Revit.UI;
 using System.Diagnostics;
+using gRib = guRoo.Utilities.Ribbon_Utils;
 
 namespace guRoo.Extensions
 {
-	public static class UIControlledApplication_Ext
-	{
+    public static class RibbonPanel_Ext
+    {
+        # region Add Button Creation
+        /// <summary>
+        /// Adds a Pushbutton to the panel.
+        /// </summary>
+        /// <typeparam name="CommandClass">The related Command class.</typeparam>
+        /// <param name="ribbonPanel">The RibbonPanel (extended).</param>
+        /// <param name="buttonName">The name for the button.</param>
+        /// <param name="availability">The availability name.</param>
+        /// <param name="suffix">The icon suffix (none by default).</param>
+        /// <returns>A Pushbutton object.</returns>
 
-// ----------------------------------------------------------------------------
-// 1. Add "this"
-// 2. AddRibbonTabToPanel -> AddRibbonTab
-// ----------------------------------------------------------------------------
-		public static Result AddRibbonTab(this UIControlledApplication uiCtlApp, string tabName)
+        public static PushButton Ext_AddPushButton(this RibbonPanel panel, string buttonName, string className)
         {
-            try
+            if (panel is null)
             {
-	            // Try to add a tab:
-                uiCtlApp.CreateRibbonTab(tabName);
-                return Result.Succeeded;
-            }
-            catch
-            {
-	            // Report the error if it fails:
-                Debug.WriteLine($"Error: Could not create a tab: {tabName}");
-                return Result.Failed;
-            }
-        }
-
-// ----------------------------------------------------------------------------
-// 1. Add "this"
-// 2. AddRibbonPanelByName -> AddRibbonPanel
-// ----------------------------------------------------------------------------
-
-		        // Method to create a "Panel"
-        public static RibbonPanel AddRibbonPanel(this UIControlledApplication uiCtlApp, string tabName, string panelName)
-        {
-            try
-            {
-                uiCtlApp.CreateRibbonPanel(tabName, panelName);
-            }
-            catch
-            {
-                Debug.WriteLine($"Error: Could not add {panelName} to {tabName}");
+                Debug.WriteLine($"Error: Could not create {buttonName}.");
                 return null;
             }
-            return uiCtlApp.GetRibbonPanel(tabName, panelName);
+
+            // Create a Data Object
+            var pushButtonData = gRib.NewPushButtonData(buttonName, className);
+            
+            if (panel.AddItem(pushButtonData) is PushButton pushButton)
+            {
+                // If the button was made, return it.
+                return pushButton;
+            }
+            else
+            {
+                Debug.WriteLine($"Error: Could not create {buttonName}.");
+                return null;
+            }
         }
 
-        // Method to get that "Panel"
-        public static RibbonPanel GetRibbonPanel(this UIControlledApplication uiCtlApp, string tabName, string panelName)
+
+        /// <summary>
+        /// Adds a PulldownButton to the panel.
+        /// </summary>
+        /// <typeparam name="CommandClass">The related Command class.</typeparam>
+        /// <param name="ribbonPanel">The RibbonPanel (extended).</param>
+        /// <param name="buttonName">The name for the button.</param>
+        /// <param name="availability">The availability name.</param>
+        /// <param name="suffix">The icon suffix (none by default).</param>
+        /// <returns>A PulldownButton object.</returns>
+
+        public static PulldownButton Ext_AddPulldownButton(this RibbonPanel panel, string buttonName, string className)
         {
-            var panels = uiCtlApp.GetRibbonPanels(tabName);
-            foreach (var panel in panels)
+            if (panel is null)
             {
-                if (panel.Name == panelName)
-                    return panel;
+                Debug.WriteLine($"Error: Could not create {buttonName}.");
+                return null;
             }
 
-            // If Not found
-            return null;
+            // Create a Data Object
+            var pulldownButtonData = gRib.NewPulldownButtonData(buttonName, className);
+
+            if (panel.AddItem(pulldownButtonData) is PulldownButton pulldownButton)
+            {
+                // If the button was made, return it.
+                return pulldownButton;
+            }
+            else
+            {
+                Debug.WriteLine($"Error: Could not create {buttonName}.");
+                return null;
+            }
         }
 
-// ----------------------------------------------------------------------------
-
-	}
+        #endregion
+    }
 }
 ```
 
-2. Update `Applications.cs`:
-### `Application.cs`
+
+### `PulldownButton_Ext.cs`
 ```C#
-// Autodesk
 using Autodesk.Revit.UI;
-
-// guRoo =======IMPORTANT=======
+using System.Diagnostics;
 using gRib = guRoo.Utilities.Ribbon_Utils;
-using guRoo.Extensions;
 
-namespace guRoo
+namespace guRoo.Extensions
 {
-    public class Application : IExternalApplication
+    public static class PulldownButton_Ext
     {
-        private static UIControlledApplication _uiCtlApp;
-        public Result OnStartup(UIControlledApplication uiCtlApp)
+        # region Add Button Creation
+        /// <summary>
+        /// Adds a PulldownButton to the panel.
+        /// </summary>
+        /// <typeparam name="CommandClass">The related Command class.</typeparam>
+        /// <param name="pulldownButton">The RibbonPanel to add the button to (Extended).</param>
+        /// <param name="buttonName">The name for the button.</param>
+        /// <param name="className">The full class name the button runs.</param>
+        /// <returns>A PulldownButton object.</returns>
+
+        public static PushButton Ext_AddPushButton(this PulldownButton pulldownButton, string buttonName, string className)
         {
-
-
-            #region Globals registration
-            _uiCtlApp = uiCtlApp;
-            try
+            if (pulldownButton is null)
             {
-                _uiCtlApp.Idling += RegisterUiApp;
+                Debug.WriteLine($"Error: Could not add {buttonName} to pulldown.");
+                return null;
             }
-            catch
+
+            // Create a Data Object
+            var pushButtonData = gRib.NewPushButtonData(buttonName, className);
+
+            if (pulldownButton.AddPushButton(pushButtonData) is PushButton pushButton)
             {
-                Globals.UiApp = null;
-                Globals.UsernameRevit = null;
+                // If the button was made, return it.
+                return pushButton;
             }
-            Globals.RegisterProperties(uiCtlApp);
-            Globals.RegisterTooltips("guRoo.Resources.Files.Tooltips");
-            #endregion
-
-            #region Ribbon setup
-            
-            //Add Ribbon Tab
-            uiCtlApp.AddRibbonTab(Globals.AddinName); 
-            
-            // Create a Panel
-            var panelGeneral = uiCtlApp.AddRibbonPanel(uiCtlApp, Globals.AddinName, "General");
-            
-            // Add Button to Panel
-            var buttonTest = panelGeneral.AddPushButton("Testing", "guRoo.Cmds_General.Cmd_Test");
-            #endregion
-            
-            // Final Return
-            return Result.Succeeded;
-        }
-
-        #region On shutdown method
-        public Result OnShutdown(UIControlledApplication uiCtlApp)
-        {
-            return Result.Succeeded;
-        }
-        #endregion
-
-        #region Use idling to register UiApp
-        private static void RegisterUiApp(object sender, IdlingEventArgs e)
-        {
-            _uiCtlApp.Idling -= RegisterUiApp;
-            if (sender is UIApplication uiApp)
+            else
             {
-                Globals.UiApp = uiApp;
-                Globals.UsernameRevit = uiApp.Application.Username;
+                Debug.WriteLine($"Error: Could not add {buttonName} to pulldown.");
+                return null;
             }
         }
         #endregion
@@ -467,115 +280,80 @@ namespace guRoo
 }
 ```
 
-3. And remove that part from `Ribbon_Utils.cs`:
+
+### `Tooltips.resx`
+
+|       Name       | Value                                                    | Comment |
+| :--------------: | -------------------------------------------------------- | ------- |
+|   General_Test   | This is a working tooltip.<br><br>We can do extra lines. |         |
+|  General_Test2   | This is a working tooltip.<br><br>We can do extra lines. |         |
+|     PullDown     | This is a PulldownButton                                 |         |
+| PullDown_1Button | This is Button 1 of the Pulldown Button.                 |         |
+| PullDown_2Button | This is Button 2 of the Pulldown Button.                 |         |
+| PullDown_3Button | This is Button 3 of the Pulldown Button.                 |         |
+
+
 ### `Ribbon_Utils.cs`
 ```C#
 using Autodesk.Revit.UI;
+using System;
 using System.Diagnostics;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace guRoo.Utilities
 {
-	public static class Ribbon_Utils
-	{
-
-// =====REMOVED to UIControlledApplicaiton_Ext.cs=====
-        // Method to create a "Tab"
-//        public static Result AddRibbonTab(UIControlledApplication uiCtlApp,string tabName)
-//        {
-//            try
-//            {
-//                uiCtlApp.CreateRibbonTab(tabName);
-
-//                return Result.Succeeded;
-//            }
-//            catch
-//            {
-//                Debug.WriteLine($"Error: Could not create a tab: {tabName}");
-//                return Result.Failed;
-//            }
-//        }
-
-        //// Method to create a "Panel"
-        //public static RibbonPanel AddRibbonPanelToTab(UIControlledApplication uiCtlApp, string tabName, string panelName)
-        //{
-        //    try
-        //    {
-        //        uiCtlApp.CreateRibbonPanel(tabName, panelName);
-        //    }
-        //    catch
-        //    {
-        //        Debug.WriteLine($"Error: Could not add {panelName} to {tabName}");
-        //        return null;
-        //    }
-        //    return GetRibbonPanelByName(uiCtlApp, tabName, panelName);
-        //}
-
-        //// Method to get that "Panel"
-        //public static RibbonPanel GetRibbonPanelByName(UIControlledApplication uiCtlApp, string tabName, string panelName)
-        //{
-        //    var panels = uiCtlApp.GetRibbonPanels(tabName);
-        //    foreach (var panel in panels)
-        //    {
-        //        if (panel.Name == panelName)
-        //            return panel;
-        //    }
-
-        //    // Not found
-        //    return null;
-        //}
-// =====REMOVED to UIControlledApplicaiton_Ext.cs=====
-
-
-
-// =====REMOVED to RibbonPanel_Ext.cs=====
-        // Method to create a "Button" to "Panel"
-        
+    public static class Ribbon_Utils
+    {
+        #region PushButton Data
         /// <summary>
-        /// Fill this summary for Methods to be described on Mouse Hover.
+        /// Create a PushButtonData object.
         /// </summary>
-        /// <param name="panel">This is the RibbonPanel to add to.</param>
-        /// <param name="buttonName">Test</param>
-        /// <param name="className">Test</param>
-        /// <param name="internalName">Test</param>
-        /// <param name="assemblyPath">Test</param>
-        /// <returns></returns>
-//    public static PushButton AddPushButtonToPanel(RibbonPanel panel, string buttonName, string className)
-//    // string internalName, -> NOT NEEDED ANYMORE
-//    // string assemblyPath)-> NOT NEEDED ANYMORE
-//    {
-//        if (panel is null)
-//        {
-//            Debug.WriteLine($"Error: Could not create {buttonName}.");
-			//return null;
-//        }
-//        // Open PushButtonData Constructor and check what's needed
+        /// <param name="buttonName">The name for the button.</param>
+        /// <param name="className">The availability name.</param>
+        /// <returns>A PushButtonData object.</returns>
 
-//        // Get the base name from below
-//        var baseName = CommandToBaseName(className);
-//        #endregion 
+        public static PushButtonData NewPushButtonData(string buttonName, string className)
+        {
+            var baseName = CommandToBaseName(className);
 
-//        // Create a PushButtonData object:
-//        var pushButtonData = new PushButtonData(baseName, buttonName, Globals.AssemblyPath, className);
+            var pushButtonData = new PushButtonData(baseName, buttonName, Globals.AssemblyPath, className);
 
-//        // if the button was made - return it:
-//        if (panel.AddItem(pushButtonData) is PushButton pushButton)
-//        {
-//            pushButton.ToolTip = LookupTooltip(baseName);
-//            #region ====The Updated Part 4 Start====
-//            // We will come back to this:
-//            pushButton.Image = GetIcon(baseName, resolution: 16);
-//            pushButton.LargeImage = GetIcon(baseName, resolution: 32); return pushButton;
-//        }
-//        else
-//        {
-//            Debug.WriteLine($"Error: Could not create {buttonName}.");
-			//return null;
-//        }
-//    }
-// =====REMOVED to RibbonPanel_Ext.cs=====
+            // Set the values
+            pushButtonData.ToolTip = LookupTooltip(baseName);
+            pushButtonData.Image = GetIcon(baseName, resolution: 16);
+            pushButtonData.LargeImage = GetIcon(baseName, resolution: 32);
 
+            return pushButtonData;
 
-        // Method to get the base name of a command:
+        }
+        #endregion
+
+        #region Pulldown Data
+        /// <summary>
+        /// Create a PulldownButtonData object.
+        /// </summary>
+        /// <param name="buttonName">The name for the button.</param>
+        /// <param name="className">The availability name.</param>
+        /// <returns>A PulldownButtonData object.</returns>
+
+        public static PulldownButtonData NewPulldownButtonData(string buttonName, string className)
+        {
+            var baseName = CommandToBaseName(className);
+
+            var pulldownButtonData = new PulldownButtonData(baseName, buttonName);
+
+            // Set the values
+            pulldownButtonData.ToolTip = LookupTooltip(baseName);
+            pulldownButtonData.Image = GetIcon(baseName, resolution: 16);
+            pulldownButtonData.LargeImage = GetIcon(baseName, resolution: 32);
+
+            return pulldownButtonData;
+
+        }
+        #endregion
+
+        #region Method to get the base name of a command
         public static string CommandToBaseName(string commandName)
         {
             return commandName.Replace("guRoo.Cmds_", "").Replace(".Cmd", "");
@@ -593,82 +371,131 @@ namespace guRoo.Utilities
 
             return failValue;
         }
+        #endregion
 
-		// Method to get an icon as an image source
-		public static ImageSource GetIcon(string baseName, int resolution = 32)
-		{
-			var resourcePath = $"guRoo.Resources.Icons{resolution}.{baseName}{resolution}.png";
-			
-			using  (var stream = Globals.Assembly.GetManifestResourceStream(resourcePath))
-			{
-				if (stream is null) { return null; }
-				
-				var decoder = new PngBitmapDecoder(
-					stream, 
-					BitmapCreateOptions.PreservePixelFormat, 
-					BitmapCacheOption.Default);
-				
-				if (decoder.Frames.Count > 0)
-				{
-					return decoder.Frames.First();
-				}
-				else
-				{
-					return null;
-				}
-			}
-		}
+        #region Method to get an icon as an image source
+        public static ImageSource GetIcon(string baseName, int resolution = 32)
+        {
+            var resourcePath = $"guRoo.Resources.Icons{resolution}.{baseName}{resolution}.png";
+
+            using (var stream = Globals.Assembly.GetManifestResourceStream(resourcePath))
+            {
+                if (stream is null) { return null; }
+
+                var decoder = new PngBitmapDecoder(
+                    stream,
+                    BitmapCreateOptions.PreservePixelFormat,
+                    BitmapCacheOption.Default);
+
+                if (decoder.Frames.Count > 0)
+                {
+                    return decoder.Frames.First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        #endregion 
+
+
     }
 }
 ```
 
-
-### `RibbonPanel_Ext.cs`
+### `Application.cs`
 ```C#
+// Autodesk
 using Autodesk.Revit.UI;
-using System.Diagnostics;
+using Autodesk.Revit.UI.Events;
+
+
+// guRoo
 using gRib = guRoo.Utilities.Ribbon_Utils;
+using guRoo.Extensions;
 
-namespace guRoo.Extensions
+// This application belongs to the root namespace
+namespace guRoo
 {
-    public static class RibbonPanel_Ext
+    // Implementing the interface for application.cs class
+    public class Application : IExternalApplication
+    // IExternalApplication for the interface
     {
+        // Make a private uiCtlApp method:
+        private static UIControlledApplication _uiCtlApp;
 
-    // Adds a new push button to a specified RibbonPanel in Revit.
-        /// <summary>
-        /// Creates and adds a <see cref="PushButton"/> to the given <see cref="RibbonPanel"/>.
-        /// Configures the button’s tooltip and icon images based on the associated command name.
-        /// </summary>
-        /// <param name="panel">The target RibbonPanel where the button will be added.</param>
-        /// <param name="buttonName">The display name of the button as it appears in the UI.</param>
-        /// <param name="className">The full class name (namespace + class) of the command to execute when the button is clicked.</param>
-        /// <returns>
-        /// The created <see cref="PushButton"/> instance if successful; otherwise, <c>null</c>.
-        /// </returns>
-
-        public static PushButton AddPushButton(this RibbonPanel panel, string buttonName, string className)
+        //This will return a result on Startup method - requires uiCtlApp
+        public Result OnStartup(UIControlledApplication uiCtlApp)
         {
-            if (panel is null)
-            {
-                Debug.WriteLine($"Error: Could not create {buttonName}.");
-                return null;
-            }
-            // Open PushButtonData Constructor and check what's needed
-            var baseName = gRib.CommandToBaseName(className);
-            var pushButtonData = new PushButtonData(baseName, buttonName, Globals.AssemblyPath, className);
 
-            if (panel.AddItem(pushButtonData) is PushButton pushButton)
+            #region Globals registration
+            // Store _uiCtlApp, register on idling
+            _uiCtlApp = uiCtlApp;
+
+            try
             {
-                pushButton.ToolTip = gRib.LookupTooltip(baseName);
-                pushButton.Image = gRib.GetIcon(baseName, resolution: 16);
-                pushButton.LargeImage = gRib.GetIcon(baseName, resolution: 32); return pushButton;
+                _uiCtlApp.Idling += RegisterUiApp;
             }
-            else
+            catch
             {
-                Debug.WriteLine($"Error: Could not create {buttonName}.");
-                return null;
+                Globals.UiApp = null;
+                Globals.UsernameRevit = null;
+            }
+
+            // Register Globals
+            Globals.RegisterProperties(uiCtlApp);
+
+            // Register Tooltips
+            Globals.RegisterTooltips("guRoo.Resources.Files.Tooltips");
+            #endregion
+
+            #region Ribbon setup
+            // Add RibbonTab
+            uiCtlApp.Ext_AddRibbonTab(Globals.AddinName); 
+
+            // Create RibbonPanel
+            var panelGeneral = uiCtlApp.Ext_AddRibbonPanel(Globals.AddinName, "General");
+
+            // Add PushButton to RibbonPanel
+            var buttonTest = panelGeneral.Ext_AddPushButton("Testing", "guRoo.Cmds_General.Cmd_Test");
+
+            // Add PulldownButton to RibbonPanel
+            var pulldownTest = panelGeneral.Ext_AddPulldownButton("PullDown", "guRoo.Cmds_PullDown");
+
+            // Add Buttons to Pulldown
+            pulldownTest.Ext_AddPushButton("Button 1", "guRoo.Cmds_PullDown.Cmd_1Button");
+            pulldownTest.Ext_AddPushButton("Button 2", "guRoo.Cmds_PullDown.Cmd_2Button");
+            pulldownTest.Ext_AddPushButton("Button 3", "guRoo.Cmds_PullDown.Cmd_3Button");
+
+            #endregion
+
+
+            // Final return:
+            return Result.Succeeded; // or Cancelled
+        }
+
+        #region On shutdown method
+        // This will urn on shutdown
+        public Result OnShutdown(UIControlledApplication uiCtlApp)
+        {
+            return Result.Succeeded;
+        }
+        #endregion
+
+        #region Use idling to register UiApp
+        // On idling, register UiApp/username
+        private static void RegisterUiApp(object sender, IdlingEventArgs e)
+        {
+            _uiCtlApp.Idling -= RegisterUiApp;
+
+            if (sender is UIApplication uiApp)
+            {
+                Globals.UiApp = uiApp;
+                Globals.UsernameRevit = uiApp.Application.Username;
             }
         }
+        #endregion
     }
 }
 ```

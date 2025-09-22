@@ -8,7 +8,21 @@
         "type": "tabs",
         "children": [
           {
-            "id": "87f4e273ee0198d1",
+            "id": "1ba632a00a35281e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/en/posts/Lesson №2.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Lesson №2"
+            }
+          },
+          {
+            "id": "b3b8ee18f323a73c",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -20,23 +34,8 @@
               "icon": "lucide-file",
               "title": "Lesson №14"
             }
-          },
-          {
-            "id": "1ba632a00a35281e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/ru/posts/Lesson №1.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Lesson №1"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -187,9 +186,39 @@
   },
   "active": "1ba632a00a35281e",
   "lastOpenFiles": [
-    "content/en/posts/Lesson №1.md",
+    "content/ru/posts/Lesson №0.md",
     "content/ru/posts/Lesson №1.md",
+    "content/ru/posts/Lesson №2.md",
+    "content/en/posts/Lesson №3.md",
+    "content/en/posts/Lesson №4.md",
     "content/en/posts/Lesson №2.md",
+    "content/en/posts/Lesson №1.md",
+    "public/posts/lesson-3/index.html",
+    "public/posts/lesson-3",
+    "content/en/posts/Lesson №14.md",
+    "public/images/Pasted image 20250922160146.png",
+    "static/images/Pasted image 20250922160146.png",
+    "public/images/ascii copy.png",
+    "static/images/ascii copy.png",
+    "content/en/posts/Lesson №15.md",
+    "public/ru/posts/lesson-2/index.html",
+    "public/ru/posts/lesson-2",
+    "public/images/Thumbs.db",
+    "static/images/Thumbs.db",
+    "content/posts/Blog.base",
+    "content/en/posts/Lesson №7.md",
+    "content/en/posts/Lesson №6.md",
+    "content/en/posts/Lesson №5.md",
+    "content/en/posts/Lesson №13.md",
+    "content/en/posts/Lesson №12.md",
+    "content/en/posts/Lesson №11.md",
+    "content/en/posts/Lesson №10.md",
+    "content/en/posts/Lesson №9.md",
+    "content/en/posts/Lesson №8.md",
+    "public/images/Pasted image 20250915202932.png",
+    "static/images/Pasted image 20250915202932.png",
+    "public/images/Pasted image 20250915200337.png",
+    "static/images/Pasted image 20250915200337.png",
     "content/en/posts/Lesson №0.md",
     "content/en/posts/Case №4.md",
     "content/en/posts/Case №3.md",
@@ -199,38 +228,8 @@
     "content/en/posts/Bot №1.md",
     "public/images/Pasted image 20250915031251.png",
     "static/images/Pasted image 20250915031251.png",
-    "public/images/Pasted image 20250915031037.png",
-    "static/images/Pasted image 20250915031037.png",
-    "public/images/Pasted image 20250915030857.png",
-    "static/images/Pasted image 20250915030857.png",
-    "public/images/Pasted image 20250915030834.png",
-    "static/images/Pasted image 20250915030834.png",
-    "public/images/Lesson№1-en.png",
-    "static/images/Lesson№1-en.png",
-    "content/en/posts/Lesson №15.md",
-    "content/en/posts/Lesson №14.md",
-    "content/en/posts/Lesson №5.md",
-    "content/en/posts/Lesson №4.md",
-    "content/en/posts/Lesson №3.md",
     "public/assets/css/stylesheet.5f1037ddbddbb1eda5b2fc2d08fe617ecdf7baaa7088f573bbd48bfd23d3127f.css",
     "assets/css/extended/custom.css.tmp.26101.1757892959311",
-    "public/assets/css/stylesheet.a8a49308fe6d29cd6c55377a6b2cd6f8f3f4d97410f20d1c8b779c6d9cb492db.css",
-    "content/ru/posts/Lesson №1.md.tmp.26101.1757886059567",
-    "content/ru/posts/Lesson №1.md.tmp.26101.1757885942959",
-    "content/ru/posts/Untitled.md",
-    "public/ru/posts/untitled/index.html",
-    "public/ru/posts/untitled",
-    "content/ru/posts/Lesson №0.md",
-    "content/ru/posts/Lesson №1.md.tmp.26101.1757885071912",
-    "content/ru/posts/Lesson №1.md.tmp.26101.1757884881136",
-    "content/ru/posts/_index.md",
-    "public/ru/posts/lesson-1/index.html",
-    "content/en/posts/Lesson №1 - Simplified.md",
-    "content/en/posts/Lesson №9.md",
-    "content/en/posts/Lesson №11.md",
-    "content/en/posts/Lesson №12.md",
-    "content/en/posts/Lesson №13.md",
-    "content/en/posts/Untitled.md",
-    "content/en/posts/Lesson №10.md"
+    "public/assets/css/stylesheet.a8a49308fe6d29cd6c55377a6b2cd6f8f3f4d97410f20d1c8b779c6d9cb492db.css"
   ]
 }

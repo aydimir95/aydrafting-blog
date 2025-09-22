@@ -1,100 +1,117 @@
 +++
-title = "C# + Revit API: Lesson 5 - `if` Statements"
-date = 2025-09-29T17:36:22+03:00
+title = "C# + Revit API: Lesson 5 - try & catch Statements"
+date = 2025-10-06T18:00:00+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
-cover.image = "/images/Pasted image 20250902205212.png"
-cover.alt = "If Statements"
+cover.image = "/images/Pasted image 20250902205255.png"
+cover.alt = "try & catch Statements"
 +++
-# `if` Statement
+# Pseudocode
+
 ```C#
-if // Condition
+try 
 {
-	run if condition is true;
+	try to do this;
 }
-else // If we have no false outcome -> we can skip 'else' branch altogether
+catch
 {
-	run if condition is false;
+	if try gets exception, rollback and do this;
 }
 ```
 
-# `else if` Statement
+## Exceptions
 
+ >Exceptions come in many forms and Revit API Docs typically specifies the types of Exceptions we can catch for its methods. There are also system type exceptions.
+ 
 ```C#
-if // Condition
+catch // Exception as "e" to print the error
 {
-	run if condition is true;
+	To catch a specific exceptions, catch as e;
 }
-else if // Condition
+catch
 {
-	run if there are more conditions;
+	To catch all exceptions, do this; 
+	// but better to catch specific exceptions, 
+	// otherwise you will catch all necessary and unecessary exceptions.
 }
-else // If we have no false outcome -> we can skip 'else' branch altogether
+finally
 {
-	run if condition is false;
+	To run a final code regardless of outcome;
 }
 ```
 
-# Shorthand `if` Statements
+---
+## Use Don't Abuse
+ > When you first begin using languages, try statements seem great - you can write code, and if you make a mistake your code can continue. THIS IS WRONG!
 
+ > Try statements should be used only when you know there is a chance an exception could occur, and it cannot be otherwise dealt with. 
+
+ > You should make them as robust as possible, and use them only for parts of your code that need them.
+ 
+## DON'T DO THIS!
 ```C#
-value = condition?then:else;
+try
+{
+	all code;
+}
+catch
+{
+	oh no, somethis went wrong;
+}
 ```
 
- > Nearly always used for quickly setting another variable to one of two possibilities, using a conditional outcome. Only used if it's a simple one liner task.
+# Example – Creating a Revit Sheet with Error Handling
 
-# Example
 ```C#
-using Autodesk.Revit.Attributes;
+using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using Nice3point.Revit.Toolkit.External;
-using Microsoft.VisualBasic;
+using System;
 
-namespace guRoo.Commands
+public class CreateSheetExample
 {
-    /// <summary>
-    ///     External command entry point
-    /// </summary>
-    [UsedImplicitly]
-    [Transaction(TransactionMode.Manual)]
-    public class StartupCommand : ExternalCommand
+    public void CreateSheet(Document doc, ElementId titleBlockId)
     {
-        public override void Execute()
+        try
         {
-            //TaskDialog.Show(Document.Title, "Hot reload!");
-
-            string input = Interaction.InputBox("Enter a number:", "Input Required", "0");
-
-            if (!int.TryParse(input, out int i))
+            using (Transaction tx = new Transaction(doc, 
+            "Create New Sheet"))
             {
-                TaskDialog.Show(Document.Title, "Invalid number entered.");
-                return;
-            }
+                tx.Start();
 
-            // Shorthand version
-            // string s = i == 3 ? "i is 2" : "i is not 2"; 
-
-            string outcome;
-
-            if (i == 2)
-            {
-                outcome = "i is 2";
+                try
+                {
+                    // Attempt to create a sheet
+                    ViewSheet sheet = ViewSheet.Create(doc, titleBlockId);
+                    TaskDialog.Show("Success", 
+                    $"Sheet '{sheet.Name}' created!");
+                    
+                    tx.Commit();
+                }
+                catch (Autodesk.Revit.Exceptions.
+                ArgumentException argEx)
+                {
+                    // Rollback and handle known Revit-specific error
+                    tx.RollBack();
+                    TaskDialog.Show("Error", 
+                    $"Invalid title block: {argEx.Message}");
+                }
+                catch (Exception ex)
+                {
+                    // Rollback for unexpected system-level errors
+                    tx.RollBack();
+                    TaskDialog.Show("Unexpected Error", 
+                    ex.Message);
+                }
             }
-            else if (i == 3)
-            {
-                outcome = "i is 3";
-            }
-            else
-            {
-                outcome = "i is neither 2 nor 3";
-            }
-            
-            TaskDialog.Show(Document.Title, outcome);
-            
+        }
+        finally
+        {
+            // Always run this, no matter success or failure
+            TaskDialog.Show("Info", 
+            "Finished attempting to create a sheet.");
         }
     }
 }
 ```
-
 
 > These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.

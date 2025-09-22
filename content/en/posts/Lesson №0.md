@@ -124,4 +124,4 @@ translationKey = "lesson-0"
 
 
 > From here, you have created your first application or button in Revit!
-> Congratulations! Now, you’re ready to start coding real functionality. **In [Lesson 1](https://blog.aydrafting.com/en/), we’ll walk through a full IExternalCommand example step-by-step**.
+> Congratulations! Now, you’re ready to start coding real functionality. **In [Lesson 1](https://blog.aydrafting.com/en/posts/lesson-1/), we’ll walk through a full IExternalCommand example step-by-step**.
