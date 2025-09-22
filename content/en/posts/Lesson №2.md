@@ -1,6 +1,6 @@
 +++
 title = "C# + Revit API: Lesson 2 - Bits & Bytes, ASCII Table, Pointers & Structs -> Programming 101"
-date = 2025-09-22T00:00:00+03:00
+date = 2025-09-21T00:00:00+03:00
 draft = true
 tags = ["C#", "RevitAPI", "Tutorial"]
 cover.image = "/images/Pasted image 20250922232839.png"
