@@ -1,7 +1,7 @@
 +++
 title = "C# + Revit API: Урок 2 — Биты и байты, таблица ASCII, указатели и структуры — Программирование 101"
-date = 2025-09-21T00:00:00+03:00
-draft = true
+date = 2025-09-22T00:00:00+03:00
+draft = false
 tags = ["C#", "RevitAPI", "Tutorial"]
 cover.image = "/images/Pasted image 20250922232913.png"
 cover.alt = "Биты, байты и таблица ASCII"
