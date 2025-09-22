@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/en/posts/Lesson №2.md",
+                "file": "CLAUDE.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Lesson №2"
+              "title": "CLAUDE"
             }
           },
           {
@@ -186,11 +186,11 @@
   },
   "active": "1ba632a00a35281e",
   "lastOpenFiles": [
+    "content/en/posts/Lesson №2.md",
     "public/en/posts/lesson-2/index.html",
     "public/en/posts/lesson-2",
     "content/en/posts/Lesson №3.md",
     "content/ru/posts/Lesson №2.md",
-    "content/en/posts/Lesson №2.md",
     "public/images/Pasted image 20250922232913.png",
     "static/images/Pasted image 20250922232913.png",
     "public/images/Pasted image 20250922232839.png",
@@ -230,7 +230,6 @@
     "content/en/posts/Case №1.md",
     "content/en/posts/Bot №2.md",
     "content/en/posts/Bot №1.md",
-    "public/assets/css/stylesheet.5f1037ddbddbb1eda5b2fc2d08fe617ecdf7baaa7088f573bbd48bfd23d3127f.css",
-    "assets/css/extended/custom.css.tmp.26101.1757892959311"
+    "public/assets/css/stylesheet.5f1037ddbddbb1eda5b2fc2d08fe617ecdf7baaa7088f573bbd48bfd23d3127f.css"
   ]
 }
