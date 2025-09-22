@@ -3,7 +3,7 @@ title = "C# + Revit API: Lesson 2 - Bits & Bytes, ASCII Table, Pointers & Struct
 date = 2025-09-22T00:00:00+03:00
 draft = true
 tags = ["C#", "RevitAPI", "Tutorial"]
-cover.image = "/images/Pasted image 20250902204629.png"
+cover.image = "/images/Pasted image 20250922232839.png"
 cover.alt = "Bits & Bytes & ASCII Table"
 +++
 #### Recommendation: Take the [CS50 Course](https://pll.harvard.edu/course/cs50-introduction-computer-science) from Harvard University, or the [Free C# Course by BIMTeam on Stepik](https://t.me/bimteamnews/1974) (by PIK), to build a solid foundation.

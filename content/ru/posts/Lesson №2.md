@@ -3,7 +3,7 @@ title = "C# + Revit API: Урок 2 — Биты и байты, таблица A
 date = 2025-09-22T00:00:00+03:00
 draft = true
 tags = ["C#", "RevitAPI", "Tutorial"]
-cover.image = "/images/Pasted image 20250902204629.png"
+cover.image = "/images/Pasted image 20250922232913.png"
 cover.alt = "Биты, байты и таблица ASCII"
 +++
 
