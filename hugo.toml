@@ -4,7 +4,7 @@ title = "Blog"
 theme = "PaperMod"
 languageCode = "en-us"
 description = "Civil Engineering and Automation insights from AYDrafting's founder"
-copyright = "© 2025 AYDrafting. All rights reserved."
+copyright = "AYDrafting. All rights reserved."
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
 
