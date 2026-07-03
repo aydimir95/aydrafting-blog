@@ -16,6 +16,7 @@ resources/
 
 # Local tools and notes
 .obsidian/
+private-notes/
 
 # Node/npm (if used later)
 node_modules/
