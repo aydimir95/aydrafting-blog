@@ -1,231 +1,255 @@
 +++
-title = "C# + Revit API: Lesson 3 - Fundamental Types of Data in C# Cheat Sheet"
-date = 2025-09-29T18:00:00+03:00
+title = "C# + Revit API: Lesson 3 - Right-Handed vs Left-Handed Coordinate Systems in Revit API"
+date = 2025-10-21T03:27:10+03:00
 draft = true
 tags = ["C#", "Revit", "Tutorial"]
-cover.image = "/images/Pasted image 20250902204817.png"
-cover.alt = "Inheritance 101"
 +++
 
-> Let's learn some of the fundamentals of programming before we proceed any further. 
-# Boolean `bool`
+# What the Hell is Coordinate System Handedness?
 
-- true (1)
-- false (0)
+When I was developing my section creator plugin, Revit 2024 kept rejecting transforms that looked perfectly valid. The vectors were perpendicular, unit length, everything checked out. But the API just said "nope."
 
-# Integer `int`
+Turns out there's this thing called **coordinate system handedness** that I last heard about in Statics 101—about 10 years ago...
 
-- Whole number:
+## The Right-Hand Rule
 
-- 1, 2, 3, etc.
+Take your right hand and do this:
 
-- Numbers come in different formats but by default they are signable (can be negative).
-- Typically, they use 32 bits based.
+- **Thumb** points right → X-axis
+- **Index finger** points forward → Y-axis
+- **Middle finger** points up → Z-axis
 
-# Double `double`
+![Pasted image 20251027011213.png](</images/Pasted image 20251027011213.png>)
 
-- Decimal number:
+That's a **right-handed coordinate system**.
 
-- 0.0, 1.5, 6.592, -5.00, etc.
+Now try the same with your left hand. Your middle finger points DOWN instead of up. That's a **left-handed system**.
 
-- Doubles use 64 bits, and are more common than floats (which use half - 32 bits). In Revit you will typically work with int and double.
+Both are mathematically valid. Both have perpendicular axes. But they're mirror images of each other.
 
+## Why It Matters in Revit
 
-# Characters `char`
+**Revit API only accepts right-handed coordinate systems.** Period.
 
-- 'a', 'b', 'c', etc.
+You can't just have three perpendicular vectors and call it a day. The orientation matters. If you accidentally create a left-handed system, Revit will reject your Transform.
 
-- Chars store a single character (which can be a number - it is ASCII based behind the scenes). They use 1 byte (8 bits).
+As [Building Coder post 0290 (Transformations)](https://tbc.aecwithcode.com/blog/0290) explains, Revit even tracks this explicitly with `FlippedHand` and `FlippedFacing` properties on family instances. When these properties are inconsistently set, you get left-handed systems that Revit rejects.
 
-# Strings `str`
-- "string", "example", etc.
+## How to Check: The Determinant
 
-- Strings are technically an array of characters (a consecutive set of [[chars]] in memory). They are abstracted for us in C#, and you might sometimes see them called a [[char*]] (CharStar).
+The determinant tells you the handedness:
 
-# Null pointer `null`
+```text
+Determinant = BasisX · (BasisY × BasisZ)
 
-- Always written as [[null]]
-
-- Nulls are a special object that points to the first byte in memory. It represents an absence of data and may commonly be caused through an error or exception.
-
-# `Nullable` Types
-
-- Most objects you use will be [[Nullable]], in that they can be represented and set to [[null]]. 
-- [[Integers]] are an example of a type which cannot be set to [[null]] unless you declare them as [[nullable]] (which makes them a different type).
-- Revit API Classes are generally nullable.
-
-
-# `Lists` or `Arrays`?
-
-- [[Arrays]] are important for memory management eventually, but I recommend skipping the use of them initially.
-- The Revit API generally works with [[Lists]].
-
-- [[Lists]] - differ to [[arrays]] in that we can add additional objects to them, whereas [[arrays]] have a fixed size upon creation.
-- We will learn about [[Lists]] later.
-
-# `Compiling`
-
-- Generally, [[C#]] code will be faster than languages such as [[Python]] as it is compiled before execution.
-- Compiling refers to the conversion of written code into machine code (1's and 0's).
-- When we build our solution before running it, it is turning our code into a [[Dynamic Linked Library]] ([[DLL]]) which is executed by the application.
-- Languages like [[Python]] instead use [[interpreters]].
-
-# `Declaring` a Variable in `C#`
-
-- [[modifier(s)]] type variableName;
-	- [[public]]
-	- [[private]]
-	- [[static]]
-	- [[internal]] 
-	- [[virtual]]
-
-- We will return to access modifiers later, for now we can avoid using them in basic examples.
-- We tell the compiler what [[type]] we need first.
-- We then tell it the [[variableName]] to assign to it.
-
-# `Assign` a Variable in `C#`
-
-- [[type]] [[variableName]] = value;
-
-- We can assign a value upon creating the variable.
-- Or, we can assign it later on...
-
-```C#
-type variableName;     // <= Initialize
-variableName = value; // <= Assign
+If result = +1 → Right-handed ✅
+If result = -1 → Left-handed ❌
 ```
 
-- When we assign a value, you need to give it a valid value for its [[type]]:
+This is called the **scalar triple product** and it's the mathematical test for handedness.
 
-```C#
-int myInteger = 5;
+### Concrete Example
+
+Let's say you have:
+
+```csharp
+BasisX = (1, 0, 0)
+BasisY = (0, 1, 0)  
+BasisZ = (0, 0, 1)
 ```
 
-- The assigned value must suit the variable type upon assignment. 
-- Type safety in C# will ensure this.
-- Examples below would cause an error:
+Calculate the determinant:
 
-```C#
-int myInteger = 3.5;   // <= Should be a double
-int myInteger = "5";   // <= Should be a string
+```
+BasisY × BasisZ = (0,1,0) × (0,0,1)
+                = (1·1 - 0·0, 0·0 - 0·1, 0·0 - 1·0)
+                = (1, 0, 0)
+
+BasisX · (1, 0, 0) = 1 × 1 = +1 ✅ RIGHT-HANDED
 ```
 
-# Creating a `List` in `C#`
+## The Cross Product Trap
 
-```C#
-List<int>()myList = new List<int>();
+Here's where most developers (including me) mess up. **The order of cross products matters:**
+
+```csharp
+A × B  // Points one direction
+B × A  // Points OPPOSITE direction (they're negatives of each other)
 ```
 
-- We can also declare a list and store objects to is:
+### Real Example: Building a Transform from a Face
 
-```C#
-List<int>()myList = new List<int>(){1,2,3};
+Let's say you have a wall face with:
+
+- `BasisX = (1, 0, 0)` - pointing right along the wall
+- `BasisZ = (0, 0, 1)` - pointing forward (out of the wall)
+- We need to find `BasisY` to point up
+
+**Wrong way (creates left-handed system):**
+
+```csharp
+XYZ basisY = basisX.CrossProduct(basisZ);
+// (1,0,0) × (0,0,1) = (0, -1, 0)  ← Points DOWN!
 ```
 
-- We will come back to the braces later.
+This gives:
 
+- BasisX = (1, 0, 0) - right
+- BasisY = (0, -1, 0) - DOWN (wrong!)
+- BasisZ = (0, 0, 1) - forward
 
-# Making use of `var`
+Determinant check:
 
-```C#
-var myList = new List<int>();
+```
+BasisY × BasisZ = (0,-1,0) × (0,0,1) = (-1, 0, 0)
+BasisX · (-1, 0, 0) = -1 ❌ LEFT-HANDED!
 ```
 
-- If the value being assigned on the right implies a specific type, we can instead use the var keyword to simplify our code. This is generally best practice.
-- However, if the right side is ambiguous, declare the type on the left. This will matter when we learn about **class inheritance**.
+**Correct way (right-handed system):**
 
-```C#
-var myList = new List<object>();
+```csharp
+XYZ basisY = basisZ.CrossProduct(basisX);
+// (0,0,1) × (1,0,0) = (0, 1, 0)  ← Points UP!
 ```
 
-- **Object** is a special type which allows the storage of many things. It can be a useful but ambiguous return type for functions and classes through which you might need to pass many things in/out of.
-- We will learn in a later lesson about type casting, where the object class can be a useful intermediate type to take advantage of.
+Now we have:
 
+- BasisX = (1, 0, 0) - right
+- BasisY = (0, 1, 0) - UP (correct!)
+- BasisZ = (0, 0, 1) - forward
 
-# `Inheritance` 101
+Determinant check:
 
-- The **RevitAPI** uses a lot of class inheritance.
-
-**Metaphorical example:**
-- Dogs and Cats are both Animals 
-- Dogs are not Cats
-- Cats are not Dogs
-- But the they both inherit the Animal
-
-**RevitAPI Example:**
-- Views and Floors are both Elements 
-- Views are not Floors 
-- Floors are not Views 
-- But they both inherit the Element
-
-	- Elements have an Element**ID** property
-	- Views and Floors have an Element**ID** from Element Class
-
-		- Floors have a SlabShapeEditor
-		- Elements DO NOT
-		- Views DO NOT
-
-
-# Basic `Type` Checking
-
-```C#
-object is type variableName
+```
+BasisY × BasisZ = (0,1,0) × (0,0,1) = (1, 0, 0)
+BasisX · (1, 0, 0) = +1 ✅ RIGHT-HANDED!
 ```
 
-- This syntax can be used to logically check if an object is or inherits a specific type/class.
-- We can assign a variable to this object as that type in a statement (e.g. if) to locally work with it as that type instead.
+**The difference? Just swapping the order of the cross product.**
 
-# Logical `Operators`
+## Practical Code: Verify Your Transforms
 
- > They control logic and flow in our tools.
- > We will have a good understanding of core statements we can use to build Revit Add-ins.
+Before you use a transform in Revit, always check it:
 
-`x == y` => *true  if x is equal to y*
+```csharp
+public static bool IsRightHanded(XYZ basisX, XYZ basisY, XYZ basisZ)
+{
+    // Calculate determinant: BasisX · (BasisY × BasisZ)
+    XYZ crossYZ = basisY.CrossProduct(basisZ);
+    double determinant = basisX.DotProduct(crossYZ);
+    
+    // Allow small floating-point error (should be ≈1.0)
+    return determinant > 0.99;
+}
+```
 
-`x != y` => *true if x is not equal to y*
+Use it like this:
 
-`x > y` => *true if x is greater than y*
+```csharp
+Transform myTransform = Transform.Identity;
+myTransform.BasisX = basisX;
+myTransform.BasisY = basisY;
+myTransform.BasisZ = basisZ;
+myTransform.Origin = origin;
 
-`x < y` => *true if x is less than y*
+if (!IsRightHanded(basisX, basisY, basisZ))
+{
+    Debug.Print("ERROR: Transform is left-handed! Revit will reject it.");
+    // Fix by negating one axis
+    myTransform.BasisY = myTransform.BasisY.Negate();
+    Debug.Print($"Handedness after fix: {IsRightHanded(...)}");
+}
+```
 
-`x >= y` => *true if x greater than or equals to y*
+## Real Example: Building a Section from a Face
 
-`x <= y` => *true if x less than or equals to y*
+Here's how I fixed my section creator (inspired by [Building Coder post 0671 - Planar Face Transform](https://tbc.aecwithcode.com/blog/0671)):
+
+```csharp
+// Get the face you want to create a section through
+Face selectedFace = ...;
+UV center = new UV(0.5, 0.5);  // Center of face
+
+// Get face geometry at that point
+XYZ facePoint = selectedFace.Evaluate(center);
+Transform faceTransform = selectedFace.ComputeDerivatives(center);
+
+// Extract normalized basis vectors
+XYZ viewDirection = faceTransform.BasisZ.Normalize();  // Normal (INTO face)
+XYZ faceRight = faceTransform.BasisX.Normalize();       // Right direction
+
+// BUILD THE COORDINATE SYSTEM - order is critical!
+// Don't do this: XYZ sectionUp = viewDirection.CrossProduct(faceRight);
+// Do this instead:
+XYZ sectionUp = faceRight.CrossProduct(viewDirection).Normalize();
+
+// Verify it's right-handed BEFORE using
+if (!IsRightHanded(faceRight, sectionUp, viewDirection))
+{
+    Debug.Print("Left-handed! Fixing...");
+    sectionUp = sectionUp.Negate();
+}
+
+// Now create the section transform
+Transform sectionTransform = Transform.Identity;
+sectionTransform.Origin = facePoint;
+sectionTransform.BasisX = faceRight;
+sectionTransform.BasisY = sectionUp;
+sectionTransform.BasisZ = viewDirection;
+
+// Safe to use in Revit now
+Section newSection = ViewSection.CreateSection(doc, viewFamilyType, sectionTransform);
+```
+
+## The Version Compatibility Issue
+
+**Note:** Different Revit versions have varying strictness about handedness:
+
+- **Revit 2024** is very strict about rejecting left-handed transforms
+- **Revit 2025+** appears more forgiving in some cases
+- This may vary by specific update/hotfix version
+
+If your plugin works in R2025 but fails in R2024, handedness is often the culprit. Always test on the oldest Revit version you plan to support.
+
+## Quick Reference: Building Right-Handed Systems
+
+To consistently build right-handed coordinate systems:
+
+```csharp
+// These all create right-handed systems (any order works):
+BasisX = BasisY.CrossProduct(BasisZ);  ✅
+BasisY = BasisZ.CrossProduct(BasisX);  ✅
+BasisZ = BasisX.CrossProduct(BasisY);  ✅
+
+// These create left-handed systems (reversed order):
+BasisX = BasisZ.CrossProduct(BasisY);  ❌
+BasisY = BasisX.CrossProduct(BasisZ);  ❌
+BasisZ = BasisY.CrossProduct(BasisX);  ❌
+```
+
+**Pro tip:** If you get it backwards, just negate one axis to flip handedness.
+
+## Key Takeaways
+
+1. Coordinate systems have "handedness" - they can be right or left-handed
+2. Revit API requires right-handed systems (determinant = +1)
+3. Cross product order determines handedness - swapping the order flips it
+4. Always verify with the determinant formula before using transforms
+5. Left-handed systems cause mysterious "Transform rejected" errors
+6. Test on multiple Revit versions if possible - R2024 is stricter than newer versions
+
+## Why This Matters
+
+This concept isn't new—it's standard 3D graphics math. [Building Coder post 0290](https://tbc.aecwithcode.com/blog/0290) and [post 0671](https://tbc.aecwithcode.com/blog/0671) touch on it, but they don't explicitly explain the determinant check or why your transforms get rejected.
+
+Understanding handedness saved my section creator from being completely broken in Revit 2024. One wrong cross product order was all it took.
+
+If your Revit plugins are mysteriously rejecting transforms or sections, check your handedness. Odds are, one axis is backwards.
 
 ---
 
-`x || y` => *true if x OR y are true*
+## Further Reading
 
-`x && y `=> *true if x AND y are true*
-
-`!(x)` => *true if not x (can also use 'not' x)*
-
-`x ^ y` => *true if x OR y are true, but not both*  
-
----
-## `Null` Operations / Operands
-
-
-`x?.Method()` => *If x is null, Method() will NOT run*
-
-`x ??= value` => *If x is null, set it to value specified*
-
-`x is null` => *True if x is Null, False if it's not Null*
-
-`if (x)` => *if x is Null, it yields Null or false*
-
----
-
-# We now have learned:
-
-The basics of:
-- How `computation` works,
-- Basic `variable` types/classes 
-- How to `declare` variables
-- How to `assign` variables
-- `Inheritance`
-- Logical `Operators`
-
-We will be applying these concepts soon.
-
-> These tutorials were inspired by the work of [Aussie BIM Guru](https://www.youtube.com/@AussieBIMGuru). If you’re looking for a deeper dive into the topics, check out his channel for detailed explanations.
+- [Building Coder Post 0290: Transformations](https://tbc.aecwithcode.com/blog/0290)
+- [Building Coder Post 0671: Planar Face Transform](https://tbc.aecwithcode.com/blog/0671)
+- [Building Coder Post 0549: Converting Between 2D UV and 3D XYZ Coordinates](https://tbc.aecwithcode.com/blog/0549)
